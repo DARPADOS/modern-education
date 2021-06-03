@@ -29,5 +29,19 @@ public class DetailCourseStudentServiceImpl implements DetailCourseStudentServic
 
         return detailCourseStudentRepository.save(detail);
     }
+
+    @Override
+    public DetailCourseStudent addQualificationAndOpinion(Student student, Course course, Integer qualification,
+            String opinion) throws Exception {
+        
+        DetailCourseStudentId id = new DetailCourseStudentId(course.getId(), student.getId());
+
+        DetailCourseStudent detail = findById(id).get();
+
+        detail.setQualification(qualification);
+        detail.setOpinion(opinion);
+
+        return update(detail);
+    }
     
 }
