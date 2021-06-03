@@ -9,5 +9,4 @@ import pe.edu.upc.moderneducation.model.entity.Teacher;
 
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Integer>{
-	List<Teacher> findByName(String name);
 }
