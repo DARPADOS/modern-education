@@ -10,7 +10,7 @@ import pe.edu.upc.moderneducation.model.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	List<User>findByLastNameandFirstName(String lastName,String firstName);
+	List<User>findByLastNameAndFirstName(String lastName,String firstName);
 	
 	@Query("SELECT u FROM User u WHERE UPPER(u.lastName) LIKE CONCAT(UPPER(:lastName),'%') AND UPPER(u.firstName) LIKE CONCAT(UPPER(:firstName),'%')")
 	List<User>findByLastNameStartingWithAndFirstNameStartingWith(String lastName,String firstName);

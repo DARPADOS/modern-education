@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.data.annotation.CreatedDate;
+
 @Entity
 @Table(name = "Detail_Course_Student")
 @IdClass(value = DetailCourseStudentId.class)
@@ -30,6 +32,7 @@ public class DetailCourseStudent {
 	
 	@Column(name = "date_start", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@CreatedDate
 	private Date dateStart;
 	
 	@Column(name = "date_end")

@@ -2,11 +2,13 @@ package pe.edu.upc.moderneducation.service.crud.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 import pe.edu.upc.moderneducation.model.entity.Videoconference;
 import pe.edu.upc.moderneducation.model.repository.VideoconferenceRepository;
 import pe.edu.upc.moderneducation.service.crud.VideoconferenceService;
 
+@Service
 public class VideoconferenceServiceImpl implements VideoconferenceService {
 
 	@Autowired

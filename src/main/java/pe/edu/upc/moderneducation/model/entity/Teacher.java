@@ -12,6 +12,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="Teacher")
@@ -41,6 +42,9 @@ public class Teacher {
 	
 	@OneToMany(mappedBy="teacher",fetch=FetchType.LAZY)
 	private List<Videoconference> videoconferences;
+
+	@Transient
+	private float averageQualification;
 
 	public Teacher() {
 		super();
