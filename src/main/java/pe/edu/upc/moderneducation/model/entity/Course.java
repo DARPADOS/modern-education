@@ -1,6 +1,7 @@
 package pe.edu.upc.moderneducation.model.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,6 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Table(name = "Course",
@@ -53,6 +58,11 @@ public class Course {
 	
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	private List<Resource> resource;
+
+	@Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
+    private Date createdDate;
 
 	public Course(Integer id, boolean published, Teacher teacher, String name, String language, String description,
 			String mineture_image, List<Chapter> chapter, List<Resource> resource) {
@@ -145,6 +155,14 @@ public class Course {
 
 	public void setResource(List<Resource> resource) {
 		this.resource = resource;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	@Override
