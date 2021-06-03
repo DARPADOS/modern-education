@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.edu.upc.moderneducation.model.entity.User;
 import pe.edu.upc.moderneducation.model.repository.UserRepository;
 import pe.edu.upc.moderneducation.service.crud.UserService;
 
+@Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -25,7 +27,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findByLastNameandFirstName(String lastName, String firstName) throws Exception {
 		// TODO Auto-generated method stub
-		return userRepository.findByLastNameandFirstName(lastName, firstName);
+		return userRepository.findByLastNameAndFirstName(lastName, firstName);
 	}
 	@Transactional(readOnly = true)
 	@Override

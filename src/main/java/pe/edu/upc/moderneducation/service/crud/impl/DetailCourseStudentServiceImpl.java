@@ -2,6 +2,7 @@ package pe.edu.upc.moderneducation.service.crud.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
@@ -10,6 +11,7 @@ import pe.edu.upc.moderneducation.model.entity.Student;
 import pe.edu.upc.moderneducation.model.repository.DetailCourseStudentRepository;
 import pe.edu.upc.moderneducation.service.crud.DetailCourseStudentService;
 
+@Service
 public class DetailCourseStudentServiceImpl implements DetailCourseStudentService{
 
     @Autowired

@@ -10,7 +10,7 @@ import pe.edu.upc.moderneducation.model.entity.Teacher;
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	List<Course> findByNameOrderByCreatedDateDesc(String name);
-	List<Course> findByLanguageOrderByByCreatedDateDesc(String language);
+	List<Course> findByLanguageOrderByCreatedDateDesc(String language);
 
 	List<Course> findByTeacher(Teacher teacher);
 }

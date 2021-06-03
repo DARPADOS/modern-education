@@ -17,7 +17,7 @@ import pe.edu.upc.moderneducation.service.crud.UserService;
 
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/user")
 @SessionAttributes("UserEdit")
 public class UserController {
 	@Autowired

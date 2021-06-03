@@ -9,8 +9,7 @@ public interface CourseService extends CrudService<Course, Integer> {
 	List<Course> findByName(String name) throws Exception;
 	List<Course> findByLanguage(String language) throws Exception;
 
-	List<Course> findByTeacher(Teacher teacher
-	) throws Exception;
+	List<Course> findByTeacher(Teacher teacher) throws Exception;
 
 	Course publishCourse(Course course) throws Exception;
 }

@@ -1,0 +1,20 @@
+@charset "ISO-8859-1";
+.card:hover{
+     transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.divider {
+margin: 25px auto 30px;
+padding: 0;
+border: 0;
+border-top: solid 1px;
+text-align: center;
+}
+.divider:before{
+	border-top: 1px #dee2e6;
+}
+
+.frosted-glass{
+  backdrop-filter: blur(10px);
+}

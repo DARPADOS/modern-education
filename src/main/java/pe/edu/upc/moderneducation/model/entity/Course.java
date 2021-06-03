@@ -18,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -64,6 +65,9 @@ public class Course {
     @CreatedDate
     private Date createdDate;
 
+	@Transient
+	private float averageQualification;
+	
 	public Course(Integer id, boolean published, Teacher teacher, String name, String language, String description,
 			String mineture_image, List<Chapter> chapter, List<Resource> resource) {
 		super();

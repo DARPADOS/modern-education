@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>DASHBOARD</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500|Ubuntu+Condensed" rel="stylesheet"
+        type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}" />
+    <!-- CSS only -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet"  th:href="@{/css/style_modern_education.css}" />
+    <link rel="stylesheet"  th:href="@{/css/font_ico.css}" />
+    <link  th:href="@{/fonts/all.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--load all styles -->
+</head>
+
+<body>
+    <nav class="shadow-sm navbar navbar-expand-lg navbar-dark bg-light bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img th:src="@{/img/logo-svg.svg}" alt="" width="40" class="" />
+                <span class="h5 p-2 m-0">ModernEducation</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="container-fluid">
+                    <form class="d-md-flex">
+                      <input class="form-control me-2" type="search" placeholder="Encuentra tus cursos" aria-label="Search">
+                      <button class="btn btn-success" style="" type="submit">Buscar</button>
+                    </form>
+                </div>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            Cursos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            Videoconferencia
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            Enseña
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            Aprende
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Unirse
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end"
+                            aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#">Registrarse</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Iniciar Sesión</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Perfil
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end"
+                            aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Editar perfil</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#">Seguridad de cuenta</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--content-->
+    <main class="container" style="height: 100vh;">
+        <div class="
+          d-flex
+          align-items-center
+          p-3
+          my-3
+          text-white
+          bg-purple
+          rounded
+          shadow-sm
+        ">
+            <p></p>
+        </div>
+    </main>
+
+    <footer class="position-sticky bg-dark text-white pt-5 pb-4">
+        <div class="container text-center text-md-left">
+            <div class="row text-center text-md-left">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class=" text-start text-uppercase mb-4 font-weight-bold text-warning">
+                        Modern Education
+                    </h5>
+                    <p class=" text-start">
+                        Unete a nuestra familia y aprende. ¿Qué estás esperando?
+                        Si puedes imaginarlo, puedes programarlo.
+                    </p>
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-start text-uppercase mb-4 font-weight-bold text-warning">
+                        Nosotros
+                    </h5>
+                    <p class=" text-start">
+                        <a href="#" class="text-white" style="text-decoration: none">¿Quiénes somos?</a>
+                    </p>
+                    <p class=" text-start">
+                        <a href="#" class="text-white" style="text-decoration: none">Nuestro equipo</a>
+                    </p>
+                </div>
+
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class=" text-start text-uppercase mb-4 font-weight-bold text-warning">
+                        Terminos y Condiciones
+                    </h5>
+                    <p class=" text-start">
+                        <a href="#" class="text-white" style="text-decoration: none">Condiciones</a>
+                    </p>
+                    <p class=" text-start">
+                        <a href="#" class="text-white" style="text-decoration: none">Politica de privacidad</a>
+                    </p>
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class=" text-start text-uppercase mb-4 font-weight-bold text-warning">
+                        Contactanos
+                    </h5>
+                    <p class="text-start"><i class="fas fa-home me-3"></i>Lima, Perú</p>
+                    <p class="text-start"><i class="fas fa-envelope me-3"></i>modedu@gmail.com</p>
+                    <p class="text-start"><i class="fab fa-whatsapp me-3"></i>959827513</p>
+                </div>
+            </div>
+            <hr class="mb-4" />
+            <div class="row align-items-center">
+                <div class="row align-items-center">
+                    <p class="text-center">
+                        Copyright 2020 Todos los derechos reservados por:
+                        <a href="#" style="text-decoration: none">
+                            <strong class="text-warning">Modern Education</strong>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>

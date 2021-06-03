@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.repository.CourseRepository;
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 
+@Service
 public class CourseServiceImpl implements CourseService {
 
 	@Autowired
@@ -27,7 +29,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<Course> findByLanguage(String language) throws Exception {
-		return courseRepository.findByLanguageOrderByByCreatedDateDesc(language);
+		return courseRepository.findByLanguageOrderByCreatedDateDesc(language);
 	}
 
 	@Override
