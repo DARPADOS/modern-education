@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/head :: head('Home')"></div>
+
+<body>
+    <!--navbar-->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!--content-->
+    <main class="container" style="height: 100vh;">
+        <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
+            <p></p>
+        </div>
+    </main>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

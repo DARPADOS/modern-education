@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class mainController {
     @GetMapping(value="/")
     public String index() {
-        return "dashboard1";
+        return "index";
+    }
+
+    @GetMapping(value="/dash")
+    public String dash() {
+        return "fragments/dashboard1";
     }
     
 }
