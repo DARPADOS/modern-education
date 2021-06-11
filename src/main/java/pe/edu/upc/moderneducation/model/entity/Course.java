@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,8 +22,10 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "Course",
 indexes = {@Index(columnList="name",name="course_index_name"),
 		@Index(columnList="language",name="course_index_language")})
@@ -61,7 +64,7 @@ public class Course {
 	private List<Resource> resource;
 
 	@Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_date", nullable = false, updatable = false)
+    @Column(name = "created_date", nullable = true, updatable = true)
     @CreatedDate
     private Date createdDate;
 

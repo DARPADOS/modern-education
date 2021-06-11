@@ -38,6 +38,13 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
+	public Course create(Course entity) throws Exception {
+		entity.setMineture_image("waifu.png");
+		entity.setPublished(false);
+		return CourseService.super.create(entity);
+	}
+
+	@Override
 	public Course publishCourse(Course course) throws Exception {
 		course.setPublished(true);
 		return courseRepository.save(course);

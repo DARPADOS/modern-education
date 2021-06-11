@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/fontawesome.min.css}" rel="stylesheet">
+    <link th:href="@{/css/solid.min.css}" rel="stylesheet">
+
+    <title>Region Example</title>
+</head>
+
+<body>
+	<h2>Your Courses</h2>
+	<div class="card" style="width: 40rem;">
+	  <div class="card-header">Edit Course</div>
+	  <div class="card-body">
+	  	
+	  	<form th:action="@{/courses/save}" th:object="${courseEdit}" method="post">
+		  <div class="mb-3">
+		    <label for="name" class="form-label">Name</label>
+		    <input type="text" class="form-control" th:field="*{name}" placeholder="Name of region" >
+            
+            <label for="language" class="form-label">Language</label>
+		    <input type="text" class="form-control" th:field="*{language}" placeholder="Course language" >
+          
+            <label for="description" class="form-label">Description</label>
+		    <input type="text" class="form-control" th:field="*{description}" placeholder="Describe the course" >
+		  </div>
+
+		  <button type="submit" class="btn btn-primary">Update</button>
+		</form>
+		<br>
+  		<a th:href="@{/regions}" class="btn btn-primary"> <i class="fas fa-angle-double-left"></i> Return</a>
+	  </div>
+	</div>
+
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
