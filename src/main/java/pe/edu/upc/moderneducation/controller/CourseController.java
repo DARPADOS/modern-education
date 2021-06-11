@@ -32,6 +32,9 @@ public class CourseController {
     @GetMapping
 	public String listCourses( Model model ) {
 		try {
+			Course course = new Course();
+			model.addAttribute("cNew", course);
+			
 			List<Course> courses = courseService.getAll();
 			model.addAttribute("courses", courses);
 		} catch (Exception e) {
