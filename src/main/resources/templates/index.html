@@ -7,14 +7,64 @@
     <!--navbar-->
     <div th:replace="fragments/navbar :: navbar"></div>
 
+
     <!--content-->
-    <main class="container" style="height: 100vh;">
-        <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
-            <p></p>
+    <main class="container" >
+        <div class="row content-wrapper">
+            <img th:src="@{/img/header-index.jpg}" style="aspect-ratio: auto 1340 / 400;" alt="">
+            <div class="text-wrapper">
+                <h1>IF YOU CAN IMAGINE IT,
+                    CAN YOU PROGRAM IT</h1>
+            </div>
+        </div>
+
+        <div class="container p-3 my-3 bg-purple rounded shadow">
+            <!-- CARUSEL -->
+            <div class="row">
+
+                <div class="col-6">
+                    <div class="row">
+                        <h2>Popular Courses</h2>
+                    </div>
+                    <div class="row">
+                        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button th:each="course : ${topCourses}" type="button" data-bs-target="#carouselExampleCaptions"
+                                    th:attr="data-bs-slide-to=${courseStat.index}, aria-label='Slide' + ${courseStat.count},
+                                    class = ${courseStat.first}? 'active', aria-current = ${courseStat.first}? 'true'"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div th:each="course : ${topCourses}" class="carousel-item" th:class = "${courseStat.first}? 'carousel-item active' : 'carousel-item'">
+                                    <img th:src="@{/img/450_1000.jpg}" class="d-block w-100" alt="...">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5 th:text ="${course.name}"></h5>
+                                        <p th:text = "${course.description}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3"></div>
+            </div>
         </div>
     </main>
 
     <div th:replace="fragments/footer :: footer"></div>
 
+    <<div th:replace = "fragments/scripts :: links">
+        
+    </div>
 </body>
+
 </html>
