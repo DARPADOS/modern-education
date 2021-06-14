@@ -50,6 +50,8 @@ public class Student {
 	@OneToMany(mappedBy="student")
 	private List<Payment> payments;
 
+
+
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub

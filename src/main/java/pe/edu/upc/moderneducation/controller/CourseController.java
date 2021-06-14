@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -33,7 +34,7 @@ public class CourseController {
 	public String listCourses( Model model ) {
 		try {
 			Course course = new Course();
-			model.addAttribute("cNew", course);
+			model.addAttribute("courseNew", course);
 			
 			List<Course> courses = courseService.getAll();
 			model.addAttribute("courses", courses);
@@ -45,21 +46,8 @@ public class CourseController {
 		return "course/courses";
 	}
 
-    @GetMapping("new")
-	public String newCourse(Model model) {
-		try {
-			Course course = new Course();
-			model.addAttribute("cNew", course);
-			return "course/new";
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-		return "redirect:/courses";	// url
-	}
-
     @PostMapping("savenew")	// GET: /regions/savenew
-	public String saveNewCourse(Model model, @ModelAttribute("cNew") Course course) {
+	public String saveNewCourse(Model model, @ModelAttribute("courseNew") Course course) {
 		try {
 			Teacher teacher=teacherService.findById(1).get();
 			course.setTeacher(teacher);
@@ -88,12 +76,32 @@ public class CourseController {
 		return "redirect:/courses";
 	}
 
-	@PostMapping("save")
-	public String saveEdit(Model model, @ModelAttribute("courseEdit") Course course) {
+	@PostMapping("save/{id}")
+	public String saveEdit(Model model, @ModelAttribute("course") Course course, @PathVariable("id") Integer id) {
+		//System.out.println("COURSE ID:"+course.getId().toString());
 		try {
-			Course courseReturn = courseService.update(course);
-			model.addAttribute("course", courseReturn);
-			return "redirect:/courses"; 
+			Course getCourse=courseService.findById(id).get();
+			getCourse.setName(course.getName());
+			getCourse.setDescription(course.getDescription());
+			getCourse.setLanguage(course.getLanguage());
+			courseService.update(getCourse);
+			//model.addAttribute("course", courseReturn);
+			return "redirect:/courses/"+getCourse.getId();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "redirect:/courses";
+	}
+
+	@GetMapping("{id}")
+	public String findById(Model model, @PathVariable("id") Integer id) {
+		try {
+			Optional<Course> optional = courseService.findById(id);
+			if(optional.isPresent()) {
+				model.addAttribute("course", optional.get());
+				return "course/view";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());

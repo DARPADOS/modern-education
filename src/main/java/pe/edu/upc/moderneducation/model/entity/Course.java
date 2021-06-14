@@ -63,6 +63,9 @@ public class Course {
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	private List<Resource> resource;
 
+	@OneToMany(mappedBy="course", fetch=FetchType.LAZY)
+	private List<DetailCourseStudent> detailCourseStudent;
+
 	@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date", nullable = true, updatable = true)
     @CreatedDate
@@ -72,7 +75,7 @@ public class Course {
 	private float averageQualification;
 	
 	public Course(Integer id, boolean published, Teacher teacher, String name, String language, String description,
-			String mineture_image, List<Chapter> chapter, List<Resource> resource) {
+			String mineture_image, List<Chapter> chapter, List<Resource> resource, List<DetailCourseStudent> detailCourseStudent) {
 		super();
 		this.id = id;
 		this.published = published;
@@ -83,12 +86,14 @@ public class Course {
 		this.mineture_image = mineture_image;
 		this.chapter = chapter;
 		this.resource = resource;
+		this.detailCourseStudent=detailCourseStudent;
 	}
 
 	public Course() {
 		super();
 		chapter=new ArrayList<Chapter>();
 		resource=new ArrayList<Resource>();
+		detailCourseStudent=new ArrayList<DetailCourseStudent>();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -170,6 +175,14 @@ public class Course {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public List<DetailCourseStudent> getDetailCourseStudent() {
+		return detailCourseStudent;
+	}
+
+	public void setDetailCourseStudent(List<DetailCourseStudent> detailCourseStudent) {
+		this.detailCourseStudent = detailCourseStudent;
 	}
 
 	@Override
