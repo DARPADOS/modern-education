@@ -16,6 +16,7 @@
 	<main class="container">
         <div class="row p-3 my-3 bg-purple rounded shadow-sm">
             <div class="col-6">
+              
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Chapters</button>
@@ -29,6 +30,7 @@
             </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-plus"></i>Add chapter</a>
                 <!--ACORDION CAPITULOS-->
                 <div class="accordion" id="accordionExample">
                     <div th:each="chapter:${course.chapter}" class="accordion-item">
@@ -45,6 +47,7 @@
                                     <td th:text="${video.name}"></td>
                                     <td style="width:100px"> <a th:href="@{'/courses/' + ${course.id}}" class="btn btn-outline-info"> <i class="fas fa-search"></i> </a> </td>
                                     <td style="width:100px"> <a th:href="@{'/courses/' + ${course.id} + '/edit'}" class="btn btn-outline-warning"> <i class="fas fa-edit"></i> </a></td>
+
                                     <td style="width:100px"> <a href="#" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
                                 </tr>
                                 </tbody>
@@ -130,11 +133,13 @@
                       <h6 class="card-text" th:text="${course.teacher.id}">teacher id</h6>
                       <p class="card-text" th:text="${course.language}">language</p>
                       <p class="card-text" th:text="${course.description}">descripcino</p>
-                      <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-plus"></i>Edit</a>
+                      <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-edit"></i>Edit</a>
                     </div>
                   </div>
             </div>
         </div>
+        
+        
 </main>
   <!-- FOOTER -->
 	<div th:replace="fragments/footer :: footer"></div>
