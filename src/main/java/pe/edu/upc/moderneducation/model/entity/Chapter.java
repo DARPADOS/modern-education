@@ -16,6 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "Chapter")
 @SequenceGenerator(name="Chapter_chapter_id_seq",initialValue=1, allocationSize=1)
@@ -28,6 +31,7 @@ public class Chapter {
 	
 	@ManyToOne
 	@JoinColumn(name = "course_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Course course;
 	
 	@Column(name = "name", length = 25, nullable = false)

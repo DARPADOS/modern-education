@@ -6,6 +6,6 @@ import pe.edu.upc.moderneducation.model.entity.DetailCourseStudentId;
 import pe.edu.upc.moderneducation.model.entity.Student;
 
 public interface DetailCourseStudentService extends CrudService<DetailCourseStudent, DetailCourseStudentId>{
-    DetailCourseStudent registerStudentInCourse(Student student, Course course) throws Exception;
+    DetailCourseStudent registerStudentInCourse(Integer idstudent, Integer idcourse) throws Exception;
     DetailCourseStudent addQualificationAndOpinion(Student student, Course course, Integer qualification, String opinion) throws Exception;
 }
