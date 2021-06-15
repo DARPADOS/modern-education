@@ -30,7 +30,7 @@ public class DetailCourseStudent {
 	@JoinColumn(name = "student_id", nullable = false)
 	private Student student;
 	
-	@Column(name = "date_start", nullable = false)
+	@Column(name = "date_start", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
 	private Date dateStart;

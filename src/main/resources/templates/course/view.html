@@ -16,7 +16,33 @@
 	<main class="container">
         <div class="row p-3 my-3 bg-purple rounded shadow-sm">
             <div class="col-6">
-              
+<!-- Modal New Chapter-->
+            <div class="modal fade" id="staticBackdropChapter" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelChapter" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabelChapter">New Chapter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form th:action="@{/chapters/savenew/{courseid}(courseid=${course.id})}" th:object="${chapterNew}" method="post">
+                    <div class="modal-body">
+                      <div class="mb-3">
+                        <label for="cname" class="form-label">Name</label>
+                        <input type="text" class="form-control" th:field="*{name}" placeholder="Name of chapter" >
+
+                        <label for="cdescription" class="form-label">Description</label>
+                        <input type="text" class="form-control" th:field="*{description}" placeholder="Describe the chapter" >
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Understood</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- ###########################################-->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Chapters</button>
@@ -30,7 +56,7 @@
             </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-              <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-plus"></i>Add chapter</a>
+              <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropChapter"> <i class="fas fa-plus"></i>Add chapter</a>
                 <!--ACORDION CAPITULOS-->
                 <div class="accordion" id="accordionExample">
                     <div th:each="chapter:${course.chapter}" class="accordion-item">
@@ -133,7 +159,13 @@
                       <h6 class="card-text" th:text="${course.teacher.id}">teacher id</h6>
                       <p class="card-text" th:text="${course.language}">language</p>
                       <p class="card-text" th:text="${course.description}">descripcino</p>
-                      <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-edit"></i>Edit</a>
+                      <div>
+                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-edit"></i></a>
+                        <a th:href="@{'/courses/delete/' + ${course.id}}" class="btn btn-danger"> <i class="fas fa-trash-alt"></i> </a>
+                        <a th:text="${course.published}?'Published':'Not Published'" th:href="@{'/courses/published/' + ${course.id}}" class="btn btn-success"> <i class="fas fa-check-circle"></i> Published</a>
+                        <a th:href="@{/detail-course-student/suscribe/{courseid}(courseid=${course.id})}" class="btn btn-primary"> <i class="fas fa-user-plus"></i> Suscribe</a>
+
+                      </div>
                     </div>
                   </div>
             </div>

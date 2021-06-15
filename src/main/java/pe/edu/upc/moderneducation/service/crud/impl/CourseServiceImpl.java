@@ -45,9 +45,10 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public Course publishCourse(Course course) throws Exception {
-		course.setPublished(true);
-		return courseRepository.save(course);
+	public Course changePublishedStatus(Integer id) throws Exception {
+		Course getCourse=courseRepository.findById(id).get();
+		getCourse.setPublished(!getCourse.isPublished());
+		return courseRepository.save(getCourse);
 	}
 
 }

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.TeacherService;
+import pe.edu.upc.moderneducation.model.entity.Chapter;
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
+import pe.edu.upc.moderneducation.model.repository.CourseRepository;
 
 @Controller
 @RequestMapping("/courses")
@@ -98,11 +100,39 @@ public class CourseController {
 	public String findById(Model model, @PathVariable("id") Integer id) {
 		try {
 			Optional<Course> optional = courseService.findById(id);
+			Chapter chapter=new Chapter();
 			if(optional.isPresent()) {
+				model.addAttribute("chapterNew", chapter);
 				model.addAttribute("course", optional.get());
 				return "course/view";
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "redirect:/courses";
+	}
+
+	@GetMapping("/delete/{id}")
+	public String deleteById(@PathVariable("id") Integer id){
+		try{
+			courseService.deleteById(id);
+			return "redirect:/courses";
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "redirect:/courses";
+	}
+
+	@GetMapping("/published/{id}")
+	public String publishById(@PathVariable("id") Integer id){
+		try{
+			courseService.changePublishedStatus(id);
+			return "redirect:/courses/"+ id;
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}

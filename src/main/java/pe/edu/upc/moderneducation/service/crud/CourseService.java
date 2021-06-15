@@ -11,5 +11,5 @@ public interface CourseService extends CrudService<Course, Integer> {
 
 	List<Course> findByTeacher(Teacher teacher) throws Exception;
 
-	Course publishCourse(Course course) throws Exception;
+	Course changePublishedStatus(Integer id) throws Exception;
 }

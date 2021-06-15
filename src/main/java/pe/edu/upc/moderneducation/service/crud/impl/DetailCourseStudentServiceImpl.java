@@ -8,7 +8,9 @@ import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudentId;
 import pe.edu.upc.moderneducation.model.entity.Student;
+import pe.edu.upc.moderneducation.model.repository.CourseRepository;
 import pe.edu.upc.moderneducation.model.repository.DetailCourseStudentRepository;
+import pe.edu.upc.moderneducation.model.repository.StudentRepository;
 import pe.edu.upc.moderneducation.service.crud.DetailCourseStudentService;
 
 @Service
@@ -17,15 +19,22 @@ public class DetailCourseStudentServiceImpl implements DetailCourseStudentServic
     @Autowired
     private DetailCourseStudentRepository detailCourseStudentRepository;
 
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
     @Override
 	public JpaRepository<DetailCourseStudent, DetailCourseStudentId> getRepository() {
 		return detailCourseStudentRepository;
 	}
 
     @Override
-    public DetailCourseStudent registerStudentInCourse(Student student, Course course) throws Exception {
+    public DetailCourseStudent registerStudentInCourse(Integer idstudent, Integer id) throws Exception {
         DetailCourseStudent detail = new DetailCourseStudent();
-        
+        Course course=courseRepository.findById(id).get();
+        Student student=studentRepository.findById(idstudent).get();
         detail.setCourse(course);
         detail.setStudent(student);
 
