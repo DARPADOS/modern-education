@@ -9,15 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pe.edu.upc.moderneducation.model.entity.Resource;
-import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.ResourceService;
 
 @Controller
 @RequestMapping("/resources")
 public class ResourceController {
-    
-    @Autowired
-    private CourseService courseService;
 
     @Autowired
     private ResourceService resourceService;
