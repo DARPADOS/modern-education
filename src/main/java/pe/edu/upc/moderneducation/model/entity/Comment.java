@@ -23,11 +23,11 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "Comment")
-@SequenceGenerator(name="Comment_comment_id_seq",initialValue=1,allocationSize = 1)
+//@SequenceGenerator(name="Comment_comment_id_seq",initialValue=1,allocationSize = 1)
 public class Comment {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Comment_comment_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "comment_id", columnDefinition = "NUMERIC(6)")
 	private Integer id;
 	

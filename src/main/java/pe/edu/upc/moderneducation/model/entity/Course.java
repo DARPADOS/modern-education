@@ -30,12 +30,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "Course",
 indexes = {@Index(columnList="name",name="course_index_name"),
 		@Index(columnList="language",name="course_index_language")})
-@SequenceGenerator(name="Course_course_id_seq",initialValue=1,allocationSize = 1)
-
+//@SequenceGenerator(name="Course_course_id_seq",initialValue=1,allocationSize = 1)
 public class Course {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Course_course_id_seq")
+	//@GeneratedValue(strategy = GenerationType.IDENTITY, generator="Course_course_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "course_id")
 	private Integer id;
 	

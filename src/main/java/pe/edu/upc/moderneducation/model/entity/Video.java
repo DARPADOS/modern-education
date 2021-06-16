@@ -20,11 +20,11 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "video")
-@SequenceGenerator(name="Video_video_id_seq",initialValue=1,allocationSize = 1)
+//@SequenceGenerator(name="Video_video_id_seq",initialValue=1,allocationSize = 1)
 public class Video {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Video_video_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "video_id")
 	private Integer id;
 	

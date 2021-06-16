@@ -21,11 +21,11 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "Chapter")
-@SequenceGenerator(name="Chapter_chapter_id_seq",initialValue=1, allocationSize=1)
+//@SequenceGenerator(name="Chapter_chapter_id_seq",initialValue=1, allocationSize=1)
 public class Chapter {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Chapter_chapter_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "chapter_id")
 	private Integer id;
 	
