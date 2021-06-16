@@ -1,6 +1,6 @@
 <nav th:fragment = "navbar" class="shadow navbar navbar-expand-lg navbar-dark bg-light bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="#">
+        <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
             <img th:src="@{/img/logo-svg.svg}" alt="" width="40" class="" />
             <span class="h5 p-2 m-0">ModernEducation</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -10,8 +10,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="container-fluid">
-                <form class="d-md-flex">
-                    <input class="form-control me-2" type="search" placeholder="Find your courses" aria-label="Search">
+                <form th:action="@{/search/results}" class="d-md-flex" th:object="${courseSearch}" method="get">
+                    <input class="form-control me-2" type="search" th:field="*{name}" placeholder="Find your courses" aria-label="Search">
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
             </div>

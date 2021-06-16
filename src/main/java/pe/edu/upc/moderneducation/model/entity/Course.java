@@ -15,6 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -74,6 +75,24 @@ public class Course {
 	@Transient
 	private float averageQualification;
 	
+	@PostLoad
+	private void chargeAverageQualification(){
+		float sum = 0;
+		int count = 0;
+		for (DetailCourseStudent detail : detailCourseStudent) {
+			if(detail.getQualification() != null){
+				sum = sum + detail.getQualification();
+				count++;
+			}
+		}
+
+		if(count !=0){
+			averageQualification = sum/count;
+		}
+		else
+			averageQualification = 0;
+	}
+
 	public Course(Integer id, boolean published, Teacher teacher, String name, String language, String description,
 			String mineture_image, List<Chapter> chapter, List<Resource> resource, List<DetailCourseStudent> detailCourseStudent) {
 		super();
@@ -87,6 +106,14 @@ public class Course {
 		this.chapter = chapter;
 		this.resource = resource;
 		this.detailCourseStudent=detailCourseStudent;
+	}
+
+	public float getAverageQualification() {
+		return averageQualification;
+	}
+
+	public void setAverageQualification(float averageQualification) {
+		this.averageQualification = averageQualification;
 	}
 
 	public Course() {

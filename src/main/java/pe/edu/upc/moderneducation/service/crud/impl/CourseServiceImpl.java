@@ -24,7 +24,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<Course> findByName(String name) throws Exception {
-		return courseRepository.findByNameOrderByCreatedDateDesc(name);
+		return courseRepository.findByNameContainingOrderByCreatedDateDesc(name);
 	}
 
 	@Override

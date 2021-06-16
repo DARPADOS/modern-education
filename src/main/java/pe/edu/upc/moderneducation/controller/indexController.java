@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequestMapping("")
 @SessionAttributes("")
-public class mainController {
+public class indexController {
 
     @Autowired
     CourseService courseService;
@@ -26,6 +26,8 @@ public class mainController {
     public String index(Model model) {
         try {
 			List<Course> courses = courseService.getAll();
+            Course courseSearch = new Course();
+            model.addAttribute("courseSearch", courseSearch);
 			model.addAttribute("topCourses", courses);
 		} catch (Exception e) {
 			e.printStackTrace();
