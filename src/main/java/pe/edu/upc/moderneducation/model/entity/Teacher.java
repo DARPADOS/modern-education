@@ -29,7 +29,7 @@ public class Teacher {
 	@Column(name="career", length=100, nullable=false)
 	private String career;
 	
-	@Column(name="description",length=200,nullable=false)
+	@Column(name="description",length=1024,nullable=false)
 	private String description;
 
 	@OneToOne
