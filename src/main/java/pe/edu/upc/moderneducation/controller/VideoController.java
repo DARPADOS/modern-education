@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pe.edu.upc.moderneducation.model.entity.Chapter;
-import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Video;
 import pe.edu.upc.moderneducation.service.crud.ChapterService;
 import pe.edu.upc.moderneducation.service.crud.VideoService;
