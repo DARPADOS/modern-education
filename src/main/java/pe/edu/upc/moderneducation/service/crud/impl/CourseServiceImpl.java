@@ -51,4 +51,8 @@ public class CourseServiceImpl implements CourseService {
 		return courseRepository.save(getCourse);
 	}
 
+	@Override
+	public List<Course> getTopCourses() throws Exception {
+		return courseRepository.getTopCourses();
+	}
 }

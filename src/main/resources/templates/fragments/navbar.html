@@ -1,4 +1,4 @@
-<nav th:fragment = "navbar" class="shadow-sm navbar navbar-expand-lg navbar-dark bg-light bg-dark">
+<nav th:fragment = "navbar" class="shadow navbar navbar-expand-lg navbar-dark bg-light bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="#">
             <img th:src="@{/img/logo-svg.svg}" alt="" width="40" class="" />
@@ -11,66 +11,66 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="container-fluid">
                 <form class="d-md-flex">
-                    <input class="form-control me-2" type="search" placeholder="Encuentra tus cursos" aria-label="Search">
-                    <button class="btn btn-success" type="submit">Buscar</button>
+                    <input class="form-control me-2" type="search" placeholder="Find your courses" aria-label="Search">
+                    <button class="btn btn-success" type="submit">Search</button>
                 </form>
             </div>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">
-                        Inicio
+                        Home
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{/courses}">
-                        Cursos
+                        Courses
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">
-                        Videoconferencia
+                        Videoconference
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">
-                        Enseña
+                        Teach
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">
-                        Aprende
+                        Learn
                     </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Unirse
+                        join
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end"
                         aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" href="#">Registrarse</a>
+                            <a class="dropdown-item" href="#">Log in</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">Iniciar Sesión</a>
+                            <a class="dropdown-item" href="#">Sign up</a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Perfil
+                        Profile
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end"
                         aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Editar perfil</a></li>
+                        <li><a class="dropdown-item" href="#">Edit profile</a></li>
                         <li>
-                            <a class="dropdown-item" href="#">Seguridad de cuenta</a>
+                            <a class="dropdown-item" href="#">Account security</a>
                         </li>
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
-                        <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                        <li><a class="dropdown-item" href="#">Log out</a></li>
                     </ul>
                 </li>
             </ul>
