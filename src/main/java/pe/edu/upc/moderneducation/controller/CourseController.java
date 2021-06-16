@@ -3,6 +3,7 @@ package pe.edu.upc.moderneducation.controller;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,9 @@ import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.TeacherService;
 import pe.edu.upc.moderneducation.model.entity.Chapter;
 import pe.edu.upc.moderneducation.model.entity.Course;
+import pe.edu.upc.moderneducation.model.entity.Resource;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
+import pe.edu.upc.moderneducation.model.entity.Video;
 import pe.edu.upc.moderneducation.model.repository.CourseRepository;
 
 @Controller
@@ -101,8 +104,12 @@ public class CourseController {
 		try {
 			Optional<Course> optional = courseService.findById(id);
 			Chapter chapter=new Chapter();
+			Video video=new Video();
+			Resource resource=new Resource();
 			if(optional.isPresent()) {
+				model.addAttribute("videoNew", video);
 				model.addAttribute("chapterNew", chapter);
+				model.addAttribute("resourceNew", resource);
 				model.addAttribute("course", optional.get());
 				return "course/view";
 			}

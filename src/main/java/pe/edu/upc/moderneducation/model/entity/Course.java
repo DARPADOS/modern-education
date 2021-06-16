@@ -52,7 +52,7 @@ public class Course {
 	@Column(name = "language", length = 20, nullable = false)
 	private String language;
 	
-	@Column(name = "description", length = 250, nullable = false)
+	@Column(name = "description", length = 500, nullable = false)
 	private String description;
 	
 	@Column(name = "mineture_image", length = 500)
