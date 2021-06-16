@@ -11,13 +11,22 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 @Controller
 @RequestMapping("")
+@ControllerAdvice
 @SessionAttributes("")
 public class indexController {
+
+    @ModelAttribute
+    public void addAttribute(Model model){
+        Course course = new Course();
+        model.addAttribute("courseSearch", course);
+    }
 
     @Autowired
     CourseService courseService;
@@ -26,8 +35,6 @@ public class indexController {
     public String index(Model model) {
         try {
 			List<Course> courses = courseService.getAll();
-            Course courseSearch = new Course();
-            model.addAttribute("courseSearch", courseSearch);
 			model.addAttribute("topCourses", courses);
 		} catch (Exception e) {
 			e.printStackTrace();
