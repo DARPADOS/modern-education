@@ -34,10 +34,10 @@ public class Chapter {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Course course;
 	
-	@Column(name = "name", length = 25, nullable = false)
+	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 
-	@Column(name = "description", length = 25, nullable = false)
+	@Column(name = "description", length = 500, nullable = false)
 	private String description;
 	
 	@OneToMany(mappedBy = "chapter", fetch =  FetchType.LAZY)

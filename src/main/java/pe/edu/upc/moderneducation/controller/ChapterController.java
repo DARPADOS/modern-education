@@ -29,7 +29,7 @@ public class ChapterController {
     private CourseService courseService;
 
     @PostMapping("savenew/{courseid}")
-	public String saveNewCourse(Model model, @ModelAttribute("chapterNew") Chapter chapter, @PathVariable("courseid") Integer courseid) {
+	public String saveNewChapter(@ModelAttribute("chapterNew") Chapter chapter, @PathVariable("courseid") Integer courseid) {
 		try {
 			if(chapter.getId()==null){
 				System.out.println("No hay id");
@@ -45,5 +45,36 @@ public class ChapterController {
 		}
 		return "redirect:/courses";
 	}
+
+	@PostMapping("save/{idcourse}/{idchapter}")
+	public String saveChapterEdit(@ModelAttribute("chapterNew") Chapter chapter, 
+	@PathVariable("idcourse") Integer idcourse, 
+	@PathVariable("idchapter") Integer idchapter) {
+		//System.out.println("COURSE ID:"+course.getId().toString());
+		try {
+			Chapter getChapter=chapterService.findById(idchapter).get();
+			getChapter.setName(chapter.getName());
+			getChapter.setDescription(chapter.getDescription());
+			chapterService.update(getChapter);
+			return "redirect:/courses/"+idcourse;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "redirect:/courses";
+	}
     
+	@GetMapping("/delete/{idcourse}/{idchapter}")
+	public String deleteById(@PathVariable("idcourse") Integer idcourse, 
+	@PathVariable("idchapter") Integer idchapter){
+		try{
+			chapterService.deleteById(idchapter);
+			return "redirect:/courses/"+idcourse;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "redirect:/courses";
+	}
 }

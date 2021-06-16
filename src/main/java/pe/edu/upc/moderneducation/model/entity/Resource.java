@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "Resource")
 
@@ -33,6 +36,7 @@ public class Resource {
 	
 	@ManyToOne
 	@JoinColumn(name = "course_id", nullable = true)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Course course;
 
 	public Resource(Integer id, Course course, String name, String type, String link) {

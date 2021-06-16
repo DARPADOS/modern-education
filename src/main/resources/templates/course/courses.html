@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/css/fontawesome.min.css}" rel="stylesheet">
-    <link th:href="@{/css/solid.min.css}" rel="stylesheet">
-
-    <title>Hello, world!</title>
+	<div th:replace="fragments/head :: head('My courses')"></div>
   </head>
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
@@ -35,7 +29,7 @@
 								<input type="text" class="form-control" th:field="*{language}" placeholder="Course language" >
 								
 								<label for="description" class="form-label">Description</label>
-								<input type="text" class="form-control" th:field="*{description}" placeholder="Describe the course" >
+								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}" placeholder="Describe the course"></textarea>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -48,20 +42,18 @@
 			</div>
 		</div>
 			<!--CARDS-->
-	<div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">					
+	<div class="align-items-center p-3 my-3 bg-purple rounded shadow-sm">					
 		<div class="row justify-content-center py-3 px-3">
-			<div class="row row-cols-5">
-				<div th:each="course:${courses}">
-					<div class="col pb-3">
-						<div class="card h-100 shadow-sm bg-body rounded">
-						<img src="/img/curso.jpg" class="card-img-top" alt=""/>
-						<div class="card-body">
-							<h5 class="card-title" th:text="${course.name}"></h5>
-							<h6 class="card-subtitle mb-2 text-muted" th:text="${course.teacher.user.firstName} + ${course.teacher.user.lastName}"></h6>
-							<p class="card-text" th:text="${course.description}"></p>
-							<a th:href="@{'/courses/' + ${course.id}}" class="stretched-link"></a>
-						</div>
-						</div>
+			<div class="row row-cols-4 g-3">
+				<div th:each="course:${courses}" class="col">
+					<div class="card shadow-sm bg-body rounded">
+					<img src="/img/curso.jpg" width="100%" class="card-img-top" alt=""/>
+					<div class="card-body">
+						<h5 class="card-title" th:text="${course.name}"></h5>
+						<h6 class="card-subtitle mb-2 text-muted" th:text="${course.teacher.user.firstName} + ${course.teacher.user.lastName}"></h6>
+						<p class="card-text text-truncate" th:text="${course.description}"></p>
+						<a th:href="@{'/courses/' + ${course.id}}" class="stretched-link"></a>
+					</div>
 					</div>
 				</div>
 			</div>
