@@ -6,103 +6,62 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
-import pe.edu.upc.moderneducation.model.entity.Student;
-import pe.edu.upc.moderneducation.service.crud.StudentService;
+import pe.edu.upc.moderneducation.model.entity.Course;
+import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
+import pe.edu.upc.moderneducation.service.crud.CourseService;
+import pe.edu.upc.moderneducation.service.crud.DetailCourseStudentService;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @Controller
-@RequestMapping("/students")
-@SessionAttributes("studentEdit")
+@RequestMapping("student")
 public class StudentController {
-	
-	@Autowired
-	private StudentService studentService;
-	
-	@GetMapping
-	public String list_students(Model model) {
-		try {
-			List<Student> students = studentService.getAll();
-			model.addAttribute("students", students);
-		} catch (Exception e) {
-			e.printStackTrace();
+    
+    @Autowired
+    private CourseService courseService;
+
+    @Autowired
+    private DetailCourseStudentService detailService;
+
+    @GetMapping("courses")
+    public String getMethodName(Model model) {
+        try {
+            List<Course> courses = courseService.findByStudent(8);
+            model.addAttribute("myCourses", courses);
+        } catch (Exception e) {
+            e.printStackTrace();
 			System.err.println(e.getMessage());
-		}
-		
-		return "students/lista_student";
-	}
-	
-	@GetMapping("{id}")
-	public String findById_students(Model model, @PathVariable("id") Integer id) {
+        }
+        return "student/myCourses";
+    }
+    
+	@GetMapping("course/{id}")
+	public String findById(Model model, @PathVariable("id") Integer id) {
 		try {
-			Optional<Student> optional = studentService.findById(id);
+			Optional<Course> optional = courseService.findById(id);
+
 			if(optional.isPresent()) {
-				model.addAttribute("student", optional.get());
-				return "student/view"; //Archivo Html
+                DetailCourseStudent newDetail = new DetailCourseStudent();
+                boolean isRegisted = detailService.checkRegister(8, id);
+                if(isRegisted){
+                    boolean isQualified = detailService.checkQualified(8, id);
+                    model.addAttribute("isQualified", isQualified);
+                }
+				model.addAttribute("course", optional.get());
+                model.addAttribute("isRegisted", isRegisted);
+                model.addAttribute("opinionNew", newDetail);
+				return "student/courseDetail";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
-		return "redirect:/students"; //url
+		return "redirect:/student/courses";
 	}
-	
-	@GetMapping("{id}/edit")
-	public String findById2_students(Model model, @PathVariable("id") Integer id) {
-		try {
-			Optional<Student> optional = studentService.findById(id);
-			if(optional.isPresent()) {
-				model.addAttribute("studentEdit", optional.get());
-				return "students/edit";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-		return "redirect:/regions"; //url
-	}
-	
-	@PostMapping("save")
-	public String saveEdit_students(Model model, @ModelAttribute("studentEdit") Student student) {
-		try {
-			Student studentReturn = studentService.update(student);
-			model.addAttribute("student", studentReturn);
-			return "students/view"; // Archivo Html
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-		return "redirect:/students";
-	}
-	
-	@GetMapping("new")
-	public String newItem_students(Model model) {
-		try {
-			Student student = new Student();
-			model.addAttribute("studentNew", student);
-			return "students/new";
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-		return "redirect:/students";	// url
-	}
-	
-	@PostMapping("savenew")
-	public String saveNew_students(Model model, @ModelAttribute("studentNew") Student student) {
-		try {
-			Student studentReturn = studentService.create(student);
-			model.addAttribute("student", studentReturn);
-			return "students/view"; // Archivo Html
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-		return "redirect:/students";
-	}
+
+
 }

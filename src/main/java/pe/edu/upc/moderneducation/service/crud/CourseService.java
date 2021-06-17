@@ -14,6 +14,8 @@ public interface CourseService extends CrudService<Course, Integer> {
 
 	List<Course> getTopCourses() throws Exception;
 
+	List<Course> findByStudent(Integer id) throws Exception;
+
 	Course changePublishedStatus(Integer id) throws Exception;
 
 	Boolean isOwner(Integer idteacher, Integer idcourse);

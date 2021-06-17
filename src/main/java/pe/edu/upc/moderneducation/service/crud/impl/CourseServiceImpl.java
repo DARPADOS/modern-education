@@ -28,7 +28,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<Course> findByName(String name) throws Exception {
-		return courseRepository.findByNameContainingOrderByCreatedDateDesc(name);
+		return courseRepository.findByNameContainingIgnoreCaseOrderByCreatedDateDesc(name);
 	}
 
 	@Override
@@ -61,6 +61,7 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
+
 	public Boolean isOwner(Integer idteacher, Integer idcourse) {
 		Boolean owner=false;
 		Teacher teacher=teacherRepository.findById(idteacher).get();
@@ -71,6 +72,8 @@ public class CourseServiceImpl implements CourseService {
 		else{owner=false;}
 		return owner;
 	}
-
 	
+	public List<Course> findByStudent(Integer id) throws Exception {
+		return courseRepository.findByStudent(id);
+	}
 }
