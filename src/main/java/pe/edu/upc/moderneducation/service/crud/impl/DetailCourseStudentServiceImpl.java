@@ -1,5 +1,7 @@
 package pe.edu.upc.moderneducation.service.crud.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -42,17 +44,30 @@ public class DetailCourseStudentServiceImpl implements DetailCourseStudentServic
     }
 
     @Override
-    public DetailCourseStudent addQualificationAndOpinion(Student student, Course course, Integer qualification,
-            String opinion) throws Exception {
+    public DetailCourseStudent addQualificationAndOpinion(Integer studentId, Integer courseId, DetailCourseStudent detail) throws Exception {
         
-        DetailCourseStudentId id = new DetailCourseStudentId(course.getId(), student.getId());
+        DetailCourseStudentId id = new DetailCourseStudentId(courseId, studentId);
 
-        DetailCourseStudent detail = findById(id).get();
+        DetailCourseStudent detailUpdate = findById(id).get();
 
-        detail.setQualification(qualification);
-        detail.setOpinion(opinion);
+        detailUpdate.setQualification(detail.getQualification());
+        detailUpdate.setOpinion(detail.getOpinion());
 
-        return update(detail);
+        return update(detailUpdate);
+    }
+
+    @Override
+    public boolean checkRegister(Integer studentId, Integer courseId) throws Exception {
+        DetailCourseStudentId registerId = new DetailCourseStudentId(courseId, studentId);
+        Optional<DetailCourseStudent> result = findById(registerId);
+        return result.isPresent();
+    }
+
+    @Override
+    public boolean checkQualified(Integer studentId, Integer courseId) throws Exception {
+        DetailCourseStudentId registerId = new DetailCourseStudentId(courseId, studentId);
+        DetailCourseStudent result = findById(registerId).get();
+        return result.getQualification()!=null;
     }
     
 }
