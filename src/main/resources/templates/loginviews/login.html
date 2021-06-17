@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/loginstyle.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <title>Document</title>
+</head>
+<body>
+
+        <div class="div_img">
+          <img class="div_img__registrer" th:src="@{/img/inicioimg/registervector.svg}" alt="">
+        </div>
+        <div class="form">
+            <form>
+                <div class="form-group">
+                  <label for="inputUser">User</label>
+                  <input type="text" class="form-control" id="inputUser" aria-describedby="emailHelp" placeholder="Enter user">
+                  <small id="emailHelp" class="form-text text-muted">Enter the user with the email you have registered.</small>
+                </div>
+                <div class="form-group">
+                  <label for="inputPass">Password</label>
+                  <input type="password" class="form-control" id="inputPass" placeholder="Password">
+                </div>
+                <div class="form-group">
+                  <label for="register">You do not have an account? <span><a th:href="@{/login}">Sign up here.</a></span></label>
+                </div>
+                <div>
+                  <button type="submit" class=" btm--color">Log in</button>
+                  <button type="reset" class=" btm--color">Reset</button>
+                </div>
+            </form>
+        </div>
+   
+        <ul class="cuadrados">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+   
+</body>
+</html>

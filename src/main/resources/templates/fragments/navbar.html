@@ -12,7 +12,7 @@
             <div class="container-fluid">
                 <form th:action="@{/search/results}" class="d-md-flex" th:object="${courseSearch}" method="get">
                     <input class="form-control me-2" type="search" th:field="*{name}" placeholder="Find your courses" aria-label="Search">
-                    <button class="btn btn-success" type="submit">Search</button>
+                    <button class="btn btn-successSearch" type="submit">Search</button>
                 </form>
             </div>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -49,10 +49,10 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end"
                         aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" href="#">Log in</a>
+                            <a class="dropdown-item" th:href="@{/login}">Log in</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">Sign up</a>
+                            <a class="dropdown-item" th:href="@{/sign-up}">Sign up</a>
                         </li>
                     </ul>
                 </li>

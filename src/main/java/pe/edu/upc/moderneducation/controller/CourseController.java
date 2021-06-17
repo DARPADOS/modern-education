@@ -36,10 +36,10 @@ public class CourseController {
     @GetMapping
 	public String listCourses( Model model ) {
 		try {
+			Teacher teacher=teacherService.findById(3).get();
 			Course course = new Course();
 			model.addAttribute("courseNew", course);
-			
-			List<Course> courses = courseService.getAll();
+			List<Course> courses = courseService.findByTeacher(teacher);
 			model.addAttribute("courses", courses);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,15 +101,20 @@ public class CourseController {
 	public String findById(Model model, @PathVariable("id") Integer id) {
 		try {
 			Optional<Course> optional = courseService.findById(id);
-			Chapter chapter=new Chapter();
-			Video video=new Video();
-			Resource resource=new Resource();
 			if(optional.isPresent()) {
-				model.addAttribute("videoNew", video);
-				model.addAttribute("chapterNew", chapter);
-				model.addAttribute("resourceNew", resource);
-				model.addAttribute("course", optional.get());
-				return "course/view";
+				Boolean isOwner=courseService.isOwner(3, id);
+				if(isOwner){
+					Chapter chapter=new Chapter();
+					Video video=new Video();
+					Resource resource=new Resource();
+					model.addAttribute("videoNew", video);
+					model.addAttribute("chapterNew", chapter);
+					model.addAttribute("resourceNew", resource);
+					model.addAttribute("course", optional.get());
+					return "course/view";
+				}else{
+					return "search/notOwner";
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -143,4 +148,5 @@ public class CourseController {
 		}
 		return "redirect:/courses";
 	}
+
 }

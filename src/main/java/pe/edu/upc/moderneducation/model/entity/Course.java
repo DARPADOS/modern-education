@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -64,7 +65,7 @@ public class Course {
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	private List<Resource> resource;
 
-	@OneToMany(mappedBy="course", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="course", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<DetailCourseStudent> detailCourseStudent;
 
 	@Temporal(TemporalType.TIMESTAMP)
