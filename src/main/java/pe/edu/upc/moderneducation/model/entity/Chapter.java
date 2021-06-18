@@ -2,6 +2,7 @@ package pe.edu.upc.moderneducation.model.entity;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,27 +14,30 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "Chapter")
-@SequenceGenerator(name="Chapter_chapter_id_seq",initialValue=1, allocationSize=1)
+//@SequenceGenerator(name="Chapter_chapter_id_seq",initialValue=1, allocationSize=1)
 public class Chapter {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Chapter_chapter_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "chapter_id")
 	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name = "course_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Course course;
 	
-	@Column(name = "name", length = 25, nullable = false)
+	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 
-	@Column(name = "description", length = 25, nullable = false)
+	@Column(name = "description", length = 500, nullable = false)
 	private String description;
 	
 	@OneToMany(mappedBy = "chapter", fetch =  FetchType.LAZY)

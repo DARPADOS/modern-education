@@ -3,6 +3,7 @@ package pe.edu.upc.moderneducation.controller;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,14 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.TeacherService;
+import pe.edu.upc.moderneducation.model.entity.Chapter;
 import pe.edu.upc.moderneducation.model.entity.Course;
+import pe.edu.upc.moderneducation.model.entity.Resource;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
+import pe.edu.upc.moderneducation.model.entity.Video;
 
 @Controller
 @RequestMapping("/courses")
@@ -33,10 +36,10 @@ public class CourseController {
     @GetMapping
 	public String listCourses( Model model ) {
 		try {
+			Teacher teacher=teacherService.findById(3).get();
 			Course course = new Course();
 			model.addAttribute("courseNew", course);
-			
-			List<Course> courses = courseService.getAll();
+			List<Course> courses = courseService.findByTeacher(teacher);
 			model.addAttribute("courses", courses);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,8 +101,19 @@ public class CourseController {
 		try {
 			Optional<Course> optional = courseService.findById(id);
 			if(optional.isPresent()) {
-				model.addAttribute("course", optional.get());
-				return "course/view";
+				Boolean isOwner=courseService.isOwner(3, id);
+				if(isOwner){
+					Chapter chapter=new Chapter();
+					Video video=new Video();
+					Resource resource=new Resource();
+					model.addAttribute("videoNew", video);
+					model.addAttribute("chapterNew", chapter);
+					model.addAttribute("resourceNew", resource);
+					model.addAttribute("course", optional.get());
+					return "course/view";
+				}else{
+					return "search/notOwner";
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,4 +121,31 @@ public class CourseController {
 		}
 		return "redirect:/courses";
 	}
+
+	@GetMapping("/delete/{id}")
+	public String deleteById(@PathVariable("id") Integer id){
+		try{
+			courseService.deleteById(id);
+			return "redirect:/courses";
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "redirect:/courses";
+	}
+
+	@GetMapping("/published/{id}")
+	public String publishById(@PathVariable("id") Integer id){
+		try{
+			courseService.changePublishedStatus(id);
+			return "redirect:/courses/"+ id;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "redirect:/courses";
+	}
+
 }

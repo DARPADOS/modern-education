@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -15,7 +16,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,12 +30,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "Course",
 indexes = {@Index(columnList="name",name="course_index_name"),
 		@Index(columnList="language",name="course_index_language")})
-@SequenceGenerator(name="Course_course_id_seq",initialValue=1,allocationSize = 1)
-
+//@SequenceGenerator(name="Course_course_id_seq",initialValue=1,allocationSize = 1)
 public class Course {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Course_course_id_seq")
+	//@GeneratedValue(strategy = GenerationType.IDENTITY, generator="Course_course_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "course_id")
 	private Integer id;
 	
@@ -51,7 +52,7 @@ public class Course {
 	@Column(name = "language", length = 20, nullable = false)
 	private String language;
 	
-	@Column(name = "description", length = 250, nullable = false)
+	@Column(name = "description", length = 500, nullable = false)
 	private String description;
 	
 	@Column(name = "mineture_image", length = 500)
@@ -63,7 +64,7 @@ public class Course {
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	private List<Resource> resource;
 
-	@OneToMany(mappedBy="course", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="course", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<DetailCourseStudent> detailCourseStudent;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -74,6 +75,24 @@ public class Course {
 	@Transient
 	private float averageQualification;
 	
+	@PostLoad
+	private void chargeAverageQualification(){
+		float sum = 0;
+		int count = 0;
+		for (DetailCourseStudent detail : detailCourseStudent) {
+			if(detail.getQualification() != null){
+				sum = sum + detail.getQualification();
+				count++;
+			}
+		}
+
+		if(count !=0){
+			averageQualification = sum/count;
+		}
+		else
+			averageQualification = 0;
+	}
+
 	public Course(Integer id, boolean published, Teacher teacher, String name, String language, String description,
 			String mineture_image, List<Chapter> chapter, List<Resource> resource, List<DetailCourseStudent> detailCourseStudent) {
 		super();
@@ -87,6 +106,14 @@ public class Course {
 		this.chapter = chapter;
 		this.resource = resource;
 		this.detailCourseStudent=detailCourseStudent;
+	}
+
+	public float getAverageQualification() {
+		return averageQualification;
+	}
+
+	public void setAverageQualification(float averageQualification) {
+		this.averageQualification = averageQualification;
 	}
 
 	public Course() {

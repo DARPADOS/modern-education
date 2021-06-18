@@ -13,19 +13,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "Comment")
-@SequenceGenerator(name="Comment_comment_id_seq",initialValue=1,allocationSize = 1)
+//@SequenceGenerator(name="Comment_comment_id_seq",initialValue=1,allocationSize = 1)
 public class Comment {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Comment_comment_id_seq")
-	@Column(name = "comment_id", columnDefinition = "NUMERIC(6)")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "comment_id")
 	private Integer id;
 	
 	@ManyToOne
@@ -34,6 +36,7 @@ public class Comment {
 	
 	@ManyToOne
 	@JoinColumn(name = "video_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Video video;
 	
 	@Column(name = "date", nullable = false)

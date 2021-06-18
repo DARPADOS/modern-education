@@ -12,27 +12,30 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "video")
-@SequenceGenerator(name="Video_video_id_seq",initialValue=1,allocationSize = 1)
+//@SequenceGenerator(name="Video_video_id_seq",initialValue=1,allocationSize = 1)
 public class Video {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Video_video_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "video_id")
 	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name = "chapter_id", nullable = true)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Chapter chapter;
 	
 	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 	
-	@Column(name = "description", length = 150, nullable = false)
+	@Column(name = "description", length = 500, nullable = false)
 	private String description;
 	
 	@Column(name = "link", length = 500, nullable = false)

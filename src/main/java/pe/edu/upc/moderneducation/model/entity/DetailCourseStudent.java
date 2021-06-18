@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
@@ -23,6 +25,7 @@ public class DetailCourseStudent {
 	@Id
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "course_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Course course;
 	
 	@Id
@@ -30,7 +33,7 @@ public class DetailCourseStudent {
 	@JoinColumn(name = "student_id", nullable = false)
 	private Student student;
 	
-	@Column(name = "date_start", nullable = false)
+	@Column(name = "date_start", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
 	private Date dateStart;

@@ -1,11 +1,11 @@
 package pe.edu.upc.moderneducation.service.crud;
 
-import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudentId;
-import pe.edu.upc.moderneducation.model.entity.Student;
 
 public interface DetailCourseStudentService extends CrudService<DetailCourseStudent, DetailCourseStudentId>{
-    DetailCourseStudent registerStudentInCourse(Student student, Course course) throws Exception;
-    DetailCourseStudent addQualificationAndOpinion(Student student, Course course, Integer qualification, String opinion) throws Exception;
+    DetailCourseStudent registerStudentInCourse(Integer idstudent, Integer idcourse) throws Exception;
+    DetailCourseStudent addQualificationAndOpinion(Integer studentId, Integer courseId, DetailCourseStudent detail) throws Exception;
+    boolean checkRegister(Integer studentId, Integer CourseId) throws Exception;
+    boolean checkQualified(Integer studentId, Integer CourseId) throws Exception;
 }
