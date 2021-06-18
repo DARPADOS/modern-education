@@ -9,13 +9,22 @@
 
     <title>Hello, world!</title>
   </head>
-<body>
+<body style="background-color:#F8F9FA;">
     <div th:replace="fragments/navbar :: navbar"></div>
 	
 	<!-- Button trigger modal -->
-	<main class="container">
-        <div class="row p-3 my-3 bg-purple rounded shadow-sm">
-            <div class="col-6">
+	<main class="container" style="background-color: white;">
+        <div class="row p-3 my-3 bg-purple rounded shadow">
+            <div class="row">
+              <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                      <li class="breadcrumb-item active" aria-current="page"> <a th:href="@{/courses}">My courses</a></li>
+                      <li class="breadcrumb-item active" aria-current="page" th:text="${course.name}"></li>
+                  </ol>
+              </nav>
+            </div>
+            <div class="col-7">
             <!-- NEW CHAPTER-->
             <div class="modal fade" id="staticBackdropChapter" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelChapter" aria-hidden="true">
               <div class="modal-dialog">
@@ -24,19 +33,19 @@
                     <h5 class="modal-title" id="staticBackdropLabelChapter">New Chapter</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <form th:action="@{/chapters/savenew/{courseid}(courseid=${course.id})}" th:object="${chapterNew}" method="post">
+                  <form class="needs-validation" novalidate th:action="@{/chapters/savenew/{courseid}(courseid=${course.id})}" th:object="${chapterNew}" method="post">
                     <div class="modal-body">
                       <div class="mb-3">
                         <label for="cname" class="form-label">Name</label>
-                        <input type="text" class="form-control" th:field="*{name}" placeholder="Name of chapter" >
+                        <input type="text" class="form-control" th:field="*{name}" placeholder="Name of chapter" required>
 
                         <label for="cdescription" class="form-label">Description</label>
-                        <input type="text" class="form-control" th:field="*{description}" placeholder="Describe the chapter" >
+                        <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" th:field="*{description}" placeholder="Describe the chapter" required></textarea>
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Understood</button>
+                      <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-moderne-secondary">Understood</button>
                     </div>
                   </form>
                 </div>
@@ -50,25 +59,25 @@
                     <h5 class="modal-title" id="newResourceLabel">New Resource</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <form th:action="@{/resources/savenew/{courseid}(courseid=${course.id})}" th:object="${resourceNew}" method="post">
+                  <form class="needs-validation" novalidate th:action="@{/resources/savenew/{courseid}(courseid=${course.id})}" th:object="${resourceNew}" method="post">
                     <div class="modal-body">
                       <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" th:field="*{name}" placeholder="Name of resource" >
+                        <input type="text" class="form-control" th:field="*{name}" placeholder="Name of resource" required>
 
-                        <label for="description" class="form-label">Type</label>
-                        <input type="text" class="form-control" th:field="*{type}" placeholder="Resource type" >
+                        <!--<label for="description" class="form-label">Type</label>
+                        <input type="text" class="form-control" th:field="*{type}" placeholder="Resource type" required>-->
 
                         <div class="mb-3">
                           <label for="formFileSm" class="form-label">Small file input example</label>
-                          <input class="form-control form-control-sm" id="formFileSm" type="file">
+                          <input class="form-control form-control-sm" id="formFileSm" type="file" required>
                         </div>
                         
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Understood</button>
+                      <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-moderne-secondary">Understood</button>
                     </div>
                   </form>
                 </div>
@@ -88,7 +97,7 @@
             </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-              <a class="btn btn-primary" style="margin-top: 5px; margin-bottom: 5px;" data-bs-toggle="modal" data-bs-target="#staticBackdropChapter"> <i class="fas fa-plus"></i>Add chapter</a>
+              <a class="btn btn-moderne-primary" style="margin-top: 10px; margin-bottom: 10px;" data-bs-toggle="modal" data-bs-target="#staticBackdropChapter"> <i class="fas fa-plus"></i>Add chapter</a>
                 <!--ACORDION CAPITULOS-->
                 <div class="accordion" id="accordionExample">
                     <div th:each="chapter:${course.chapter}" class="accordion-item">
@@ -102,13 +111,13 @@
                             <div class="col-8" th:text="${chapter.description}"> </div>
                             <div class="col-4">
                               <div class="row justify-content-end" style="width:150px;">
-                                <a class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target='#staticBackdropEditChapter'+${chapterStat.index}"> <i class="fas fa-edit"></i> Edit chapter</a>                              
+                                <a class="btn btn-moderne-edit" data-bs-toggle="modal" th:attr="data-bs-target='#staticBackdropEditChapter'+${chapterStat.index}"> <i class="fas fa-edit"></i> Edit chapter</a>                              
                               </div>
                               <div class="row" style="width:150px;">
-                                <a style="margin-top:5px;" class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteChapter'+${chapterStat.index}"> <i class="fas fa-trash"></i> Delete chapter</a>                              
+                                <a style="margin-top:5px;" class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteChapter'+${chapterStat.index}"> <i class="fas fa-trash"></i> Delete chapter</a>                              
                               </div>
                               <div class="row"style="width:150px;">
-                                <a style="margin-top:5px;" class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target='#NewVideo'+${chapterStat.index}"> <i class="fas fa-plus"></i> Add video</a>
+                                <a style="margin-top:5px;" class="btn btn-moderne-primary" data-bs-toggle="modal" th:attr="data-bs-target='#NewVideo'+${chapterStat.index}"> <i class="fas fa-plus"></i> Add video</a>
                               </div>
                             </div>
                           </div>
@@ -118,7 +127,25 @@
                                     <th style="width:50px" th:text="${videoStat.count}" scope="row"></th>
                                     <td th:text="${video.name}"></td>
                                     <td style="width: 50px;"> <a th:href="@{/chapters/view}" class="btn btn-outline-info"> <i class="fas fa-search"></i> </a> </td>
-                                    <td style="width: 50px;"> <a th:href="@{'/videos/delete/' + ${course.id} + '/'+ ${video.id}}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
+                                    <td style="width: 50px;"> <a data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteVideo'+${chapterStat.index}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
+                                    <!-- CONFIRMACIÓN DE ELIMINACIÓN DE VIDEOS -->
+                                    <div class="modal fade" th:attr="id='ConfirmDeleteVideo'+${chapterStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteVidelLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="ConfirmDeleteVidelLabel">Confirm deletion</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <p>Are you sure you want to delete this video?</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Cancel</button>
+                                            <a style="margin-top:5px;" th:href="@{'/videos/delete/'+ ${course.id} + '/' + ${video.id}}" class="btn btn-moderne-secondary">I Accept</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                 </tr>
                                 </tbody>
                             </table>
@@ -132,19 +159,19 @@
                               <h5 class="modal-title" id="staticBackdropLabelEditChapter">Edit chapter</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                                <form th:action="@{/chapters/save/{idcourse}/{idchapter}(idcourse=${course.id},idchapter=${chapter.id})}" th:object="${chapterNew}" method="POST">
+                                <form class="needs-validation" novalidate th:action="@{/chapters/save/{idcourse}/{idchapter}(idcourse=${course.id},idchapter=${chapter.id})}" th:object="${chapterNew}" method="POST">
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Name</label>
-                                            <input type="text" class="form-control" th:field="*{name}" placeholder="Name of course" >
+                                            <input type="text" class="form-control" th:field="*{name}" placeholder="Name of course" required>
                                             
                                             <label for="description" class="form-label">Description</label>
-                                            <input type="text" class="form-control" th:field="*{description}" placeholder="Describe the course" >
+                                            <textarea id="exampleFormControlTextarea4" rows="3" class="form-control" th:field="*{description}" placeholder="Describe the course" required></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Understood</button>
+                                        <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-moderne-secondary">Understood</button>
                                     </div>
                                 </form>
                           </div>
@@ -163,8 +190,8 @@
                             <p>Are you sure you want to delete this chapter?</p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <a style="margin-top:5px;" th:href="@{'/chapters/delete/'+ ${course.id} + '/' + ${chapter.id}}" class="btn btn-danger">I Accept</a>
+                            <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Cancel</button>
+                            <a style="margin-top:5px;" th:href="@{'/chapters/delete/'+ ${course.id} + '/' + ${chapter.id}}" class="btn btn-moderne-secondary">I Accept</a>
                           </div>
                         </div>
                       </div>
@@ -177,22 +204,22 @@
                             <h5 class="modal-title" id="NewVideoLabel">New Video</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-                            <form th:action="@{/videos/savenew/{courseid}/{chapterid}(courseid=${course.id},chapterid=${chapter.id})}" th:object="${videoNew}" method="post">
+                            <form class="needs-validation" novalidate th:action="@{/videos/savenew/{courseid}/{chapterid}(courseid=${course.id},chapterid=${chapter.id})}" th:object="${videoNew}" method="post">
                               <div class="modal-body">
                                 <div class="mb-3">
                                   <label for="name" class="form-label">Name</label>
-                                  <input type="text" class="form-control" th:field="*{name}" placeholder="Name of video" >
+                                  <input type="text" class="form-control" th:field="*{name}" placeholder="Name of video" required>
   
                                   <label for="description" class="form-label">Description</label>
-                                  <input type="text" class="form-control" th:field="*{description}" placeholder="Describe the video" >
+                                  <textarea class="form-control" id="exampleFormControlTextarea3" rows="3" th:field="*{description}" placeholder="Describe the video" required></textarea>
 
                                   <label for="link" class="form-label">Link</label>
-                                  <input type="text" class="form-control" th:field="*{link}" placeholder="Link" >
+                                  <input type="text" class="form-control" th:field="*{link}" placeholder="Link" required>
                                 </div>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Understood</button>
+                                <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-moderne-secondary">Understood</button>
                               </div>
                             </form>
                         </div>
@@ -205,7 +232,7 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <table class="table table-striped table-hover">
                     <tbody>
-                        <a style="margin-top: 5px; margin-bottom: 5px;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newResource"> <i class="fas fa-plus"></i> Resource</a>
+                        <a style="margin-top: 10px; margin-bottom: 10px;" class="btn btn-moderne-primary" data-bs-toggle="modal" data-bs-target="#newResource"> <i class="fas fa-plus"></i> Resource</a>
                         <tr th:each="resource:${course.resource}">
                             <td th:text="${resource.name}"></td>
                             <td style="width:50px"> <a data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteResource' + ${resourceStat.index}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
@@ -223,8 +250,8 @@
                                     <p>Are you sure you want to delete this resource?</p>
                                   </div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <a th:href="@{'/resources/delete/' + ${course.id} + '/' + ${resource.id}}" class="btn btn-danger">I Accept</a>
+                                    <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Cancel</button>
+                                    <a th:href="@{'/resources/delete/' + ${course.id} + '/' + ${resource.id}}" class="btn btn-moderne-secondary">I Accept</a>
                                   </div>
                                 </div>
                               </div>
@@ -239,7 +266,7 @@
                     <thead>
                       <tr>
                         <th scope="col">Name</th>
-                        <th scope="col" style="width: 20rem;">Date Start</th>
+                        <th scope="col">Date Start</th>
                         <th scope="col">Qualification</th>
                         <th scope="col">Opinion</th>
                       </tr>
@@ -257,7 +284,7 @@
           </div>
 
             </div>
-            <div class="col-6 p-3 my-3 bg-purple rounded shadow-sm">
+            <div class="col-5 p-3 my-3 bg-purple rounded shadow-sm">
               <!--EDIT COURSE-->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -266,22 +293,22 @@
                           <h5 class="modal-title" id="staticBackdropLabel">Edit course</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                            <form th:action="@{/courses/save/{id}(id=${course.id})}" th:object="${course}" method="POST">
+                            <form class="needs-validation" novalidate th:action="@{/courses/save/{id}(id=${course.id})}" th:object="${course}" method="POST">
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" th:field="*{name}" placeholder="Name of course" >
+                                        <input type="text" class="form-control" th:field="*{name}" placeholder="Name of course" required>
                             
                                         <label for="language" class="form-label">Language</label>
-                                        <input type="text" class="form-control" th:field="*{language}" placeholder="Course language" >
+                                        <input type="text" class="form-control" th:field="*{language}" placeholder="Course language" required>
                                         
                                         <label for="description" class="form-label">Description</label>
-                                        <input type="text" class="form-control" th:field="*{description}" placeholder="Describe the course" >
+                                        <textarea class="form-control" id="exampleFormControlTextarea3" rows="3" th:field="*{description}" placeholder="Describe the course" required></textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Understood</button>
+                                    <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-moderne-secondary">Understood</button>
                                 </div>
                             </form>
                       </div>
@@ -300,8 +327,8 @@
                         <p>Are you sure you want to delete this course?</p>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <a th:href="@{'/courses/delete/' + ${course.id}}" class="btn btn-danger">I Accept</a>
+                        <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Cancel</button>
+                        <a th:href="@{'/courses/delete/' + ${course.id}}" class="btn btn-moderne-secondary">I Accept</a>
                       </div>
                     </div>
                   </div>
@@ -316,11 +343,11 @@
                       <p class="card-text" th:text="${course.language}">language</p>
                       <p class="card-text" th:text="${course.description}">descripcino</p>
                       <div>
-                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-edit"></i></a>
+                        <a class="btn btn-moderne-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-edit"></i></a>
                         <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteCourse"> <i class="fas fa-trash-alt"></i> </a>
                         <!--<a th:href="@{'/courses/delete/' + ${course.id}}" class="btn btn-danger"> <i class="fas fa-trash-alt"></i> </a>-->
-                        <a th:text="${course.published}?'Published':'Not Published'" th:href="@{'/courses/published/' + ${course.id}}" class="btn btn-success"> <i class="fas fa-check-circle"></i> Published</a>
-                        <a th:href="@{/detail-course-student/suscribe/{courseid}(courseid=${course.id})}" class="btn btn-primary"> <i class="fas fa-user-plus"></i> Suscribe</a>
+                        <a th:text="${course.published}?'Published':'Not Published'" th:href="@{'/courses/published/' + ${course.id}}" class="btn btn-moderne-primary"> <i class="fas fa-check-circle"></i> Published</a>
+                        <!--<a th:href="@{/detail-course-student/suscribe/{courseid}(courseid=${course.id})}" class="btn btn-primary"> <i class="fas fa-user-plus"></i> Suscribe</a>-->
                       </div>
                     </div>
                   </div>
@@ -337,5 +364,28 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>
+
+    <script>
+      (function () {
+          'use strict'
+
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.querySelectorAll('.needs-validation')
+
+          // Loop over them and prevent submission
+          Array.prototype.slice.call(forms)
+              .forEach(function (form) {
+              form.addEventListener('submit', function (event) {
+                  if (!form.checkValidity()) {
+                  event.preventDefault()
+                  event.stopPropagation()
+                  }
+
+                  form.classList.add('was-validated')
+              }, false)
+              })
+      })()
+  </script>
+
 </body>
 </html>

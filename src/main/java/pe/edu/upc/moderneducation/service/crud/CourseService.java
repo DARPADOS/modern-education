@@ -19,4 +19,5 @@ public interface CourseService extends CrudService<Course, Integer> {
 
 	Course changePublishedStatus(Integer id) throws Exception;
 
+	Boolean isOwner(Integer idteacher, Integer idcourse);
 }

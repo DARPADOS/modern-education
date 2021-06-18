@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.repository.CourseRepository;
+import pe.edu.upc.moderneducation.model.repository.TeacherRepository;
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 
 @Service
@@ -17,6 +18,9 @@ public class CourseServiceImpl implements CourseService {
 	@Autowired
 	private CourseRepository courseRepository;
 	
+	@Autowired
+	private TeacherRepository teacherRepository;
+
 	@Override
 	public JpaRepository<Course, Integer> getRepository() {
 		return courseRepository;
@@ -57,6 +61,18 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
+
+	public Boolean isOwner(Integer idteacher, Integer idcourse) {
+		Boolean owner=false;
+		Teacher teacher=teacherRepository.findById(idteacher).get();
+		Course course=courseRepository.findById(idcourse).get();
+		if(course.getTeacher().getId()==teacher.getId()){
+			owner=true;
+		}
+		else{owner=false;}
+		return owner;
+	}
+	
 	public List<Course> findByStudent(Integer id) throws Exception {
 		return courseRepository.findByStudent(id);
 	}

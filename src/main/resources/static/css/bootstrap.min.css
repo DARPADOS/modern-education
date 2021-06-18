@@ -2658,6 +2658,53 @@ fieldset:disabled .btn {
   background-color: #6c757d;
   border-color: #6c757d;
 }
+
+.btn-moderne-primary{
+  color: #fff;     
+  background-color: #5B3E8E;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+.btn-moderne-primary:hover{
+  color: #246A73;     
+  background-color: #F7EBE8;     
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.btn-moderne-secondary{
+  color:white;     
+  background-color: #5B3E8E;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+.btn-moderne-secondary:hover{
+  color: #F4F5F7;     
+  background-color: #392759;     
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.btn-moderne-terciary{
+  color: #F6F6F6;     
+  background-color: #7A869A;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+.btn-moderne-terciary:hover{
+  color: #F4F5F7;     
+  background-color: #69768C;     
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.btn-moderne-edit{
+  color: #F6F6F6;     
+  background-color: #FFC107;
+}
+.btn-moderne-edit:hover{
+  color: #F4F5F7;     
+  background-color: #F5B800;     
+}
+
+.div-primary{
+  background-color: #5B3E8E;
+}
+
 .btn-success {     
   color: #fff;     
   background-color: #198754;     
