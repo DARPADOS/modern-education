@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
 import pe.edu.upc.moderneducation.service.crud.DetailCourseStudentService;
@@ -20,9 +21,10 @@ public class DetailCourseStudentController{
     private DetailCourseStudentService detailService;
 
     @GetMapping("/suscribe/{id}")
-	public String registerStudentInCourse(@PathVariable("id") Integer id){
+	public String registerStudentInCourse(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes){
 		try{
-			detailService.registerStudentInCourse(8, id);
+			detailService.registerStudentInCourse(10, id);
+			redirectAttributes.addFlashAttribute("success", "You have successfully registered");
 			return "redirect:/student/course/"+ id;
 		}
 		catch (Exception e) {
@@ -35,7 +37,7 @@ public class DetailCourseStudentController{
 	public String addQualification(Model model, @PathVariable("id") Integer courseId,
 			@ModelAttribute("opinionNew") DetailCourseStudent detail) {
 		try {
-			detailService.addQualificationAndOpinion(8, courseId, detail);
+			detailService.addQualificationAndOpinion(10, courseId, detail);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());

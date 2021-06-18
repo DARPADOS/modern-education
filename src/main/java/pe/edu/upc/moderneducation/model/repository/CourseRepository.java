@@ -23,4 +23,18 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	@Query(value = "select * from course order by course_id desc limit 3", nativeQuery = true)
 	List<Course> getTopCourses();
+
+	@Query(value = "select c.* from course c " +
+		"join users u on c.teacher_id = u.user_id " +
+		"join detail_course_student dcs on c.course_id = dcs.course_id " +
+		"where (UPPER(c.name) like UPPER(CONCAT('%', ?1, '%')) or " +
+		"UPPER(u.first_name) like UPPER(CONCAT('%', ?1, '%')) or " +
+		"UPPER(u.last_name) like UPPER(CONCAT('%', ?1, '%'))) and " +
+		"c.published = 'true' and " +
+		"c.course_id != ALL (select c2.course_id from course c2 " +
+		"left join detail_course_student dcs2 on c2.course_id = dcs2.course_id "+
+		"where dcs2.student_id = ?2) " +
+		"group by c.course_id " +
+		"order by c.created_date desc", nativeQuery = true) 
+	List<Course> findByNameOrTeacherFirstNameOrTeacherLastName(String SearchTerm, Integer studentId);
 }

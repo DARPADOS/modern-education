@@ -22,9 +22,9 @@ public class SearchController {
     @GetMapping(value="results")
     public String searchCourse(Model model, @ModelAttribute("courseSearch") Course courseSearch) {
         try {   
-            List<Course> results = courseService.findByName(courseSearch.getName());
-            String word = "\"" + courseSearch.getName() + "\"";
-            model.addAttribute("word", word);
+            List<Course> results = courseService.findBySearchTerm(courseSearch.getName(), 10);
+            String Term = "\"" + courseSearch.getName() + "\"";
+            model.addAttribute("searchTerm", Term);
             if(results.size() > 0){
                 model.addAttribute("results", results);
                 return "search/result";
@@ -37,7 +37,7 @@ public class SearchController {
             e.printStackTrace();
 			System.err.println(e.getMessage());
         }
-        return "index";
+        return "redirect:/";
     }
     
 }

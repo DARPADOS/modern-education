@@ -30,7 +30,7 @@ public class StudentController {
     @GetMapping("courses")
     public String getMethodName(Model model) {
         try {
-            List<Course> courses = courseService.findByStudent(8);
+            List<Course> courses = courseService.findByStudent(10);
             model.addAttribute("myCourses", courses);
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,9 +46,9 @@ public class StudentController {
 
 			if(optional.isPresent()) {
                 DetailCourseStudent newDetail = new DetailCourseStudent();
-                boolean isRegisted = detailService.checkRegister(8, id);
+                boolean isRegisted = detailService.checkRegister(10, id);
                 if(isRegisted){
-                    boolean isQualified = detailService.checkQualified(8, id);
+                    boolean isQualified = detailService.checkQualified(10, id);
                     model.addAttribute("isQualified", isQualified);
                 }
 				model.addAttribute("course", optional.get());

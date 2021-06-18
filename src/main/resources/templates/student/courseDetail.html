@@ -9,6 +9,25 @@
 
     <!-- Button trigger modal -->
     <main class="container">
+
+        <!-- Success Alert 
+        <div th:if="${success}" class="alert alert-success d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+            <div th:text="${success}"></div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div> -->
+
+        <div th:if="${success}" class="position-fixed end-0 p-3" style="z-index: 5; top: 75px;">
+            <div class="toast alert-success align-items-center" style="background-color: #d1e7dd;"  role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body" style="font-size: 1.1em;">
+                        <i class="fas fa-check-circle"></i>
+                        <p th:text="' ' + ${success}" style="display: inline;"></p>
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
         <div class="row p-3 my-3 bg-purple rounded shadow-sm">
             <div class="col-7">
                 <!--NAV TAB-->
@@ -147,7 +166,7 @@
                         </div>
                         <div class="pt-2">
                             <a href="" class="card-text h5 mt-1"> <span class="badge bg-success"
-                                    th:text="${course.language}">Light</span></a>
+                                    th:text="${course.language}">LENGUAGE</span></a>
                         </div>
                         <p class="card-text pt-3 mb-0" style="font-size: 1.2rem;" th:text="${course.description}">
                             descripcino</p>
@@ -192,7 +211,7 @@
         </div>
     </main>
 
-    <<script>
+    <script>
         (function () {
             'use strict'
 
@@ -217,6 +236,15 @@
     <!-- FOOTER -->
     <div th:replace="fragments/footer :: footer"></div>
     <div th:replace="fragments/scripts :: links"></div>
+
+    <script>
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function(toastEl) {
+        // Creates an array of toasts (it only initializes them)
+          return new bootstrap.Toast(toastEl) // No need for options; use the default options
+        });
+        toastList.forEach(toast => toast.show());
+    </script>
 </body>
 
 </html>

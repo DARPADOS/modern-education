@@ -42,10 +42,4 @@ public class indexController {
 		}
         return "index";
     }
-
-    @GetMapping(value="/dash")
-    public String dash() {
-        return "fragments/dashboard1";
-    }
-
 }

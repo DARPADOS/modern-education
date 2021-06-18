@@ -6,7 +6,8 @@ import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 
 public interface CourseService extends CrudService<Course, Integer> {
-	List<Course> findByName(String name) throws Exception;
+	
+	List<Course> findBySearchTerm(String searchTerm, Integer studentId) throws Exception;
 	
 	List<Course> findByLanguage(String language) throws Exception;
 
