@@ -60,7 +60,6 @@ public class CourseController {
 		}
 		return "redirect:/courses";
 	}
-
 	@GetMapping("{id}/edit")
 	public String editCourse(Model model, @PathVariable("id") Integer id) {
 		try {
