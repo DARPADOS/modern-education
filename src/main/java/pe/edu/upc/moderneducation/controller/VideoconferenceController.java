@@ -1,6 +1,9 @@
 package pe.edu.upc.moderneducation.controller;
 
 import java.util.List;
+
+
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,82 +16,71 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.entity.Videoconference;
+import pe.edu.upc.moderneducation.service.crud.TeacherService;
 import pe.edu.upc.moderneducation.service.crud.VideoconferenceService;
 
 
-
 @Controller
-@RequestMapping("")
-@SessionAttributes("videoconferenceEdit")
+@RequestMapping("/videoconferences")
+
 public class VideoconferenceController {
 
 	@Autowired
 	private VideoconferenceService videoconferenceService ;
 	
+	@Autowired
+	private TeacherService teacherService;
+	
 	@GetMapping
 	public String listar(Model model) {
 		try {
+			Videoconference videoconference=new Videoconference();
+			model.addAttribute("videoconferenceNew", videoconference);
+			
 			List<Videoconference>videoconferences=videoconferenceService.getAll();
-			model.addAttribute("videoconferenceL", videoconferences);
+			model.addAttribute("videoconferences", videoconferences);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
-		return "";
+		return "videoconference/videoconferences";
 	}
-	@GetMapping("{id}/edit")		
-	public String findById2(Model model, @PathVariable("id") Integer id) {
+	@PostMapping("savenew")
+	public String saveNewVideoconference(Model model, @ModelAttribute("videoconferenceNew") Videoconference videoconference) {
+		try {
+			Teacher teacher=teacherService.findById(1).get();
+			videoconference.setTeacher(teacher);
+			
+			Videoconference videoconferenceReturn=videoconferenceService.create(videoconference);
+			model.addAttribute("videoconference", videoconferenceReturn);
+			return "redirect:/videoconferences";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "redirect:/videoconferences"; //url
+	}
+	@GetMapping("{id}")		// GET: /videoconferences/{id}
+	public String findById(Model model, @PathVariable("id") Integer id) {
 		try {
 			Optional<Videoconference> optional = videoconferenceService.findById(id);
 			if(optional.isPresent()) {
-				model.addAttribute("videoconferenceEdit", optional.get());
-				return "";
+				model.addAttribute("videoconference", optional.get());
+				return "videoconference/view";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
-		return "redirect:/"; //url
+		return "redirect:/videoconferences"; //url
 	}
-	@PostMapping("save")
-	public String saveEdit(Model model,@ModelAttribute("videoconferenceEdit") Videoconference videoconference) {
-		try {
-			Videoconference videoconferenceReturn=videoconferenceService.update(videoconference);
-			model.addAttribute("videoconference", videoconferenceReturn);
-			return "";
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-		return "redirect:/"; //url
-	}
-	@GetMapping("new")		
-	public String newItem(Model model) {
-		try {
-			Videoconference videoconferenceO=new Videoconference();
-			model.addAttribute("videoconferenceNew", videoconferenceO);
-			return "";
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-		return "redirect:/"; //url
-	}
-	@PostMapping("savenew")
-	public String saveNew(Model model,@ModelAttribute("videoconferenceNew") Videoconference videoconference) {
-		try {
-			Videoconference videoconferenceReturn=videoconferenceService.create(videoconference);
-			model.addAttribute("videoconference", videoconferenceReturn);
-			return "";
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-		return "redirect:/"; //url
-	}
+	
+
+	
 	
 }
