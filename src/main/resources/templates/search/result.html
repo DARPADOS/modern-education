@@ -16,7 +16,7 @@
                 </nav>
             </div>
             <div class="row">
-                <h2 th:text="${results.size} + ' results for ' + ${searchTerm}">Results</h5>
+                <h2 th:text="${results.size} + ' results for ' + '&quot' + ${searchTerm} + '&quot'">Results</h5>
             </div>
         </div>
         <div class="container p-3 my-3 bg-purple rounded shadow">
@@ -38,7 +38,7 @@
                                 </div>
                                 <small th:text="${course.chapter.size} + ' chapters'"class="text-muted">9 mins</small>
                             </div>
-                            <a th:href="@{'/student/course/' + ${course.id}}" class="stretched-link"></a>
+                            <a th:href="@{'/student/course/' + ${course.id} + '?origin=' + ${searchTerm}}" class="stretched-link"></a>
                         </div>
                     </div>
                 </div>
