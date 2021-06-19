@@ -2378,6 +2378,11 @@ textarea.form-control-lg {
   font-size: 0.875em;
   color: #198754;
 }
+.optional{
+  font-size: 0.875em;
+  text-align: end;
+  color: #246a73;
+}
 .valid-tooltip {
   position: absolute;
   top: 100%;
