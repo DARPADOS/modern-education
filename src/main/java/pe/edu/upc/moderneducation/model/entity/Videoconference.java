@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 @Entity
 @Table(name="Videoconference")
 @SequenceGenerator(name="Videoconference_videoconference_id_seq",initialValue=1,allocationSize = 1)
@@ -35,14 +38,21 @@ public class Videoconference {
 	
 	@Column(name="meet_link",length=100)
 	private String meetLink;
+
+	@Column(name="date")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(iso = ISO.DATE)
+	private Date date;
 	
-	@Column(name="date_start")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateStart;
-	
-	@Column(name="date_end")
-	@Temporal(TemporalType.TIMESTAMP)	
-	private Date dateEnd;
+	@Column(name="hora_start")
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern = "HH:mm:ss")
+	private Date hourStart;
+
+	@Column(name="hora_end")
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern = "HH:mm:ss")
+	private Date hourEnd;
 	
 	@ManyToOne
 	@JoinColumn(name="teacher_id",nullable=false)
@@ -57,15 +67,17 @@ public class Videoconference {
 		assistances=new ArrayList<Assistance>();
 	}
 
-	public Videoconference(Integer id, String name, String description, String meetLink, Date dateStart, Date dateEnd,
+	public Videoconference(Integer id, String name, String description, String meetLink, Date date, Date hourEnd,Date hourStart,
 			Teacher teacher, List<Assistance> assistances) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.meetLink = meetLink;
-		this.dateStart = dateStart;
-		this.dateEnd = dateEnd;
+		this.date = date;
+		this.hourEnd = hourEnd;
+		this.hourStart=hourStart;
+		//this.date = date;
 		this.teacher = teacher;
 		this.assistances = assistances;
 	}
@@ -94,29 +106,56 @@ public class Videoconference {
 		this.description = description;
 	}
 
+	/*public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}*/
+	
 	public String getMeetLink() {
 		return meetLink;
+	}
+
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Date getHourStart() {
+		return hourStart;
+	}
+
+	public void setHourStart(Date horaStart) {
+		this.hourStart = horaStart;
+	}
+
+	public Date getHourEnd() {
+		return hourEnd;
+	}
+
+	public void setHourEnd(Date horaEnd) {
+		this.hourEnd = horaEnd;
 	}
 
 	public void setMeetLink(String meetLink) {
 		this.meetLink = meetLink;
 	}
 
-	public Date getDateStart() {
-		return dateStart;
-	}
+	
 
-	public void setDateStart(Date dateStart) {
-		this.dateStart = dateStart;
-	}
+	//public Date getDateEnd() {
+	//	return dateEnd;
+	//}
 
-	public Date getDateEnd() {
-		return dateEnd;
-	}
-
-	public void setDateEnd(Date dateEnd) {
+	/*public void setDateEnd(Date dateEnd) {
 		this.dateEnd = dateEnd;
-	}
+	}*/
 
 	public Teacher getTeacher() {
 		return teacher;
