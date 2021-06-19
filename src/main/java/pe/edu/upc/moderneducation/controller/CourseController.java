@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.TeacherService;
@@ -106,10 +107,10 @@ public class CourseController {
 				if(isOwner){
 					Chapter chapter=new Chapter();
 					Video video=new Video();
-					Resource resource=new Resource();
+					//Resource resource=new Resource();
 					model.addAttribute("videoNew", video);
 					model.addAttribute("chapterNew", chapter);
-					model.addAttribute("resourceNew", resource);
+					//model.addAttribute("resourceNew", resource);
 					model.addAttribute("course", optional.get());
 					return "course/view";
 				}else{
@@ -137,9 +138,13 @@ public class CourseController {
 	}
 
 	@GetMapping("/published/{id}")
-	public String publishById(@PathVariable("id") Integer id){
+	public String publishById(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes){
 		try{
-			courseService.changePublishedStatus(id);
+			String message="";
+			boolean isPublished=courseService.changePublishedStatus(id);
+			if(!isPublished){ message="The course has been withdrawn";}
+			else{message="The course has been published successfully";}
+			redirectAttributes.addFlashAttribute("published", message);
 			return "redirect:/courses/"+ id;
 		}
 		catch (Exception e) {

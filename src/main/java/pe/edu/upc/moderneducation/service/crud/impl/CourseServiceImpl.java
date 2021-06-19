@@ -49,10 +49,11 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public Course changePublishedStatus(Integer id) throws Exception {
+	public boolean changePublishedStatus(Integer id) throws Exception {
 		Course getCourse=courseRepository.findById(id).get();
 		getCourse.setPublished(!getCourse.isPublished());
-		return courseRepository.save(getCourse);
+		courseRepository.save(getCourse);
+		return getCourse.isPublished();
 	}
 
 	@Override

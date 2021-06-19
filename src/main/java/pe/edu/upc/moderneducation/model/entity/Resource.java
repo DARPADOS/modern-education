@@ -6,34 +6,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Resource")
-
-@SequenceGenerator(name="Resource_resource_id_seq",initialValue=1,allocationSize = 1)
-
+//@SequenceGenerator(name="Resource_resource_id_seq",initialValue=1,allocationSize = 1)
 public class Resource {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Resource_resource_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "resource_id")
 	private Integer id;
 	
-	@Column(name = "name", length = 100, nullable = false)
+	@Column(name = "name", length = 100, nullable = true)
 	private String name;
 	
-	@Column(name = "type", length = 10, nullable = false)
+	@Column(name = "type", length = 50, nullable = true)
 	private String type;
 	
 	@Column(name = "link", length = 100, nullable = true)
 	private String link;
-	
+
+	@Column(name="file")
+	private byte[] files;
+
 	@ManyToOne
 	@JoinColumn(name = "course_id", nullable = true)
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -91,6 +93,15 @@ public class Resource {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	@Lob
+	public byte[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(byte[] files) {
+		this.files = files;
 	}
 
 	@Override
