@@ -1,4 +1,4 @@
-<nav th:fragment = "navbar" class="shadow navbar navbar-expand-lg navbar-dark bg-light bg-dark">
+<nav th:fragment = "navbar" class="shadow navbar navbar-expand-lg navbar-dark bg-dark div-primary">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
             <img th:src="@{/img/logo-svg.svg}" alt="" width="40" class="" />
@@ -10,43 +10,43 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="container-fluid">
-                <form th:action="@{/search/results}" class="d-md-flex" th:object="${courseSearch}" method="get">
-                    <input class="form-control me-2" type="search" th:field="*{name}" placeholder="Find your courses" aria-label="Search">
+                <form th:action="@{/search/results}" class="d-md-flex needs-validation" th:object="${courseSearch}" method="get" novalidate>
+                    <input class="form-control me-2" type="search" th:field="*{name}" placeholder="Find your courses" aria-label="Search" required>
                     <button class="btn btn-successSearch" type="submit">Search</button>
                 </form>
             </div>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li class="nav-item mx-1">
                     <a class="nav-link active" aria-current="page" th:href="@{/}">
                         Home
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mx-1">
                     <a class="nav-link active" aria-current="page" th:href="@{/courses}">
                         Courses
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mx-1">
                     <a class="nav-link active" aria-current="page" th:href="@{/student/courses}">
                         My Courses
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mx-1">
                     <a class="nav-link active" aria-current="page" href="#">
                         Videoconference
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mx-1">
                     <a class="nav-link active" aria-current="page" href="#">
                         Teach
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mx-1">
                     <a class="nav-link active" aria-current="page" href="#">
                         Learn
                     </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown mx-1">
                     <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         join
@@ -61,7 +61,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown mx-1">
                     <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Profile

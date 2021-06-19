@@ -2,7 +2,9 @@ package pe.edu.upc.moderneducation.model.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -74,23 +76,50 @@ public class Course {
 
 	@Transient
 	private float averageQualification;
-	
+
+	@Transient
+	private int reviewsCount;
+
+	@Transient
+	private int filledStars;
+
+	@Transient
+	private int emptyStars;
+
+	@Transient
+	private List<Integer> countRating;
+
+	public List<Integer> getCountRating() {
+		return countRating;
+	}
+
+	public void setCountRating(List<Integer> countRating) {
+		this.countRating = countRating;
+	}
+
 	@PostLoad
 	private void chargeAverageQualification(){
 		float sum = 0;
-		int count = 0;
+		reviewsCount = 0;
+
 		for (DetailCourseStudent detail : detailCourseStudent) {
-			if(detail.getQualification() != null){
+			if(detail.getQualification() != null && detail.getQualification() <=5){
 				sum = sum + detail.getQualification();
-				count++;
+				reviewsCount++;
 			}
 		}
 
-		if(count !=0){
-			averageQualification = sum/count;
+		if(reviewsCount !=0){
+			averageQualification = sum/reviewsCount;
+			averageQualification = Math.round(averageQualification*10);
+			averageQualification = averageQualification/10;
 		}
 		else
 			averageQualification = 0;
+
+		// For count stars of average rating
+		filledStars = (int) Math.floor(averageQualification);
+		emptyStars = (int) Math.floor(5-averageQualification);
 	}
 
 	public Course(Integer id, boolean published, Teacher teacher, String name, String language, String description,
@@ -106,6 +135,30 @@ public class Course {
 		this.chapter = chapter;
 		this.resource = resource;
 		this.detailCourseStudent=detailCourseStudent;
+	}
+		
+	public int getReviewsCount() {
+		return reviewsCount;
+	}
+
+	public void setReviewsCount(int reviewsCount) {
+		this.reviewsCount = reviewsCount;
+	}
+
+	public int getFilledStars() {
+		return filledStars;
+	}
+
+	public void setFilledStars(int filledStars) {
+		this.filledStars = filledStars;
+	}
+
+	public int getEmptyStars() {
+		return emptyStars;
+	}
+
+	public void setEmptyStars(int emptyStars) {
+		this.emptyStars = emptyStars;
 	}
 
 	public float getAverageQualification() {

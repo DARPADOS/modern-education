@@ -3677,6 +3677,7 @@ fieldset:disabled .btn {
   list-style: none;
 }
 .nav-link {
+  white-space: nowrap !important;
   display: block;
   padding: 0.5rem 1rem;
   text-decoration: none;

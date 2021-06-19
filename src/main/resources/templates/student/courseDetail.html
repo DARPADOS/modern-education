@@ -3,20 +3,14 @@
 
 <div th:replace="fragments/head :: head(${course.name})"></div>
 
-<body>
+<body style="background-color:#F8F9FA;">
     <!--navbar-->
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <!-- Button trigger modal -->
     <main class="container">
 
-        <!-- Success Alert 
-        <div th:if="${success}" class="alert alert-success d-flex align-items-center" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-            <div th:text="${success}"></div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div> -->
-
+        <!-- SUCCESS ALERT-->
         <div th:if="${success}" class="position-fixed end-0 p-3" style="z-index: 5; top: 75px;">
             <div class="toast alert-success align-items-center" style="background-color: #d1e7dd;"  role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
@@ -28,7 +22,16 @@
                 </div>
             </div>
         </div>
-        <div class="row p-3 my-3 bg-purple rounded shadow-sm">
+        <div class="row p-3 my-3 bg-purple rounded shadow-sm" style="background-color:#fff;">
+            <div class="row">
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> <a th:href="@{/courses}">My courses</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" th:text="${course.name}"></li>
+                    </ol>
+                </nav>
+            </div>
             <div class="col-7">
                 <!--NAV TAB-->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -42,12 +45,12 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
-                            type="button" role="tab" aria-controls="contact" aria-selected="false">Opinions</button>
+                            type="button" role="tab" aria-controls="contact" aria-selected="false">Reviews</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
+                    <!--ACORDION CAPITULOS-->
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <!--ACORDION CAPITULOS-->
                         <div class="accordion" id="accordionExample">
                             <div th:each="chapter:${course.chapter}" class="accordion-item">
                                 <h2 th:attr="id='heading'+${chapterStat.index}" class="accordion-header">
@@ -120,33 +123,51 @@
                                         </div>
                                     </div> -->
 
-                    <!--ACORDION ALUMNOS-->
+                    <!--ACORDION REVIEWS-->
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        <div class="card mt-3" th:each="register:${course.detailCourseStudent}">
+                        <div class="row mt-3 ps-3">
+                            <div class="col-2"> <!-- RATING AVERAGE -->
+                                <div class="row text-center">
+                                    <h1 class="m-0" th:text="${course.averageQualification}" style="display: inline; color: orange; font-size: 4rem;"></h1>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col">
+                                        <span class="fa fa-star checked" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
+                                    </div>
+                                </div>
+                                <div class="row text-center">
+                                    <p class="m-0" style="font-size: 1.1rem;" th:text="${course.reviewsCount} + ' reviews'"></p>
+                                </div>
+                            </div>
+                            <div class="col-10"> <!-- RATING PROGRESS BAR -->
+                                <div class="row" th:each="rate: ${course.countRating}">
+                                    <div class="col-8 pt-1">
+                                        <div class="progress my-1" style="height: 12px;">
+                                            <div class="progress-bar bg-warning" th:style="'width: ' + ${rate} + '%;'" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="fa fa-star checked" th:each="star:${#numbers.sequence(1, 5 - rateStat.index)}"></span><span class="far fa-star checked" th:if="${rateStat.index} > 0" th:each="star:${#numbers.sequence(1, rateStat.index)}"></span>
+                                        <span class="align-top" th:text="${rate} + '%'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="card mt-3" th:each="register:${course.detailCourseStudent}" th:if="${register.qualification != null}">
                             <div class="row">
                                 <div class="col-3 pe-0 text-center"> <i class="fas fa-user-circle py-3"
                                         style="font-size: 100px"></i> </div>
                                 <div class="col-9 ps-0">
                                     <div class="card-body ps-0">
                                         <h5 class="card-title"
-                                            th:text="${register.student.user.firstName + ' ' + register.student.user.lastName}">
-                                            Special title treatment</h5>
-                                        <p class="card-text" th:text="${register.opinion}" v>With supporting text below
-                                            as a natural lead-in to additional content.</p>
-                                        <div class="row" style="font-size: 1.5em;">
+                                            th:text="${register.student.user.firstName + ' ' + register.student.user.lastName}">STUDENT NAME</h5>
+                                        <div th:if="${register.qualification} <= 5" class="row mb-2" style="font-size: 1.2em;">
                                             <div class="col">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star-half-alt checked"></span>
-                                                <span class="far fa-star checked"></span>
+                                                <span class="fa fa-star checked" th:each="star:${#numbers.sequence(1, register.qualification)}"></span><span class="far fa-star checked" th:if="${register.qualification} != 5" th:each="star:${#numbers.sequence(1, 5-register.qualification)}"></span>
                                             </div>
-                                            <div class="col">
-                                                <!--<p th:text="${register.qualification}"></p> -->
-                                            </div>
-
                                         </div>
-
+                                        <p class="card-text" th:text="${register.opinion}" >REVIEW</p>
                                     </div>
                                 </div>
                             </div>
@@ -159,24 +180,26 @@
                 <div class="card ">
                     <img th:src="@{/img/curso.jpg}" class="card-img-top">
                     <div class="card-body pb-1">
-                        <h4 class="card-title" th:text="${course.name}"></h4>
+                        <h4 class="card-title" th:text="${course.name}">COURSE NAME</h4>
                         <div>
                             <a href="" class="card-text h5 link-secondary" style="text-decoration: none ; "
-                                th:text="${course.teacher.user.firstName}">teacher name</a>
+                                th:text="${course.teacher.user.firstName}">TEACHER NAME</a>
                         </div>
                         <div class="pt-2">
                             <a href="" class="card-text h5 mt-1"> <span class="badge bg-success"
                                     th:text="${course.language}">LENGUAGE</span></a>
                         </div>
-                        <p class="card-text pt-3 mb-0" style="font-size: 1.2rem;" th:text="${course.description}">
-                            descripcino</p>
-                        <div class="my-1" style="font-size: 1.5rem;">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star-half-alt checked"></span>
-                            <span class="far fa-star checked"></span>
+                        <p class="card-text pt-3 mb-0" style="font-size: 1.2rem;" th:text="${course.description}">DESCRIPTION</p>
+                        <!-- RATING -->
+                        <div class="row mt-1">
+                            <div class="col">
+                                <span class="p-0 h4 align-middle" th:text="${course.averageQualification} + ' '" style="display: inline; color: orange;"></span><span class="fa fa-star checked align-middle" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked align-middle" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked align-middle" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
+                            </div>
+                            <div class="col text-end text-muted fs-5">
+                                <p th:text="${course.detailCourseStudent.size} + ' students'">STUNDENTS COUNT</p>
+                            </div>
                         </div>
+
                     </div>
                     <div th:if="${!isRegisted}" class="d-grid m-2">
                         <a th:href="@{/detail-course-student/suscribe/{courseid}(courseid=${course.id})}"
@@ -210,28 +233,6 @@
             </div>
         </div>
     </main>
-
-    <script>
-        (function () {
-            'use strict'
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.querySelectorAll('.needs-validation')
-
-            // Loop over them and prevent submission
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-                })
-        })()
-    </script>
 
     <!-- FOOTER -->
     <div th:replace="fragments/footer :: footer"></div>
