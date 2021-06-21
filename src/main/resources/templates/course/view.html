@@ -266,7 +266,7 @@
                         <tr th:each="resource:${course.resource}">
                             <td th:text="${resource.name}"></td>
                             <td style="width:50px"> <a data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteResource' + ${resourceStat.index}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
-                            <td style="width:50px"> <a href="#" class="btn btn-success1"> <i class="fas fa-download"></i> </a></td>
+                            <td style="width:50px"> <a th:href="@{/resources/downloadFile/{idresource}(idresource=${resource.id})}" class="btn btn-success1"> <i class="fas fa-download"></i> </a></td>
                             <!--CONFIRMACIÓN DE ELIMINACIÓN RECURSO-->
                             <!-- Modal -->
                             <div class="modal fade" th:attr="id='ConfirmDeleteResource' + ${resourceStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteResourceLabel" aria-hidden="true">
@@ -336,13 +336,13 @@
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" th:field="*{name}" placeholder="Name of course" required>
+                                        <input maxlength="100" type="text" class="form-control" th:field="*{name}" placeholder="Name of course" required>
                             
                                         <label for="language" class="form-label">Language</label>
-                                        <input type="text" class="form-control" th:field="*{language}" placeholder="Course language" required>
+                                        <input maxlength="20" type="text" class="form-control" th:field="*{language}" placeholder="Course language" required>
                                         
                                         <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea3" rows="3" th:field="*{description}" placeholder="Describe the course"></textarea>
+                                        <textarea maxlength="500" class="form-control" id="exampleFormControlTextarea3" rows="3" th:field="*{description}" placeholder="Describe the course"></textarea>
                                         <div class="optional">(optional)</div>
                                     </div>
                                 </div>

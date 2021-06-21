@@ -49,9 +49,9 @@ public class ResourceServiceImpl implements ResourceService{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        String link=fileName+"."+extension;
         Resource resource= new Resource();
-        //resource.setFiles(file.getBytes());
+        resource.setLink(link);
         resource.setName("Resource: " + fileName);
         resource.setType(file.getContentType());
 

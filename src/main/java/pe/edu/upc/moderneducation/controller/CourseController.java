@@ -51,12 +51,17 @@ public class CourseController {
 	}
 
     @PostMapping("savenew")	// GET: /regions/savenew
-	public String saveNewCourse(Model model, @ModelAttribute("courseNew") Course course) {
+	public String saveNewCourse(Model model, @ModelAttribute("courseNew") Course course, RedirectAttributes redirectAttributes) {
 		try {
+			String limitName=new String();
 			Teacher teacher=teacherService.findById(1).get();
 			course.setTeacher(teacher);
 			Course courseReturn = courseService.create(course);
 			model.addAttribute("course", courseReturn);
+			if(course.getName().length()>5){
+				limitName="limit name pa";
+			}
+			redirectAttributes.addFlashAttribute("limitName", limitName);
 			return "redirect:/courses"; // Archivo Html
 		} catch (Exception e) {
 			e.printStackTrace();
