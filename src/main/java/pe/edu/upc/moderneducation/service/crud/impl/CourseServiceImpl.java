@@ -108,4 +108,10 @@ public class CourseServiceImpl implements CourseService {
 
 		return countRating;
 	}
+
+	@Override
+	public List<Course> findByLanguageIdAndTeacher(Integer languageId, Teacher teacher) throws Exception {
+		return courseRepository.findByLanguageIdAndTeacher(languageId, teacher);
+	}
+
 }

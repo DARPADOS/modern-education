@@ -37,4 +37,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 		"group by c.course_id " +
 		"order by c.created_date desc", nativeQuery = true) 
 	List<Course> findByNameOrTeacherFirstNameOrTeacherLastName(String SearchTerm, Integer studentId);
+
+	List<Course> findByLanguageIdAndTeacher(Integer languageId, Teacher teacher);
 }

@@ -337,9 +337,11 @@
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
                                         <input maxlength="100" type="text" class="form-control" th:field="*{name}" placeholder="Name of course" required>
-                            
+
                                         <label for="language" class="form-label">Language</label>
-                                        <input maxlength="20" type="text" class="form-control" th:field="*{language}" placeholder="Course language" required>
+                                        <select class="form-select" aria-label="Default select example" th:field="*{language}">
+                                          <option th:each="lang:${languages}" th:value="${lang.id}" th:text="${lang.name}"></option>
+                                        </select>
                                         
                                         <label for="description" class="form-label">Description</label>
                                         <textarea maxlength="500" class="form-control" id="exampleFormControlTextarea3" rows="3" th:field="*{description}" placeholder="Describe the course"></textarea>
@@ -382,7 +384,7 @@
                       <h5 class="card-title" th:text="${course.name}"></h5>
                       <h6 class="card-text" th:text="${course.teacher.user.firstName}">teacher name</h6>
                       <h6 class="card-text" th:text="${course.teacher.id}">teacher id</h6>
-                      <p class="card-text" th:text="${course.language}">language</p>
+                      <p class="card-text" th:text="${course.language.name}">language</p>
                       <p class="card-text" th:text="${course.description}">descripcino</p>
                       <div>
                         <a class="btn btn-moderne-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-edit"></i></a>
