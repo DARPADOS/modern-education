@@ -25,7 +25,7 @@
 					  <h5 class="modal-title" id="staticBackdropLabel">New Course</h5>
 					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<form  class="needs-validation" novalidate th:action="@{/courses/savenew}" th:object="${courseNew}" method="post">
+					<form  class="needs-validation" novalidate th:action="@{/courses/savenew}" th:object="${courseNew}" enctype="multipart/form-data" method="post">
 						<div class="modal-body">
 							<div class="mb-3">
 								<label for="name" class="form-label">Name</label>
@@ -44,6 +44,11 @@
 								<label for="description" class="form-label">Description</label>
 								<textarea maxlength="500" class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}" placeholder="Describe the course"></textarea>
 								<div class="optional">(optional)</div>
+
+								<div class="mb-3">
+									<label for="formFileSm" class="form-label">Upload the course image</label>
+									<input class="form-control form-control-sm" id="formFileSm" type="file" name="imgResource" accept="image/jpeg, image/png">
+								</div>
 
 							</div>
 						</div>
@@ -83,14 +88,16 @@
 			<div class="row row-cols-4 g-3">
 				<div th:each="course:${courses}" class="col">
 					<div class="card shadow-sm bg-body rounded">
-					<img src="/img/curso.jpg" width="100%" class="card-img-top" alt=""/>
+					<img th:src="@{${'/img/courses/'+ course.mineture_image}}" height="200px" width="100%" class="card-img-top" alt=""/>
 					<div class="card-body">
 						<h5 class="card-title" th:text="${course.name}"></h5>
 						<h6 class="card-subtitle mb-2 text-muted" th:text="${course.teacher.user.firstName} + ' '+ ${course.teacher.user.lastName}"></h6>
 						<span class="badge bg-success" th:text="${course.language.name}">LENGUAGE</span>
 						<p class="card-text text-truncate" th:text="${course.description}"></p>
 						<div class="d-flex justify-content-between align-items-center">
-							<small th:text="'Rate ' + ${course.averageQualification}"></small>
+							<div class="col" >
+								<span class="p-0 h5 align-middle" th:text="${course.averageQualification} + ' '" style="display: inline; color: orange;"></span><span class="fa fa-star checked align-middle" th:if="${course.filledStars} > 0" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked align-middle" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked align-middle" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
+							</div>
 							<small th:text="${course.chapter.size} + ' chapters'"class="text-muted">9 mins</small>
 						</div>
 						<a th:href="@{'/courses/' + ${course.id}}" class="stretched-link"></a>

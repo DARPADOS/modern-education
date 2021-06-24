@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pe.edu.upc.moderneducation.service.crud.CourseService;
@@ -66,12 +67,13 @@ public class CourseController {
 	}
 
     @PostMapping("savenew")	// GET: /regions/savenew
-	public String saveNewCourse(Model model, @ModelAttribute("courseNew") Course course, RedirectAttributes redirectAttributes) {
+	public String saveNewCourse(Model model, @ModelAttribute("courseNew") Course course, 
+	RedirectAttributes redirectAttributes, @RequestParam("imgResource") MultipartFile img) {
 		try {
 			String limitName=new String();
 			Teacher teacher=teacherService.findById(3).get();
 			course.setTeacher(teacher);
-			Course courseReturn = courseService.create(course);
+			Course courseReturn = courseService.uploadImage(course, img);
 			model.addAttribute("course", courseReturn);
 			if(course.getName().length()>5){
 				limitName="limit name pa";

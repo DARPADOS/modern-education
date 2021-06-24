@@ -44,6 +44,7 @@ public class ResourceController {
 		RedirectAttributes redirectAttr,
 		@PathVariable("idcourse") Integer idcourse) {
 		try {
+			System.out.println("ARCHIVO:"+fileName);
 			resourceService.saveResourceByCourseId(idcourse, docs, fileName);
 			redirectAttr.addFlashAttribute("uploadMessage", "You successfully uploaded ");
 			return "redirect:/courses/"+idcourse; 
@@ -79,8 +80,6 @@ public class ResourceController {
 		Resource resource=resourceService.findById(idresource).get();
 
 		MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext, resource.getLink());
-        System.out.println("fileName: " + resource.getName());
-        System.out.println("mediaType: " + mediaType);
 
 		File file=new File(ResourceServiceImpl.uploadDirectory+"/"+resource.getLink());
         InputStreamResource streamResource = new InputStreamResource(new FileInputStream(file));

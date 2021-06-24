@@ -1,5 +1,9 @@
 package pe.edu.upc.moderneducation.service.crud.impl;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +11,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
@@ -17,6 +22,8 @@ import pe.edu.upc.moderneducation.service.crud.CourseService;
 
 @Service
 public class CourseServiceImpl implements CourseService {
+
+	public static String courseImgDirectory=System.getProperty("user.dir")+"/src/main/resources/static/img/courses";
 
 	@Autowired
 	private CourseRepository courseRepository;
@@ -46,7 +53,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public Course create(Course entity) throws Exception {
-		entity.setMineture_image("waifu.png");
+		//entity.setMineture_image("waifu.png");
 		entity.setPublished(false);
 		return CourseService.super.create(entity);
 	}
@@ -112,6 +119,19 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public List<Course> findByLanguageIdAndTeacher(Integer languageId, Teacher teacher) throws Exception {
 		return courseRepository.findByLanguageIdAndTeacher(languageId, teacher);
+	}
+
+	@Override
+	public Course uploadImage(Course course, MultipartFile courseImage) throws Exception {
+		String originalName=courseImage.getOriginalFilename();
+		Path fileNameAndPath=Paths.get(courseImgDirectory,originalName);
+        try {
+            Files.write(fileNameAndPath, courseImage.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		course.setMineture_image(originalName);
+		return create(course);
 	}
 
 }
