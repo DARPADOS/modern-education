@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <div th:replace="fragments/head :: head('My Courses')"></div>
 
 <body style="background-color:#F8F9FA;">
@@ -19,10 +20,12 @@
 				<h2 style="color: white;">My Courses </h2>
 			</div>
         </div>
-        <div class="container p-3 my-3 mb-5 bg-purple rounded shadow" style="background-color:#fff;">
-            <div class="row row-cols-4 px-4 g-3 mt-1">
+
+        <div class="container p-3 my-3 mb-5 bg-purple rounded shadow" style="background-color:#fff; min-height: 500px;">
+            <!-- SI HAY CURSOS INSCRITOS -->
+            <div th:if="${myCourses.size() > 0}" class="row row-cols-4 px-4 g-3 mt-1">
                 <div th:each="course:${myCourses}" class="col">
-                    <div class="card shadow-sm">
+                    <div class="card card-transform shadow-sm">
                         <img th:src="@{/img/curso.jpg}" class="bd-placeholder-img card-img-top" width="100%" />
                         <div class="card-body">
                             <h5 class="card-title" th:text="${course.name}"></h5>
@@ -42,7 +45,20 @@
                     </div>
                 </div>
             </div>
+
+            <!-- SI NO HAY CURSOS INSCRITOS -->
+            <div class="row h-100 align-items-center" style="min-height: 500px;">
+                <div class="col text-center my-auto">
+                    <h2>You have not subscribed to any course.
+                        <br>Please use the search engine to navigate the courses</h2>
+                </div>
+            </div>
         </div>
+
+
+
+
+
     </main>
 
 

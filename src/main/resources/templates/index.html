@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <div th:replace="fragments/head :: head('Home')"></div>
 
@@ -17,7 +18,16 @@
                     CAN YOU PROGRAM IT</h1>
             </div>
         </div>
-
+        <div sec:authorize="isAuthenticated()">
+        This content is only shown to authenticated users.
+        <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+        </div>
+        <div sec:authorize="hasAuthority('ROLE_STUDENT')">
+        This content is only shown to students.
+        </div>
+        <div sec:authorize="hasAuthority('ROLE_TEACHER')">
+        This content is only shown to teachers.
+        </div>
         <div class="container p-3 my-3 bg-purple rounded shadow">
             <!-- CARUSEL -->
             <div class="row">

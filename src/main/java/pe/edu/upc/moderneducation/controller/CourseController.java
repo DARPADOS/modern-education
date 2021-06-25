@@ -3,6 +3,7 @@ package pe.edu.upc.moderneducation.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,6 @@ import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.TeacherService;
 import pe.edu.upc.moderneducation.model.entity.Chapter;
 import pe.edu.upc.moderneducation.model.entity.Course;
-import pe.edu.upc.moderneducation.model.entity.Resource;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.entity.Video;
 
@@ -35,19 +35,20 @@ public class CourseController {
 	private TeacherService teacherService;
 
     @GetMapping
-	public String listCourses( Model model ) {
+	public String listCourses( Model model,HttpSession session ) {
 		try {
 			Teacher teacher=teacherService.findById(3).get();
 			Course course = new Course();
 			model.addAttribute("courseNew", course);
 			List<Course> courses = courseService.findByTeacher(teacher);
 			model.addAttribute("courses", courses);
+			return "course/courses";
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
 		
-		return "course/courses";
+		return "redirect:/";
 	}
 
     @PostMapping("savenew")	// GET: /regions/savenew
