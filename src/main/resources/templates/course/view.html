@@ -87,11 +87,13 @@
                       <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" name="fileName" placeholder="Name of resource">
+                        <div class="optional">(optional)</div>
 
                         <div class="mb-3">
                           <label for="formFileSm" class="form-label">Small file input example</label>
-                          <input class="form-control form-control-sm" id="formFileSm" type="file" name="file">
+                          <input class="form-control form-control-sm" id="formFileSm" type="file" name="file" accept="application/pdf, application/octet-stream">
                         </div>
+
                       </div>
                     </div>
                     <div class="modal-footer">
@@ -227,7 +229,7 @@
                             <h5 class="modal-title" id="NewVideoLabel">New Video</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-                            <form class="needs-validation" novalidate th:action="@{/videos/savenew/{courseid}/{chapterid}(courseid=${course.id},chapterid=${chapter.id})}" th:object="${videoNew}" method="post">
+                            <form class="needs-validation" novalidate th:action="@{/videos/savenew/{courseid}/{chapterid}(courseid=${course.id},chapterid=${chapter.id})}" th:object="${videoNew}" enctype="multipart/form-data" method="post">
                               <div class="modal-body">
                                 <div class="mb-3">
                                   <label for="name" class="form-label">Name</label>
@@ -236,13 +238,15 @@
                                     Please enter a name.
                                   </div>
 
-                                  <label for="link" class="form-label">Link</label>
-                                  <input type="text" class="form-control" th:field="*{link}" placeholder="Link" required>
-
                                   <label for="description" class="form-label">Description</label>
                                   <textarea class="form-control" id="exampleFormControlTextarea3" rows="3" th:field="*{description}" placeholder="Describe the video"></textarea>
                                   <div class="optional">
                                     (optional)
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label for="formFileSm" class="form-label">Small file input example</label>
+                                    <input class="form-control form-control-sm" id="formFileSm" type="file" name="videoResource">
                                   </div>
 
                                 </div>
@@ -266,7 +270,7 @@
                         <tr th:each="resource:${course.resource}">
                             <td th:text="${resource.name}"></td>
                             <td style="width:50px"> <a data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteResource' + ${resourceStat.index}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
-                            <td style="width:50px"> <a href="#" class="btn btn-success1"> <i class="fas fa-download"></i> </a></td>
+                            <td style="width:50px"> <a th:href="@{/resources/downloadFile/{idresource}(idresource=${resource.id})}" class="btn btn-success1"> <i class="fas fa-download"></i> </a></td>
                             <!--CONFIRMACIÓN DE ELIMINACIÓN RECURSO-->
                             <!-- Modal -->
                             <div class="modal fade" th:attr="id='ConfirmDeleteResource' + ${resourceStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteResourceLabel" aria-hidden="true">
@@ -336,13 +340,15 @@
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" th:field="*{name}" placeholder="Name of course" required>
-                            
+                                        <input maxlength="100" type="text" class="form-control" th:field="*{name}" placeholder="Name of course" required>
+
                                         <label for="language" class="form-label">Language</label>
-                                        <input type="text" class="form-control" th:field="*{language}" placeholder="Course language" required>
+                                        <select class="form-select" aria-label="Default select example" th:field="*{language}">
+                                          <option th:each="lang:${languages}" th:value="${lang.id}" th:text="${lang.name}"></option>
+                                        </select>
                                         
                                         <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea3" rows="3" th:field="*{description}" placeholder="Describe the course"></textarea>
+                                        <textarea maxlength="500" class="form-control" id="exampleFormControlTextarea3" rows="3" th:field="*{description}" placeholder="Describe the course"></textarea>
                                         <div class="optional">(optional)</div>
                                     </div>
                                 </div>
@@ -380,10 +386,12 @@
                     <img th:src="@{/img/curso.jpg}" class="card-img-top mt-1">
                     <div class="card-body">
                       <h5 class="card-title" th:text="${course.name}"></h5>
-                      <h6 class="card-text" th:text="${course.teacher.user.firstName}">teacher name</h6>
-                      <h6 class="card-text" th:text="${course.teacher.id}">teacher id</h6>
-                      <p class="card-text" th:text="${course.language}">language</p>
-                      <p class="card-text" th:text="${course.description}">descripcino</p>
+                      <h6 class="card-text" th:text="${course.teacher.user.firstName} + ' ' + ${course.teacher.user.lastName}">teacher name</h6>
+                      <span class="badge bg-success" th:text="${course.language.name}"></span>
+                      <p class="card-text mb-1" th:text="${course.description}"></p>
+                      <div class="col mb-2" >
+                        <span class="p-0 h5 align-middle" th:text="${course.averageQualification} + ' '" style="display: inline; color: orange;"></span><span class="fa fa-star checked align-middle" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked align-middle" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked align-middle" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
+                      </div>
                       <div>
                         <a class="btn btn-moderne-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-edit"></i></a>
                         <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteCourse"> <i class="fas fa-trash-alt"></i> </a>

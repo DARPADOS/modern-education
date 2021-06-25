@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import pe.edu.upc.moderneducation.model.entity.Chapter;
 import pe.edu.upc.moderneducation.model.entity.Video;
@@ -46,9 +48,10 @@ public class VideoController {
 	@PostMapping("savenew/{courseid}/{chapterid}")
 	public String saveNewVideo(@ModelAttribute("videoNew") Video video, 
 	@PathVariable("courseid") Integer courseid,
-	@PathVariable("chapterid") Integer chapterid) {
+	@PathVariable("chapterid") Integer chapterid,
+	@RequestParam("videoResource") MultipartFile videoResource) {
 		try {
-			videoService.newVideoByChapterId(chapterid, video);
+			videoService.newVideoByChapterId(chapterid, video,videoResource);
 			return "redirect:/courses/"+courseid;
 		} catch (Exception e) {
 			e.printStackTrace();

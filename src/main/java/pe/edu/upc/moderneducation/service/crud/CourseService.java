@@ -2,6 +2,8 @@ package pe.edu.upc.moderneducation.service.crud;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 
@@ -20,4 +22,8 @@ public interface CourseService extends CrudService<Course, Integer> {
 	boolean changePublishedStatus(Integer id) throws Exception;
 
 	Boolean isOwner(Integer idteacher, Integer idcourse);
+
+	List<Course> findByLanguageIdAndTeacher(Integer languageId, Teacher teacher) throws Exception;
+
+	Course uploadImage(Course course, MultipartFile courseImage) throws Exception;
 }

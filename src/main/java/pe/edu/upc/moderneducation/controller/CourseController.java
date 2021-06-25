@@ -1,5 +1,6 @@
 package pe.edu.upc.moderneducation.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,13 +14,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pe.edu.upc.moderneducation.service.crud.CourseService;
+import pe.edu.upc.moderneducation.service.crud.LanguageService;
 import pe.edu.upc.moderneducation.service.crud.TeacherService;
 import pe.edu.upc.moderneducation.model.entity.Chapter;
 import pe.edu.upc.moderneducation.model.entity.Course;
+import pe.edu.upc.moderneducation.model.entity.Language;
+import pe.edu.upc.moderneducation.model.entity.Resource;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.entity.Video;
 
@@ -34,13 +40,24 @@ public class CourseController {
 	@Autowired
 	private TeacherService teacherService;
 
+	@Autowired
+	private LanguageService languageService;
+
     @GetMapping
-	public String listCourses( Model model,HttpSession session ) {
+	public String listCourses( Model model, @RequestParam(name="languageId",required=false) Integer languageId) {
 		try {
+			List<Course> courses=new ArrayList<Course>();
 			Teacher teacher=teacherService.findById(3).get();
+			if(languageId!=null){
+				courses = courseService.findByLanguageIdAndTeacher(languageId, teacher);
+			}
+			else{
+				courses = courseService.findByTeacher(teacher);
+			}
 			Course course = new Course();
 			model.addAttribute("courseNew", course);
-			List<Course> courses = courseService.findByTeacher(teacher);
+			List<Language> languages=languageService.getAll();
+			model.addAttribute("languages", languages);
 			model.addAttribute("courses", courses);
 			return "course/courses";
 		} catch (Exception e) {
@@ -52,27 +69,19 @@ public class CourseController {
 	}
 
     @PostMapping("savenew")	// GET: /regions/savenew
-	public String saveNewCourse(Model model, @ModelAttribute("courseNew") Course course) {
+	public String saveNewCourse(Model model, @ModelAttribute("courseNew") Course course, 
+	RedirectAttributes redirectAttributes, @RequestParam("imgResource") MultipartFile img) {
 		try {
-			Teacher teacher=teacherService.findById(1).get();
+			String limitName=new String();
+			Teacher teacher=teacherService.findById(3).get();
 			course.setTeacher(teacher);
-			Course courseReturn = courseService.create(course);
+			Course courseReturn = courseService.uploadImage(course, img);
 			model.addAttribute("course", courseReturn);
-			return "redirect:/courses"; // Archivo Html
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-		return "redirect:/courses";
-	}
-	@GetMapping("{id}/edit")
-	public String editCourse(Model model, @PathVariable("id") Integer id) {
-		try {
-			Optional<Course> optional = courseService.findById(id);
-			if(optional.isPresent()) {
-				model.addAttribute("courseEdit", optional.get());
-				return "courses/edit";
+			if(course.getName().length()>5){
+				limitName="limit name pa";
 			}
+			redirectAttributes.addFlashAttribute("limitName", limitName);
+			return "redirect:/courses"; // Archivo Html
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
@@ -81,7 +90,9 @@ public class CourseController {
 	}
 
 	@PostMapping("save/{id}")
-	public String saveEdit(Model model, @ModelAttribute("course") Course course, @PathVariable("id") Integer id) {
+	public String saveEdit(Model model, 
+	@ModelAttribute("course") Course course, 
+	@PathVariable("id") Integer id) {
 		//System.out.println("COURSE ID:"+course.getId().toString());
 		try {
 			Course getCourse=courseService.findById(id).get();
@@ -107,7 +118,8 @@ public class CourseController {
 				if(isOwner){
 					Chapter chapter=new Chapter();
 					Video video=new Video();
-					//Resource resource=new Resource();
+					List<Language> languages=languageService.getAll();
+					model.addAttribute("languages", languages);
 					model.addAttribute("videoNew", video);
 					model.addAttribute("chapterNew", chapter);
 					//model.addAttribute("resourceNew", resource);

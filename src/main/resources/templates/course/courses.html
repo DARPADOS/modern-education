@@ -25,24 +25,30 @@
 					  <h5 class="modal-title" id="staticBackdropLabel">New Course</h5>
 					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<form  class="needs-validation" novalidate th:action="@{/courses/savenew}" th:object="${courseNew}" method="post">
+					<form  class="needs-validation" novalidate th:action="@{/courses/savenew}" th:object="${courseNew}" enctype="multipart/form-data" method="post">
 						<div class="modal-body">
 							<div class="mb-3">
 								<label for="name" class="form-label">Name</label>
-								<input type="text" class="form-control" th:field="*{name}" placeholder="Name of course" required>
+								<input  type="text" maxlength="100" class="form-control" th:field="*{name}" placeholder="Name of course" required>
 								<div class="invalid-feedback">
 									Please provide a valid name.
 								</div>
-
+								<!--<div th:if="${limitName}">
+									<p class="optional" th:text="${limitName}"></p>
+								</div>-->
 								<label for="language" class="form-label">Language</label>
-								<input type="text" class="form-control" th:field="*{language}" placeholder="Course language" required>
-								<div class="invalid-feedback">
-									Please provide a valid language.
-								</div>
+								<select class="form-select" aria-label="Default select example" th:field="*{language}">
+								  <option th:each="lang:${languages}" th:value="${lang.id}" th:text="${lang.name}"></option>
+								</select>
 
 								<label for="description" class="form-label">Description</label>
-								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}" placeholder="Describe the course"></textarea>
+								<textarea maxlength="500" class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}" placeholder="Describe the course"></textarea>
 								<div class="optional">(optional)</div>
+
+								<div class="mb-3">
+									<label for="formFileSm" class="form-label">Upload the course image</label>
+									<input class="form-control form-control-sm" id="formFileSm" type="file" name="imgResource" accept="image/jpeg, image/png">
+								</div>
 
 							</div>
 						</div>
@@ -56,22 +62,42 @@
 			</div>
 		</div>
 			<!--CARDS-->
-	<div class="align-items-center p-3 my-3 bg-purple rounded shadow">	
-		<div class="card-body">
-			<a class="btn btn-moderne-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-plus"></i> New</a>
-		</div>	
+	<div class="align-items-center p-3 my-3 bg-purple rounded shadow">
+		<div class="row">
+			<div class="card-body col-6">
+				<a class="btn btn-moderne-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-plus"></i> New</a>
+			</div>
+			<div class="card-body col-6">
+				<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+						  Show Only:
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+						  <li th:each="lang:${languages}"><a class="dropdown-item" th:href="@{|/courses/?languageId=${lang.id}|}" th:text="${lang.name}">Action</a></li>
+						</ul>
+				</div>
+					<!--<div class="col-3">
+						<select class="form-select" aria-label="Default select example">
+							<option th:each="lang:${languages}" th:value="${lang.id}" th:text="${lang.name}"></option>
+						</select>
+					</div>-->
+			</div>
+		</div>
 		<hr class="mt">			
 		<div class="row justify-content-center py-3 px-3">
 			<div class="row row-cols-4 g-3">
 				<div th:each="course:${courses}" class="col">
 					<div class="card shadow-sm bg-body rounded">
-					<img src="/img/curso.jpg" width="100%" class="card-img-top" alt=""/>
+					<img th:src="@{${'/img/courses/'+ course.mineture_image}}" height="200px" width="100%" class="card-img-top" alt=""/>
 					<div class="card-body">
 						<h5 class="card-title" th:text="${course.name}"></h5>
 						<h6 class="card-subtitle mb-2 text-muted" th:text="${course.teacher.user.firstName} + ' '+ ${course.teacher.user.lastName}"></h6>
+						<span class="badge bg-success" th:text="${course.language.name}">LENGUAGE</span>
 						<p class="card-text text-truncate" th:text="${course.description}"></p>
 						<div class="d-flex justify-content-between align-items-center">
-							<small th:text="'Rate ' + ${course.averageQualification}"></small>
+							<div class="col" >
+								<span class="p-0 h5 align-middle" th:text="${course.averageQualification} + ' '" style="display: inline; color: orange;"></span><span class="fa fa-star checked align-middle" th:if="${course.filledStars} > 0" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked align-middle" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked align-middle" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
+							</div>
 							<small th:text="${course.chapter.size} + ' chapters'"class="text-muted">9 mins</small>
 						</div>
 						<a th:href="@{'/courses/' + ${course.id}}" class="stretched-link"></a>
