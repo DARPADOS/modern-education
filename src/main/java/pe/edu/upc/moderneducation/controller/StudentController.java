@@ -62,6 +62,6 @@ public class StudentController {
 		}
 		return "redirect:/student/courses";
 	}
-
+	
 
 }

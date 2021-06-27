@@ -36,5 +36,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userRepository.findByLastNameStartingWithAndFirstNameStartingWith(lastName, firstName);
 	}
+	@Transactional(readOnly=true)
+	@Override
+	public List<User> StudentsByVideoconference(Integer id) throws Exception {
+		// TODO Auto-generated method stub
+		return userRepository.StudentsByVideoconference(id);
+	}
 
 }

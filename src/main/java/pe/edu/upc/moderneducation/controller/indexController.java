@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
+import pe.edu.upc.moderneducation.model.entity.Videoconference;
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -27,7 +28,16 @@ public class indexController {
         Course course = new Course();
         model.addAttribute("courseSearch", course);
     }
-
+   /* @ModelAttribute
+    public void addAttributeV(Model model){
+    	 Videoconference  videoconferenceEd = new  Videoconference();
+        model.addAttribute("videoconferenceE", videoconferenceEd);
+    }*/
+    @ModelAttribute
+    public void addAttributeVideoconferences(Model model){
+       Videoconference videoconference = new Videoconference();
+        model.addAttribute("videoconferenceSearch", videoconference);
+    }
     @Autowired
     CourseService courseService;
 

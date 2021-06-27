@@ -520,6 +520,16 @@ progress {
 .figure {
   display: inline-block;
 }
+.styleM{
+	display: inline-block;
+	justify-content: center;
+	border: none;
+}
+.styleN{
+	display: inline-block;
+	justify-content: center;
+	
+}
 .figure-img {
   margin-bottom: 0.5rem;
   line-height: 1;

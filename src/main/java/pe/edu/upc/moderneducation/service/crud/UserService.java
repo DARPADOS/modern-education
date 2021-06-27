@@ -10,4 +10,6 @@ public interface UserService extends CrudService<User, Integer> {
 List<User>findByLastNameandFirstName(String lastName,String firstName)throws Exception;
 	
 List<User>findByLastNameStartingWithAndFirstNameStartingWith(String lastName,String firstName)throws Exception;
+
+List<User> StudentsByVideoconference(Integer id) throws Exception;
 }

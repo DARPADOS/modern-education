@@ -24,47 +24,9 @@
 				<h2 style="color: white;">Videoconferences </h2>
 			</div>
 			</div>
+		
 			
-	        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-				<div class="modal-dialog">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<form th:action="@{/videoconferences/savenew}" th:object="${videoconferenceNew}" method="post">
-						<div class="modal-body">
-							<div class="mb-3">
-								<label for="name" class="form-label">Name</label>
-								<input type="text" class="form-control" th:field="*{name}"  placeholder="Name of videoconference" >
-					
-								<label for="description" class="form-label">Description</label>
-								<input type="text" class="form-control" th:field="*{description}"  placeholder="videoconference description" >
-								
-								<label for="date" class="form-label">Date</label>
-								<input type="date" class="form-control" th:field="*{date}"  placeholder=" date" >
-								
-								<label for="hourStart" class="form-label">Start</label>
-								<input type="time" value="09:00:00" min="07:00:00" max="21:00:00" step="2"   class="form-control" th:field="*{hourStart}"  placeholder=" hourStart" >
-								
-								<label for="hourEnd" class="form-label">End</label>
-								<input type="time" value="11:00:00" min="09:00:00" max="23:00:00" step="2"  class="form-control"th:field="*{hourEnd}"  placeholder=" hourEnd" >
-								
-								<label for="Link" class="form-label">Link</label>
-								<input type="text" class="form-control" th:field="*{meetLink}"  placeholder="videoconference link" >
-							
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Understood</button>
-						</div>
-					</form>
-				  </div>
-				</div>
-			</div>
-			
-			<div style="display:inline">
+			<div id="SearchAdd">
 			<div >
 			<form id="searchF" class="d-md-flex" th:action="@{/search/SearchVideoconferences}" th:object="${videoconferenceSearch}" method="get" style="width: 60rem;">
               <input class="form-control me-2" th:field="*{name}" placeholder="Search Videoconference" type="search" aria-label="Search">
@@ -78,7 +40,6 @@
            			
 			</div>
 			
-			
 			<div class=" list-inline-item" >
 			
 					<div th:each="videoconference : ${videoconferences}" class="card" style="width: 60rem;">
@@ -88,7 +49,7 @@
  					<div class="card-body">
    					 <h5 class="card-title" th:text="${videoconference.description}">Special title treatment</h5>
   					 <h5 class="card-title" th:text="${videoconference.date}">Special title treatment</h5>
-   					 <a th:href="@{'/videoconferences/' + ${videoconference.id}}" class="btn btn-moderne-primary">View</a>
+   					 <a th:href="@{'/assistances/' + ${videoconference.id}}" class="btn btn-moderne-primary">Enroll</a>
   					</div>
 					</div>
 					

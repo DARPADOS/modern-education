@@ -48,7 +48,6 @@ public class CourseController {
 		
 		return "course/courses";
 	}
-
     @PostMapping("savenew")	// GET: /regions/savenew
 	public String saveNewCourse(Model model, @ModelAttribute("courseNew") Course course) {
 		try {
