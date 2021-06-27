@@ -10,9 +10,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="container-fluid" style="max-width: 800px;">
-                <form th:action="@{/search/results}" class="d-md-flex needs-validation" th:object="${courseSearch}" method="get" novalidate>
-                    <input class="form-control me-2" type="search" th:field="*{name}" placeholder="Find your courses" aria-label="Search" required>
-                    <button class="btn btn-successSearch" type="submit">Search</button>
+                <form sec:authorize="isAuthenticated()" th:action="@{/search/results}" class="d-md-flex needs-validation" th:object="${courseSearch}" method="get" novalidate>
+                    <input th:disabled="${!#authentication.getPrincipal().hasStudent()}" class="form-control me-2" type="search" th:field="*{name}" placeholder="Find your courses" aria-label="Search" required>
+                    <button th:disabled="${!#authentication.getPrincipal().hasStudent()}"  class="btn btn-successSearch" type="submit" >Search</button>
                 </form>
             </div>
             <ul class="navbar-nav mb-2 mb-lg-0">
@@ -37,12 +37,12 @@
                     </a>
                 </li>
                 <li sec:authorize="hasRole('ROLE_STUDENT')" class="nav-item mx-2 my-auto">
-                    <a class="nav-link active" aria-current="page" href="#">
+                    <a class="nav-link active" aria-current="page" th:href="@{/change-to-teacher}">
                         Teach with Us
                     </a>
                 </li>
                 <li sec:authorize="hasRole('ROLE_TEACHER')" class="nav-item mx-2 my-auto">
-                    <a class="nav-link active align-middle" aria-current="page" href="#">
+                    <a class="nav-link active align-middle" aria-current="page" th:href="@{/change-to-student}">
                         <span>Star Learning</span>
                     </a>
                 </li>

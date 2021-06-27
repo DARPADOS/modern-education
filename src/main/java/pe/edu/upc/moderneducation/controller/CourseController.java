@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ import pe.edu.upc.moderneducation.model.entity.Language;
 import pe.edu.upc.moderneducation.model.entity.Resource;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.entity.Video;
+import pe.edu.upc.moderneducation.security.MyUserDetails;
 
 @Controller
 @RequestMapping("/courses")
@@ -44,10 +46,14 @@ public class CourseController {
 	private LanguageService languageService;
 
     @GetMapping
-	public String listCourses( Model model, @RequestParam(name="languageId",required=false) Integer languageId) {
+	public String listCourses( Model model, @RequestParam(name="languageId",required=false) Integer languageId,
+			Authentication auth) {
 		try {
+
+			MyUserDetails userSession = (MyUserDetails) auth.getPrincipal();
+
 			List<Course> courses=new ArrayList<Course>();
-			Teacher teacher=teacherService.findById(3).get();
+			Teacher teacher=teacherService.findById(userSession.getId()).get();
 			if(languageId!=null){
 				courses = courseService.findByLanguageIdAndTeacher(languageId, teacher);
 			}
@@ -70,10 +76,12 @@ public class CourseController {
 
     @PostMapping("savenew")	// GET: /regions/savenew
 	public String saveNewCourse(Model model, @ModelAttribute("courseNew") Course course, 
-	RedirectAttributes redirectAttributes, @RequestParam("imgResource") MultipartFile img) {
+	RedirectAttributes redirectAttributes, @RequestParam("imgResource") MultipartFile img, Authentication auth) {
 		try {
+			MyUserDetails userSession = (MyUserDetails) auth.getPrincipal();
+
 			String limitName=new String();
-			Teacher teacher=teacherService.findById(3).get();
+			Teacher teacher=teacherService.findById(userSession.getId()).get();
 			course.setTeacher(teacher);
 			Course courseReturn = courseService.uploadImage(course, img);
 			model.addAttribute("course", courseReturn);
@@ -110,11 +118,13 @@ public class CourseController {
 	}
 
 	@GetMapping("{id}")
-	public String findById(Model model, @PathVariable("id") Integer id) {
+	public String findById(Model model, @PathVariable("id") Integer id, Authentication auth) {
 		try {
+			MyUserDetails userSession = (MyUserDetails) auth.getPrincipal();
+
 			Optional<Course> optional = courseService.findById(id);
 			if(optional.isPresent()) {
-				Boolean isOwner=courseService.isOwner(3, id);
+				Boolean isOwner=courseService.isOwner(userSession.getId(), id);
 				if(isOwner){
 					Chapter chapter=new Chapter();
 					Video video=new Video();

@@ -62,7 +62,7 @@ public class RegisterController {
             MyUserDetails userSession = (MyUserDetails) auth.getPrincipal();
             studentService.createNewStudent(userSession.getUser());
             userService.AddRoleStudent(userSession.getUser());
-            return "redirect:/";
+            return "redirect:/logout";
         } catch (Exception e) {
             e.printStackTrace();
 			System.err.println(e.getMessage());
@@ -88,7 +88,7 @@ public class RegisterController {
             else{
                 userService.AddRoleTeacher(userSession.getUser());
             }
-            return "redirect:/";
+            return "redirect:/logout";
         } catch (Exception e) {
             e.printStackTrace();
 			System.err.println(e.getMessage());

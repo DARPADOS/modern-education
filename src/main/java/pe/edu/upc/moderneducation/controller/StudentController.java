@@ -45,15 +45,19 @@ public class StudentController {
     }
     
 	@GetMapping("course/{id}")
-	public String findById(Model model, @PathVariable("id") Integer id, @RequestParam(name = "origin", required = false) String origin) {
+	public String findById(Model model, @PathVariable("id") Integer id,
+            @RequestParam(name = "origin", required = false) String origin,
+            Authentication auth) {
 		try {
+            MyUserDetails userSession = (MyUserDetails)auth.getPrincipal();
+
 			Optional<Course> optional = courseService.findById(id);
 
 			if(optional.isPresent()) {
                 DetailCourseStudent newDetail = new DetailCourseStudent();
-                boolean isRegisted = detailService.checkRegister(10, id);
+                boolean isRegisted = detailService.checkRegister(userSession.getId(), id);
                 if(isRegisted){
-                    boolean isQualified = detailService.checkQualified(10, id);
+                    boolean isQualified = detailService.checkQualified(userSession.getId(), id);
                     model.addAttribute("isQualified", isQualified);
                 }
 				model.addAttribute("course", optional.get());

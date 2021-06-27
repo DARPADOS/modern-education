@@ -80,4 +80,12 @@ public class MyUserDetails implements UserDetails {
     public Integer getId(){
         return this.user.getId();
     }
+
+    public boolean hasStudent(){
+        return this.user.hasRoleStudent();
+    }
+
+    public boolean hasTeacher(){
+        return this.user.hasRoleTeacher();
+    }
 }
