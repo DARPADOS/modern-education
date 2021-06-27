@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
+import pe.edu.upc.moderneducation.security.MyUserDetails;
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.DetailCourseStudentService;
 
@@ -28,9 +31,11 @@ public class StudentController {
     private DetailCourseStudentService detailService;
 
     @GetMapping("courses")
-    public String getMethodName(Model model) {
+    public String getCoursesByStudent(Model model, Authentication authentication) {
         try {
-            List<Course> courses = courseService.findByStudent(10);
+            MyUserDetails loggedUser = (MyUserDetails) authentication.getPrincipal();
+
+            List<Course> courses = courseService.findByStudent(loggedUser.getUser().getId());
             model.addAttribute("myCourses", courses);
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,7 +45,7 @@ public class StudentController {
     }
     
 	@GetMapping("course/{id}")
-	public String findById(Model model, @PathVariable("id") Integer id) {
+	public String findById(Model model, @PathVariable("id") Integer id, @RequestParam(name = "origin", required = false) String origin) {
 		try {
 			Optional<Course> optional = courseService.findById(id);
 
@@ -54,6 +59,7 @@ public class StudentController {
 				model.addAttribute("course", optional.get());
                 model.addAttribute("isRegisted", isRegisted);
                 model.addAttribute("opinionNew", newDetail);
+                model.addAttribute("origin", origin);
 				return "student/courseDetail";
 			}
 		} catch (Exception e) {

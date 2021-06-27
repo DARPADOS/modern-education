@@ -22,3 +22,27 @@ text-align: center;
 .checked {
   color: orange;
 }
+
+.image-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  object-fit: cover;
+  object-position: center right;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+  right: 0;
+  left: auto;
+}
+
+.rol-hover{
+  background-color: #5B3E8E !important;
+}
+
+.rol-hover:hover {
+  background-color: #246a73 !important;
+}

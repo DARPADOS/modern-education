@@ -1,42 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/head :: head('Results')"></div>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:replace="fragments/head :: head('My Courses')"></div>
 
-<body>
+<body style="background-color:#F8F9FA;">
     <!--navbar-->
     <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- MAIN CONTENT-->
     <main class="container">
-        <div class="container p-3 my-3 bg-purple rounded shadow">
-            <div class="row">
-                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow div-primary">
+			<div class="row">
+				<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">My Courses</li>
+                        <li class="breadcrumb-item"><a th:href="@{/}" style="color: white;">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" style="color: white;">My courses</li>
                     </ol>
                 </nav>
-            </div>
-            <div class="row">
-                <h2>My Courses</h5>
-            </div>
-            <hr class="my-4" />
-            <div class="row row-cols-4 px-4 g-3">
+				<h2 style="color: white;">My Courses </h2>
+			</div>
+        </div>
+
+        <div class="container p-3 my-3 mb-5 bg-purple rounded shadow" style="background-color:#fff; min-height: 500px;">
+            <!-- SI HAY CURSOS INSCRITOS -->
+            <div th:if="${myCourses.size() > 0}" class="row row-cols-4 px-4 g-3 mt-1">
                 <div th:each="course:${myCourses}" class="col">
-                    <div class="card shadow-sm">
+                    <div class="card card-transform shadow-sm">
                         <img th:src="@{/img/curso.jpg}" class="bd-placeholder-img card-img-top" width="100%" />
                         <div class="card-body">
                             <h5 class="card-title" th:text="${course.name}"></h5>
                             <h6 class="card-subtitle mb-2 text-muted" th:text="${course.teacher.user.firstName} + ' ' + ${course.teacher.user.lastName}"></h6>
-                            <p class="card-text text-truncate" th:text="${course.description}" style="font-size: 14px !important;">
-                                This is a wider card with supporting text below as a natural
-                                lead-in to additional content. This content is a little bit
-                                longer.This is a wider card with supporting text below as a natural
-                                lead-in to additional content. This content is a little bit
-                                longer.This is a wider card with supporting text below as a natural
-                                lead-in to additional content. This content is a little bit
-                                longer.
+                            <span class="badge bg-success" th:text="${course.language.name}">LENGUAGE</span>
+                            <p class="card-text text-truncate mb-2" style="font-size: 14px !important;" th:text="${course.description}">
+                                DESCRIPTION
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <small th:text="'Rate ' + ${course.averageQualification}"></small>
+                                <div class="col" >
+                                    <span class="p-0 h5 align-middle" th:text="${course.averageQualification} + ' '" style="display: inline; color: orange;"></span><span class="fa fa-star checked align-middle" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked align-middle" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked align-middle" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
+                                </div>
                                 <small th:text="${course.chapter.size} + ' chapters'"class="text-muted">9 mins</small>
                             </div>
                             <a th:href="@{'/student/course/' + ${course.id}}" class="stretched-link"></a>
@@ -44,7 +45,20 @@
                     </div>
                 </div>
             </div>
+
+            <!-- SI NO HAY CURSOS INSCRITOS -->
+            <div class="row h-100 align-items-center" style="min-height: 500px;">
+                <div class="col text-center my-auto">
+                    <h2>You have not subscribed to any course.
+                        <br>Please use the search engine to navigate the courses</h2>
+                </div>
+            </div>
         </div>
+
+
+
+
+
     </main>
 
 

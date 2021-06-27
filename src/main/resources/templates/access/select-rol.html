@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/head :: head('Select rol')"></div>
+
+<body>
+    <main class="container-fluid" style="height: 100vh;">
+        <div class="row h-100">
+            <div class="col text-white rol-hover position-relative" style="vertical-align: middle; border-right: 1px solid rgb(204, 204, 204)">
+                <div class="row h-100 align-items-center">
+                    <div class="col text-center">
+                        <i class="fas fa-chalkboard-teacher" style="font-size: 15em;"></i>
+                        <h1 class="pt-3" style="font-size: 5em;">Teach <br> with us</h5>
+                    </div>
+                </div>
+                <a th:href="@{/teacher-register}" class="stretched-link"></a>
+            </div>
+            <div class="col text-white rol-hover position-relative">
+                <div class="row h-100 align-items-center">
+                    <div class="col text-center">
+                        <i class="fas fa-user-graduate" style="font-size: 15em;"></i>
+                        <h1 class="pt-3" style="font-size: 5em;">Don't stop <br> learning</h5>
+                    </div>
+                </div>
+                <a th:href="@{/student-register}" class="stretched-link"></a>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="fragments/scripts :: links"></div>
+</body>
+
+</html>

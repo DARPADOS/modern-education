@@ -22,6 +22,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -29,7 +31,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "Course",
 indexes = {@Index(columnList="name",name="course_index_name"),
-		@Index(columnList="language",name="course_index_language")})
+		@Index(columnList="language_id",name="course_index_language")})
 //@SequenceGenerator(name="Course_course_id_seq",initialValue=1,allocationSize = 1)
 public class Course {
 	
@@ -49,8 +51,8 @@ public class Course {
 	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 	
-	@Column(name = "language", length = 20, nullable = false)
-	private String language;
+	//@Column(name = "language", length = 20, nullable = false)
+	//private String language;
 	
 	@Column(name = "description", length = 500, nullable = false)
 	private String description;
@@ -67,6 +69,11 @@ public class Course {
 	@OneToMany(mappedBy="course", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<DetailCourseStudent> detailCourseStudent;
 
+	@ManyToOne
+	@JoinColumn(name = "language_id",nullable = true)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Language language;
+
 	@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date", nullable = true, updatable = true)
     @CreatedDate
@@ -74,38 +81,90 @@ public class Course {
 
 	@Transient
 	private float averageQualification;
-	
+
+	@Transient
+	private int reviewsCount;
+
+	@Transient
+	private int filledStars;
+
+	@Transient
+	private int emptyStars;
+
+	@Transient
+	private List<Integer> countRating;
+
+	public List<Integer> getCountRating() {
+		return countRating;
+	}
+
+	public void setCountRating(List<Integer> countRating) {
+		this.countRating = countRating;
+	}
+
 	@PostLoad
 	private void chargeAverageQualification(){
 		float sum = 0;
-		int count = 0;
+		reviewsCount = 0;
+
 		for (DetailCourseStudent detail : detailCourseStudent) {
-			if(detail.getQualification() != null){
+			if(detail.getQualification() != null && detail.getQualification() <=5){
 				sum = sum + detail.getQualification();
-				count++;
+				reviewsCount++;
 			}
 		}
 
-		if(count !=0){
-			averageQualification = sum/count;
+		if(reviewsCount !=0){
+			averageQualification = sum/reviewsCount;
+			averageQualification = Math.round(averageQualification*10);
+			averageQualification = averageQualification/10;
 		}
 		else
 			averageQualification = 0;
+
+		// For count stars of average rating
+		filledStars = (int) Math.floor(averageQualification);
+		emptyStars = (int) Math.floor(5-averageQualification);
 	}
 
-	public Course(Integer id, boolean published, Teacher teacher, String name, String language, String description,
+	public Course(Integer id, boolean published, Teacher teacher, String name, Language language, String description,
 			String mineture_image, List<Chapter> chapter, List<Resource> resource, List<DetailCourseStudent> detailCourseStudent) {
 		super();
 		this.id = id;
 		this.published = published;
 		this.teacher = teacher;
 		this.name = name;
-		this.language = language;
+		//this.language = language;
 		this.description = description;
 		this.mineture_image = mineture_image;
 		this.chapter = chapter;
 		this.resource = resource;
 		this.detailCourseStudent=detailCourseStudent;
+		this.language=language;
+	}
+		
+	public int getReviewsCount() {
+		return reviewsCount;
+	}
+
+	public void setReviewsCount(int reviewsCount) {
+		this.reviewsCount = reviewsCount;
+	}
+
+	public int getFilledStars() {
+		return filledStars;
+	}
+
+	public void setFilledStars(int filledStars) {
+		this.filledStars = filledStars;
+	}
+
+	public int getEmptyStars() {
+		return emptyStars;
+	}
+
+	public void setEmptyStars(int emptyStars) {
+		this.emptyStars = emptyStars;
 	}
 
 	public float getAverageQualification() {
@@ -156,16 +215,24 @@ public class Course {
 		this.name = name;
 	}
 
-	public String getLanguage() {
+	/*public String getLanguage() {
 		return language;
 	}
 
 	public void setLanguage(String language) {
 		this.language = language;
-	}
+	}*/
 
 	public String getDescription() {
 		return description;
+	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
 	}
 
 	public void setDescription(String description) {

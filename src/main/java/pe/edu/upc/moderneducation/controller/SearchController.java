@@ -30,7 +30,7 @@ public class SearchController {
     public String searchCourse(Model model, @ModelAttribute("courseSearch") Course courseSearch) {
         try {   
             List<Course> results = courseService.findBySearchTerm(courseSearch.getName(), 10);
-            String Term = "\"" + courseSearch.getName() + "\"";
+            String Term = courseSearch.getName();
             model.addAttribute("searchTerm", Term);
             if(results.size() > 0){
                 model.addAttribute("results", results);
@@ -46,6 +46,7 @@ public class SearchController {
         }
         return "redirect:/";
     }
+
     
     @GetMapping("SearchVideoconferences")
 	public String searchVideoconferencesGet(Model model, @ModelAttribute("videoconferenceSearch") Videoconference videoconferenceSearch){
