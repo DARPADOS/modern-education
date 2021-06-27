@@ -96,7 +96,7 @@ public class User {
 
 	public boolean hasRoleStudent(){
 		for (Authority auth : authorities) {
-			if(auth.getAuthority() == UserAuthorities.ROLE_STUDENT.name()){
+			if(auth.getAuthority().matches(UserAuthorities.ROLE_STUDENT.name())){
 				return true;
 			}
 		}
@@ -104,8 +104,8 @@ public class User {
 	}
 
 	public boolean hasRoleTeacher(){
-		for (Authority auth : authorities) {
-			if(auth.getAuthority() == UserAuthorities.ROLE_TEACHER.name()){
+		for (Authority auth : this.authorities) {
+			if(auth.getAuthority().matches(UserAuthorities.ROLE_TEACHER.name())){
 				return true;
 			}
 		}

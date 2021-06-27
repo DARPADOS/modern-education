@@ -99,12 +99,12 @@ public class indexController {
     public String changeToTeacher(Authentication authentication){
         try {
             MyUserDetails userSession = (MyUserDetails) authentication.getPrincipal();
-            if(teacherService.exist(userSession.getId())){
+            if(!teacherService.exist(userSession.getId())){
                 return "redirect:/teacher-register";
             }
             else {
                 userService.changeRole(userSession.getUser());
-                return "redirect:/";
+                return "redirect:/logout";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,12 +117,12 @@ public class indexController {
     public String changeToStudent(Authentication authentication){
         try {
             MyUserDetails userSession = (MyUserDetails) authentication.getPrincipal();
-            if(studentService.exist(userSession.getId())){
+            if(!studentService.exist(userSession.getId())){
                 return "redirect:/student-register";
             }
             else {
                 userService.changeRole(userSession.getUser());
-                return "redirect:/";
+                return "redirect:/logout";
             }
         } catch (Exception e) {
             e.printStackTrace();

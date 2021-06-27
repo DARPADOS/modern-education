@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="row text-center">
                                     <div class="col">
-                                        <span class="fa fa-star checked" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
+                                        <span th:if="${course.filledStars} > 0" class="fa fa-star checked" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span  class="fa fa-star-half-alt checked" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
                                     </div>
                                 </div>
                                 <div class="row text-center">
@@ -192,13 +192,13 @@
                         </div>
                         <div class="pt-2">
                             <a href="" class="card-text h5 mt-1"> <span class="badge bg-success"
-                                    th:text="${course.language}">LENGUAGE</span></a>
+                                    th:text="${course.language.name}">LENGUAGE</span></a>
                         </div>
                         <p class="card-text pt-3 mb-0" style="font-size: 1.2rem;" th:text="${course.description}">DESCRIPTION</p>
                         <!-- RATING -->
                         <div class="row mt-1">
                             <div class="col">
-                                <span class="p-0 h4 align-middle" th:text="${course.averageQualification} + ' '" style="display: inline; color: orange;"></span><span class="fa fa-star checked align-middle" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked align-middle" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked align-middle" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
+                                <span class="p-0 h4 align-middle" th:text="${course.averageQualification} + ' '" style="display: inline; color: orange;"></span><span th:if="${course.filledStars} > 0" class="fa fa-star checked align-middle" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked align-middle" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked align-middle" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
                             </div>
                             <div class="col text-end text-muted fs-5">
                                 <p th:text="${course.detailCourseStudent.size} + ' students'">STUNDENTS COUNT</p>

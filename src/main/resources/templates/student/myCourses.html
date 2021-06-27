@@ -36,7 +36,7 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="col" >
-                                    <span class="p-0 h5 align-middle" th:text="${course.averageQualification} + ' '" style="display: inline; color: orange;"></span><span class="fa fa-star checked align-middle" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked align-middle" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked align-middle" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
+                                    <span class="p-0 h5 align-middle" th:text="${course.averageQualification} + ' '" style="display: inline; color: orange;"></span><span th:if="${course.filledStars} > 0" class="fa fa-star checked align-middle" th:each="star:${#numbers.sequence(1, course.filledStars)}"></span><span class="fa fa-star-half-alt checked align-middle" th:if="${course.filledStars + course.emptyStars} != 5"></span><span class="far fa-star checked align-middle" th:if="${course.averageQualification} != 5 and ${course.emptyStars} > 0" th:each="star:${#numbers.sequence(1, course.emptyStars)}"></span>
                                 </div>
                                 <small th:text="${course.chapter.size} + ' chapters'"class="text-muted">9 mins</small>
                             </div>
@@ -47,7 +47,7 @@
             </div>
 
             <!-- SI NO HAY CURSOS INSCRITOS -->
-            <div class="row h-100 align-items-center" style="min-height: 500px;">
+            <div th:if="${myCourses.size() == 0}" class="row h-100 align-items-center" style="min-height: 500px;">
                 <div class="col text-center my-auto">
                     <h2>You have not subscribed to any course.
                         <br>Please use the search engine to navigate the courses</h2>

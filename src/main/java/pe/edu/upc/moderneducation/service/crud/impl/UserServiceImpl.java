@@ -8,7 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import pe.edu.upc.moderneducation.model.entity.Authority;
 import pe.edu.upc.moderneducation.model.entity.User;
+import pe.edu.upc.moderneducation.model.repository.AuthorityRepository;
 import pe.edu.upc.moderneducation.model.repository.UserRepository;
 import pe.edu.upc.moderneducation.model.types.UserAuthorities;
 import pe.edu.upc.moderneducation.service.crud.UserService;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private AuthorityRepository authRepository;
 	
 	@Override
 	public JpaRepository<User, Integer> getRepository() {
@@ -85,13 +90,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void changeRole(User user) throws Exception {
 		if(user.hasRoleStudent()){
-			user.getAuthorities().removeIf( auth -> (auth.getAuthority() == UserAuthorities.ROLE_STUDENT.name()));
-			AddRoleTeacher(user);
+			for (Authority auth : user.getAuthorities()) {
+				if(auth.getAuthority().matches(UserAuthorities.ROLE_STUDENT.name())){
+					auth.setAuthority(UserAuthorities.ROLE_TEACHER.name());
+					authRepository.save(auth);
+				}
+			}
 		}
 		else{
 			if(user.hasRoleTeacher()){
-				user.getAuthorities().removeIf( auth -> (auth.getAuthority() == UserAuthorities.ROLE_STUDENT.name()));
-				AddRoleStudent(user);
+				for (Authority auth : user.getAuthorities()) {
+					if(auth.getAuthority().matches(UserAuthorities.ROLE_TEACHER.name())){
+						auth.setAuthority(UserAuthorities.ROLE_STUDENT.name());
+						authRepository.save(auth);
+					}
+				}
 			}
 		}
 	}

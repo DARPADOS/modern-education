@@ -4,12 +4,17 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
+
 import pe.edu.upc.moderneducation.model.entity.Videoconference;
+
+import pe.edu.upc.moderneducation.security.MyUserDetails;
+
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.VideoconferenceService;
 
@@ -27,9 +32,11 @@ public class SearchController {
 	private VideoconferenceService videoconferenceService;
     
     @GetMapping(value="results")
-    public String searchCourse(Model model, @ModelAttribute("courseSearch") Course courseSearch) {
+    public String searchCourse(Model model, @ModelAttribute("courseSearch") Course courseSearch, Authentication auth) {
         try {   
-            List<Course> results = courseService.findBySearchTerm(courseSearch.getName(), 10);
+            MyUserDetails userSession = (MyUserDetails) auth.getPrincipal();
+
+            List<Course> results = courseService.findBySearchTerm(courseSearch.getName(), userSession.getId());
             String Term = courseSearch.getName();
             model.addAttribute("searchTerm", Term);
             if(results.size() > 0){
