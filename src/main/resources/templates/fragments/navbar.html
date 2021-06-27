@@ -34,9 +34,6 @@
 
                 <li class="nav-item">
 
-                    <a class="nav-link active" aria-current="page" th:href="@{/assistances}">
-                        Videoconference </a>
-
                 <li sec:authorize="isAuthenticated()" class="nav-item mx-2 my-auto">
                     <a class="nav-link active position-relative" aria-current="page" th:href="@{/videoconferences}">
                         Videoconference <span class="position-absolute translate-middle badge rounded-pill bg-warning" style="left: 100px; top: 5px;">Premium <span class="visually-hidden">unread messages</span></span>

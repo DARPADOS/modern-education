@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
+import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.entity.User;
 import pe.edu.upc.moderneducation.model.entity.Videoconference;
 
@@ -16,6 +17,6 @@ public interface VideoconferenceRepository extends JpaRepository<Videoconference
 
 	List<Videoconference> findByName(String name);
 	List<Videoconference> findByNameStartingWith(String name);
-	
+	List<Videoconference> findByTeacher(Teacher teacher);
 	
 }

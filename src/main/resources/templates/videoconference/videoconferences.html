@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/css/fontawesome.min.css}" rel="stylesheet">
-    <link th:href="@{/css/solid.min.css}" rel="stylesheet">
-
-    <title>Hello, world!</title>
+   	<div th:replace="fragments/head :: head('Videoconferences')"></div>
   </head>
-<body>
+<body style="background-color:#F8F9FA;">
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<div class="row">
+<main class="container">
 	          <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow div-primary">
 			<div class="row">
 				<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
@@ -21,7 +15,7 @@
                         <li class="breadcrumb-item active" aria-current="page" style="color: white;">Videoconferences</li>
                     </ol>
                 </nav>
-				<h2 style="color: white;">Videoconferences </h2>
+				<h2 style="color: white;">Courses </h2>
 			</div>
 			</div>
 			
@@ -94,7 +88,7 @@
 					
 				
 			</div>
-	</div>
+	</main>
 
 <div th:replace="fragments/footer :: footer"></div>
 
