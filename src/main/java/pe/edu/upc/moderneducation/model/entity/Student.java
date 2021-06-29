@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,8 +37,8 @@ public class Student {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateExpiration;
 	
-	@OneToOne
-	@MapsId
+	@OneToOne(cascade = CascadeType.ALL)
+	@MapsId("id")
 	@JoinColumn(name="id")
 	private User user;
 	

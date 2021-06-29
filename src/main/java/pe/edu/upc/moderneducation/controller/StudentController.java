@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
+import pe.edu.upc.moderneducation.security.MyUserDetails;
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.DetailCourseStudentService;
 
@@ -29,9 +31,11 @@ public class StudentController {
     private DetailCourseStudentService detailService;
 
     @GetMapping("courses")
-    public String getMethodName(Model model) {
+    public String getCoursesByStudent(Model model, Authentication authentication) {
         try {
-            List<Course> courses = courseService.findByStudent(10);
+            MyUserDetails loggedUser = (MyUserDetails) authentication.getPrincipal();
+
+            List<Course> courses = courseService.findByStudent(loggedUser.getUser().getId());
             model.addAttribute("myCourses", courses);
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,15 +45,19 @@ public class StudentController {
     }
     
 	@GetMapping("course/{id}")
-	public String findById(Model model, @PathVariable("id") Integer id, @RequestParam(name = "origin", required = false) String origin) {
+	public String findById(Model model, @PathVariable("id") Integer id,
+            @RequestParam(name = "origin", required = false) String origin,
+            Authentication auth) {
 		try {
+            MyUserDetails userSession = (MyUserDetails)auth.getPrincipal();
+
 			Optional<Course> optional = courseService.findById(id);
 
 			if(optional.isPresent()) {
                 DetailCourseStudent newDetail = new DetailCourseStudent();
-                boolean isRegisted = detailService.checkRegister(10, id);
+                boolean isRegisted = detailService.checkRegister(userSession.getId(), id);
                 if(isRegisted){
-                    boolean isQualified = detailService.checkQualified(10, id);
+                    boolean isQualified = detailService.checkQualified(userSession.getId(), id);
                     model.addAttribute("isQualified", isQualified);
                 }
 				model.addAttribute("course", optional.get());

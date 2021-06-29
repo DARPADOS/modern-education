@@ -11,34 +11,37 @@
 <body>
 
         <div class="div_img__login">
-          <img class="div_img__registrer" th:src="@{/img/loginvector.svg}" alt="">
+          <img class="div_img__registrer" th:src="@{/img/inicioimg/registervector.svg}" alt="">
         </div>
         <div class="form">
-            <form>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputEmail4">User</label>
-                    <input type="text" class="form-control" id="inputEmail4" placeholder="Enter a user">
+            <form class="needs-validation" novalidate th:action="@{/signup}" th:object="${newUser}" method="post">
+                <div class="row mb-3">
+                  <div class="form-group col">
+                    <label for="inputUsername">Username</label>
+                    <input type="text" class="form-control" id="inputUsername" placeholder="Enter a username" th:field="*{username}" required>
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputPassword4">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                  <div class="form-group col">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" th:field="*{password}" required>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="inputAddress">First name</label>
-                  <input type="text" class="form-control" id="inputAddress" placeholder="Gianluca">
-                </div>
-                <div class="form-group">
-                  <label for="inputAddress2">Last name</label>
-                  <input type="text" class="form-control" id="inputAddress2" placeholder="Lapadula">
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputEmail">Email</label>
-                    <input type="text" class="form-control" id="inputEmail">
+                <div class="row mb-3">
+                  <div class="form-group col">
+                    <label for="inputFirstName">First name</label>
+                    <input type="text" class="form-control" id="inputFirstName" placeholder="E.g. Michael" th:field="*{firstName}" required>
                   </div>
-                  <div class="form-group col-md-4">
+                  <div class="form-group col">
+                    <label for="inputLastName">Last name</label>
+                    <input type="text" class="form-control" id="inputLastName" placeholder="E.g. Jordan" th:field="*{lastName}" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group col-md-8">
+                      <label for="inputEmail">Email</label>
+                      <input type="text" class="form-control" id="inputEmail" placeholder="E.g. example@domain.com" th:field="*{email}" required>
+                    </div>
+                </div>
+                  <!--<div class="form-group col-md-4">
                     <label for="inputState">Rol</label>
                     <select id="inputState" class="form-control">
                       <option selected>Choose your rol</option>
@@ -46,7 +49,6 @@
                       <option>Teacher</option>
                     </select>
                   </div>
-                  
                 </div>
                 <div class="form-group">
                   <div class="form-check">
@@ -55,7 +57,7 @@
                       I'm not a bot 
                     </label>
                   </div>
-                </div>
+                </div>-->
                 <div class="form__buttoms">
                   <button type="submit" class=" btm--color">Sign in</button>
                   <button type="reset" class=" btm--color">Reset</button>
@@ -86,6 +88,7 @@
             <li></li>
             <li></li>
         </ul>
-   
+
+        <div th:replace="fragments/scripts :: links"></div>
 </body>
 </html>

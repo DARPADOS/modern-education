@@ -69,7 +69,6 @@ public class UserController {
 			model.addAttribute("user", userReturn);
 			return "";
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}

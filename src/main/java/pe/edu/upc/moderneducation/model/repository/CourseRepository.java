@@ -26,7 +26,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	@Query(value = "select c.* from course c " +
 		"join users u on c.teacher_id = u.user_id " +
-		"join detail_course_student dcs on c.course_id = dcs.course_id " +
+		"full outer join detail_course_student dcs on c.course_id = dcs.course_id " +
 		"where (UPPER(c.name) like UPPER(CONCAT('%', ?1, '%')) or " +
 		"UPPER(u.first_name) like UPPER(CONCAT('%', ?1, '%')) or " +
 		"UPPER(u.last_name) like UPPER(CONCAT('%', ?1, '%'))) and " +

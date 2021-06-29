@@ -1,6 +1,7 @@
 package pe.edu.upc.moderneducation.model.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	@Query("SELECT u FROM User u WHERE UPPER(u.lastName) LIKE CONCAT(UPPER(:lastName),'%') AND UPPER(u.firstName) LIKE CONCAT(UPPER(:firstName),'%')")
 	List<User>findByLastNameStartingWithAndFirstNameStartingWith(String lastName,String firstName);
+
+	Optional<User> findByUsername(String username);
+	Optional<User> findByEmail(String email);
 }

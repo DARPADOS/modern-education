@@ -3,11 +3,13 @@ package pe.edu.upc.moderneducation.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
+import pe.edu.upc.moderneducation.security.MyUserDetails;
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,9 +22,11 @@ public class SearchController {
     private CourseService courseService;
 
     @GetMapping(value="results")
-    public String searchCourse(Model model, @ModelAttribute("courseSearch") Course courseSearch) {
+    public String searchCourse(Model model, @ModelAttribute("courseSearch") Course courseSearch, Authentication auth) {
         try {   
-            List<Course> results = courseService.findBySearchTerm(courseSearch.getName(), 10);
+            MyUserDetails userSession = (MyUserDetails) auth.getPrincipal();
+
+            List<Course> results = courseService.findBySearchTerm(courseSearch.getName(), userSession.getId());
             String Term = courseSearch.getName();
             model.addAttribute("searchTerm", Term);
             if(results.size() > 0){
@@ -39,5 +43,4 @@ public class SearchController {
         }
         return "redirect:/";
     }
-    
 }
