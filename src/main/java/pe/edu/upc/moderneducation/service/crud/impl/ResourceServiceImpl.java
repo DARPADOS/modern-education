@@ -50,6 +50,7 @@ public class ResourceServiceImpl implements ResourceService{
             }
             System.out.println("NOMBRE FILE PES:" +file.getOriginalFilename());
         }
+        
         Path fileNameAndPath=Paths.get(uploadDirectory,fileName+"."+extension);
         try {
             Files.write(fileNameAndPath, file.getBytes());
