@@ -10,4 +10,5 @@ public interface CommentService extends CrudService<Comment, Integer>{
 	List<Comment> findByUser(User user) throws Exception;
 	List<Comment> findByVideo(Video video) throws Exception;
 	List<Comment> findByMain(Comment main) throws Exception;
+	Comment newCommentByVideo(Integer videoId, Comment entity);
 }

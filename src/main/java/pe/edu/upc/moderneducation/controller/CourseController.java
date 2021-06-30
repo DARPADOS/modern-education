@@ -45,7 +45,7 @@ public class CourseController {
 	@Autowired
 	private LanguageService languageService;
 
-    @GetMapping
+	@GetMapping
 	public String listCourses( Model model, @RequestParam(name="languageId",required=false) Integer languageId,
 			Authentication auth) {
 		try {

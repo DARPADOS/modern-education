@@ -146,10 +146,10 @@
                                 <tbody>
                                 <tr th:each="video:${chapter.videos}">
                                     <th style="width:50px" th:text="${videoStat.count}" scope="row"></th>
-                                    <td th:text="${video.name}"></td>
-                                    <td style="width: 50px;"> <a th:href="@{/chapters/view}" class="btn btn-outline-info"> <i class="fas fa-search"></i> </a> </td>
+                                    <td id="haber" th:text="${video.name}"></td>
+                                    <td style="width: 50px;"> <a th:href="@{'/videos/view/{courseid}/'+${video.id}(courseid=${course.id})}" class="btn btn-outline-info"> <i class="fas fa-search"></i> </a> </td>
                                     <td style="width: 50px;"> <a data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteVideo'+${chapterStat.index}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
-                                    <!-- CONFIRMACIÃ“N DE ELIMINACIÃ“N DE VIDEOS -->
+                                    <!-- CONFIRMACIÓN DE ELIMINACIÓN DE VIDEOS -->
                                     <div class="modal fade" th:attr="id='ConfirmDeleteVideo'+${chapterStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteVidelLabel" aria-hidden="true">
                                       <div class="modal-dialog">
                                         <div class="modal-content">
@@ -202,7 +202,7 @@
                           </div>
                         </div>
                     </div>
-                    <!--CONFIRMACIÃ“N DE ELIMINACIÃ“N CAPITULO-->
+                    <!--CONFIRMACIÓN DE ELIMINACIÓN CAPITULO-->
                     <!-- Modal -->
                     <div class="modal fade" th:attr="id='ConfirmDeleteChapter'+${chapterStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteChapterLabel" aria-hidden="true">
                       <div class="modal-dialog">
@@ -271,7 +271,7 @@
                             <td th:text="${resource.name}"></td>
                             <td style="width:50px"> <a data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteResource' + ${resourceStat.index}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
                             <td style="width:50px"> <a th:href="@{/resources/downloadFile/{idresource}(idresource=${resource.id})}" class="btn btn-success1"> <i class="fas fa-download"></i> </a></td>
-                            <!--CONFIRMACIÃ“N DE ELIMINACIÃ“N RECURSO-->
+                            <!--CONFIRMACIÓN DE ELIMINACIÓN RECURSO-->
                             <!-- Modal -->
                             <div class="modal fade" th:attr="id='ConfirmDeleteResource' + ${resourceStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteResourceLabel" aria-hidden="true">
                               <div class="modal-dialog">
@@ -360,7 +360,7 @@
                       </div>
                     </div>
                 </div>
-                <!--CONFIRMACIÃ“N DE ELIMINACIÃ“N CURSO-->
+                <!--CONFIRMACIÓN DE ELIMINACIÓN CURSO-->
                 <!-- Modal -->
                 <div class="modal fade" id="ConfirmDeleteCourse" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteCourseLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -444,6 +444,7 @@
         return new bootstrap.Toast(toastEl) // No need for options; use the default options
       });
       toastList.forEach(toast => toast.show());
+     
   </script>
 
 </body>

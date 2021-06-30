@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import pe.edu.upc.moderneducation.model.entity.Chapter;
+import pe.edu.upc.moderneducation.model.entity.Comment;
+import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Video;
 import pe.edu.upc.moderneducation.service.crud.ChapterService;
+import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.VideoService;
 
 @Controller
@@ -29,15 +32,23 @@ public class VideoController {
 
     @Autowired
     private ChapterService chapterService;
+    
+    @Autowired
+    private CourseService courseService;
 
-    @GetMapping("{id}")
-	public String findById(Model model, @PathVariable("id") Integer id) {
+    @GetMapping("view/{courseid}/{videoid}")
+	public String findById(Model model, @PathVariable("videoid") Integer videoid,@PathVariable("courseid") Integer courseid) {
 		try {
-			Optional<Chapter> optional = chapterService.findById(id);
+			Optional<Course> optional = courseService.findById(courseid);
+			Optional<Video> optionalv=videoService.findById(videoid);
+			Comment comment= new Comment();
 			if(optional.isPresent()) {
 				model.addAttribute("course", optional.get());
-				return "course/view";
+				model.addAttribute("playvideo", optionalv.get());
+				model.addAttribute("commentNew", comment);
+				return "video/videoview";
 			}
+			System.out.println("mensajexd");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
@@ -45,7 +56,7 @@ public class VideoController {
 		return "redirect:/courses";
 	}
 
-	@PostMapping("savenew/{courseid}/{chapterid}")
+    @PostMapping("savenew/{courseid}/{chapterid}")
 	public String saveNewVideo(@ModelAttribute("videoNew") Video video, 
 	@PathVariable("courseid") Integer courseid,
 	@PathVariable("chapterid") Integer chapterid,
