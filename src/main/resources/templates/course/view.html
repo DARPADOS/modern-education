@@ -336,7 +336,7 @@
                           <h5 class="modal-title" id="staticBackdropLabel">Edit course</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                            <form class="needs-validation" novalidate th:action="@{/courses/save/{id}(id=${course.id})}" th:object="${course}" method="POST">
+                            <form id="the-form" class="needs-validation" novalidate th:action="@{/courses/save/{id}(id=${course.id})}" th:object="${course}" enctype="multipart/form-data" method="POST">
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
@@ -350,17 +350,46 @@
                                         <label for="description" class="form-label">Description</label>
                                         <textarea maxlength="500" class="form-control" id="exampleFormControlTextarea3" rows="3" th:field="*{description}" placeholder="Describe the course"></textarea>
                                         <div class="optional">(optional)</div>
+
+                                        <div class="mb-3">
+                                          <label for="formFileSm" class="form-label">Upload the course image</label>
+                                          <input class="form-control form-control-sm" id="formFileSm" type="file" name="imageEdit" accept="image/jpeg, image/png">
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-moderne-secondary">Understood</button>
+                                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Open second modal</button>
+
                                 </div>
                             </form>
                       </div>
                     </div>
                 </div>
+                
                 <!--CONFIRMACIÓN DE ELIMINACIÓN CURSO-->
+                
+                <!--CONFIRM EDIT COURSE-->
+                <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalToggleLabel2">Modal 2</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure you want to edit this course?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button id="the-submit" type="submit" class="btn btn-moderne-secondary">Send form</button>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <!--CONFIRMACIÃ“N DE ELIMINACIÃ“N CURSO-->
+
                 <!-- Modal -->
                 <div class="modal fade" id="ConfirmDeleteCourse" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteCourseLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -383,7 +412,7 @@
                 <div class="card">
                   <span style="font-size: 1em;" th:if="${course.published}" class="badge bg-success">Status: Published</span>
                   <span style="font-size: 1em;" th:if="${!course.published}" class="badge bg-danger">Status: Not Published</span>
-                    <img th:src="@{/img/curso.jpg}" class="card-img-top mt-1">
+                    <img th:src="@{${'/img/courses/'+ course.mineture_image}}" style="height: 280px;" class="card-img-top mt-1">
                     <div class="card-body">
                       <h5 class="card-title" th:text="${course.name}"></h5>
                       <h6 class="card-text" th:text="${course.teacher.user.firstName} + ' ' + ${course.teacher.user.lastName}">teacher name</h6>
@@ -415,6 +444,8 @@
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script>
       (function () {
           'use strict'
@@ -436,7 +467,13 @@
               })
       })()
   </script>
-
+  <script>
+    $(function() {
+        $('#the-submit').on('click', function(e) {
+            $('#the-form').submit();
+        });
+    });
+  </script>
   <script>
       var toastElList = [].slice.call(document.querySelectorAll('.toast'))
       var toastList = toastElList.map(function(toastEl) {
