@@ -61,7 +61,7 @@ public class RegisterController {
         try {
             MyUserDetails userSession = (MyUserDetails) auth.getPrincipal();
             studentService.createNewStudent(userSession.getUser());
-            if(userSession.getUser().hasRoleStudent()){
+            if(userSession.getUser().hasRoleTeacher()){
                 userService.changeRole(userSession.getUser());
             }
             else{
