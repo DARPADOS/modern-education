@@ -158,6 +158,7 @@ public class CommentController {
 		}
 		return "redirect:/courses";
 	}
+
 	
 	
 	@PostMapping("save/{courseid}/{videoid}/{idcomment}")

@@ -45,7 +45,7 @@ public class CourseController {
 	@Autowired
 	private LanguageService languageService;
 
-    @GetMapping
+	@GetMapping
 	public String listCourses( Model model, @RequestParam(name="languageId",required=false) Integer languageId,
 			Authentication auth) {
 		try {
@@ -83,7 +83,7 @@ public class CourseController {
 			String limitName=new String();
 			Teacher teacher=teacherService.findById(userSession.getId()).get();
 			course.setTeacher(teacher);
-			Course courseReturn = courseService.uploadImage(course, img);
+			Course courseReturn = courseService.createCourse(course, img);
 			model.addAttribute("course", courseReturn);
 			if(course.getName().length()>5){
 				limitName="limit name pa";
@@ -100,14 +100,19 @@ public class CourseController {
 	@PostMapping("save/{id}")
 	public String saveEdit(Model model, 
 	@ModelAttribute("course") Course course, 
-	@PathVariable("id") Integer id) {
-		//System.out.println("COURSE ID:"+course.getId().toString());
+	@PathVariable("id") Integer id,
+	@RequestParam("imageEdit") MultipartFile imageEdit) {
 		try {
 			Course getCourse=courseService.findById(id).get();
-			getCourse.setName(course.getName());
+			/*getCourse.setName(course.getName());
 			getCourse.setDescription(course.getDescription());
 			getCourse.setLanguage(course.getLanguage());
-			courseService.update(getCourse);
+
+			if(imageEdit.getOriginalFilename().isBlank()){
+				getCourse.setMineture_image(getCourse.getMineture_image());
+			}
+			else{getCourse.setMineture_image(courseService.uploadImage(imageEdit));}*/
+			courseService.updateCourse(getCourse, course, imageEdit);
 			//model.addAttribute("course", courseReturn);
 			return "redirect:/courses/"+getCourse.getId();
 		} catch (Exception e) {

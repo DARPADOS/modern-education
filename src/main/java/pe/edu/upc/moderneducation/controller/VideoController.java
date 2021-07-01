@@ -19,7 +19,9 @@ import pe.edu.upc.moderneducation.model.entity.Comment;
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Video;
 import pe.edu.upc.moderneducation.service.crud.ChapterService;
+
 import pe.edu.upc.moderneducation.service.crud.CommentService;
+
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.VideoService;
 
@@ -36,6 +38,7 @@ public class VideoController {
     
     @Autowired
     private CourseService courseService;
+
     
     @Autowired
     private CommentService commentService;
@@ -43,6 +46,7 @@ public class VideoController {
     @GetMapping("view/{courseid}/{videoid}")
 	public String findById(Model model, @PathVariable("videoid") Integer videoid,
 			@PathVariable("courseid") Integer courseid) {
+
 		try {
 			Optional<Course> optional = courseService.findById(courseid);
 			Optional<Video> optionalv=videoService.findById(videoid);
@@ -61,7 +65,7 @@ public class VideoController {
 		return "redirect:/courses";
 	}
 
-	@PostMapping("savenew/{courseid}/{chapterid}")
+    @PostMapping("savenew/{courseid}/{chapterid}")
 	public String saveNewVideo(@ModelAttribute("videoNew") Video video, 
 	@PathVariable("courseid") Integer courseid,
 	@PathVariable("chapterid") Integer chapterid,

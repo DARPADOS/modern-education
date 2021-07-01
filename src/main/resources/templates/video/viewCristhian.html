@@ -1,0 +1,168 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+    <style>      
+      
+      
+
+    </style>
+
+
+<div th:replace="fragments/head :: head(${course.name} +' | '+ ${playvideo.name})"></div>
+
+<body>
+    <!--navbar-->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+
+    <!--content-->
+    <main  class="container-fluid" >
+         <div class="row p-0">
+            <div class="col-9 p-0">
+                <div class="row p-0">
+                    <video width="100%" height="" controls>
+
+                          <a class="nav-link active" data-bs-toggle="tab" aria-current="page" href="#" data-bs-target="#comments" aria-controls="comments">Comments</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Por decidirse</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#description" aria-controls="description">Description of course</a>
+                        </li>
+                        <li class="nav-item">
+                          <button class="switch position-sticky" id="switch">
+                            <span><i class="fas fa-sun"></i></span>
+                            <span><i class="fas fa-moon"></i></span>
+                          </button>
+                        </li>                             
+
+
+                                <label id="form_dark" for="name" class="form-label">Write a comment on the video </label>
+                                <textarea style="border-top: none; border-left: none; border-right: none; height: 17px;" class="form-control" th:field="*{content}" placeholder="Comment..." required></textarea>                     
+                              </div>
+                            </div>
+                            <div class="modal-footer">                              
+                              <button type="submit" class="btn btn-moderne-secondary">Comment</button>
+                            </div>
+                          </form>
+                          <div id="dar_comment" style="margin: 40px;">
+                            <h2 id="accountant">Comments</h2>                            
+                            <div th:each="commente:${playvideo.comments}" style="margin: 10px;" class="contador">
+                                <div style="border: 1px solid #a2a3a5; padding: 10px; display: flex; border-radius: 4px;" class="--hover">
+
+                                    <p th:text="${commente.content}"></p>                              
+                                    <p>Time</p>
+                                    <a class="btn btn-moderne-edit" data-bs-toggle="modal" data-bs-target='#staticBackdropEditComment'> <i class="fas fa-edit"></i> Edit comment</a>                              
+                                  </div> 
+                                </div>  
+                            </div>
+
+                            
+
+
+
+
+                      </div>                     
+                </div>
+                
+                <div th:each="comment:${playvideo.comments}">
+                  <div class="modal fade" id='staticBackdropEditComment' data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelEditComment" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabelEditChapter">Edit Comment</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                            <form class="needs-validation" novalidate th:action="@{/comments/save/{courseid}/{videoid}/{idcomment}(videoid=${playvideo.id},courseid=${course.id},idcomment=${comment.id})}" th:object="${commentNew}" method="POST">
+                                <div class="modal-body">
+                                  <div class="mb-3">
+                                    <label for="name" class="form-label">Write a comment on the video </label>
+                                    <textarea style="border-top: none; border-left: none; border-right: none; height: 17px;" class="form-control" th:field="*{content}" placeholder="Comment..." required></textarea>                     
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-moderne-terciary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-moderne-secondary">Understood</button>
+                                </div>
+                            </form>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  
+
+
+
+                </div>
+                
+                
+                
+
+            </div>
+            <div class="col-3 border">
+
+
+              
+            </div>
+        </div>
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <div th:replace = "fragments/scripts :: links">
+        
+    </div>
+</body>
+
+<script>
+  var divs = document.getElementsByClassName("contador").length;
+  let count =document.getElementById("accountant");
+  let insert=document.createElement("span"); 
+  dar_comment   
+  insert.innerHTML=` (${divs})`;
+  count.appendChild(insert)
+</script>
+
+<script>
+const btnSwitch = document.querySelector('#switch');
+const commentdark = document.querySelector('#dar_comment');
+const commentdarkf = document.querySelector('#form_dark');
+
+
+btnSwitch.addEventListener('click', () => {
+	document.body.classList.toggle('dark');
+  commentdark.classList.toggle('dark-comment');
+  commentdarkf.classList.toggle('dark-comment');
+	btnSwitch.classList.toggle('active');
+
+	// Guardamos el modo en localstorage.
+	if(document.body.classList.contains('dark')){
+		localStorage.setItem('dark-mode', 'true');
+	} else {
+		localStorage.setItem('dark-mode', 'false');
+	}
+  });
+
+  // Obtenemos el modo actual.
+  if(localStorage.getItem('dark-mode') === 'true'){
+    document.body.classList.add('dark');
+    commentdark.classList.add('dark-comment');
+    commentdarkf.classList.add('dark-comment');
+    btnSwitch.classList.add('active');
+  } else {
+    document.body.classList.remove('dark');
+    commentdark.classList.remove('dark-comment');
+    commentdarkf.classList.remove('dark-comment');
+    btnSwitch.classList.remove('active');
+  }
+  </script>
+
+
+
+
+
+
+
+
+
