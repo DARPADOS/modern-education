@@ -61,7 +61,12 @@ public class RegisterController {
         try {
             MyUserDetails userSession = (MyUserDetails) auth.getPrincipal();
             studentService.createNewStudent(userSession.getUser());
-            userService.AddRoleStudent(userSession.getUser());
+            if(userSession.getUser().hasRoleStudent()){
+                userService.changeRole(userSession.getUser());
+            }
+            else{
+                userService.AddRoleStudent(userSession.getUser());
+            }
             return "redirect:/logout";
         } catch (Exception e) {
             e.printStackTrace();

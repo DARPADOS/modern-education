@@ -30,4 +30,6 @@ public interface CourseService extends CrudService<Course, Integer> {
 	Course createCourse(Course course, MultipartFile img) throws Exception;
 
 	Course updateCourse(Course course, Course courseUpdated, MultipartFile img) throws Exception;
+
+	List<Course> getLatestCourses() throws Exception;
 }

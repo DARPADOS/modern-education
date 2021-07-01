@@ -10,20 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pe.edu.upc.moderneducation.model.entity.Assistance;
 import pe.edu.upc.moderneducation.model.entity.Student;
-import pe.edu.upc.moderneducation.model.entity.Teacher;
-import pe.edu.upc.moderneducation.model.entity.User;
 import pe.edu.upc.moderneducation.model.entity.Videoconference;
 import pe.edu.upc.moderneducation.security.MyUserDetails;
 import pe.edu.upc.moderneducation.service.crud.AssistanceService;
 import pe.edu.upc.moderneducation.service.crud.StudentService;
-import pe.edu.upc.moderneducation.service.crud.TeacherService;
-import pe.edu.upc.moderneducation.service.crud.UserService;
 import pe.edu.upc.moderneducation.service.crud.VideoconferenceService;
 
 

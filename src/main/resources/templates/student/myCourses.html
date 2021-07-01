@@ -40,7 +40,7 @@
                                 </div>
                                 <small th:text="${course.chapter.size} + ' chapters'"class="text-muted">9 mins</small>
                             </div>
-                            <a th:href="@{'/student/course/' + ${course.id}}" class="stretched-link"></a>
+                            <a th:href="@{'/student/course/' + ${course.id} + '?origin=mycourses'}" class="stretched-link"></a>
                         </div>
                     </div>
                 </div>

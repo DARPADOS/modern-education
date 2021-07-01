@@ -53,6 +53,9 @@ text-align: center;
   background-color: #246a73 !important;
 }
 
+.btn-modern-primary-2{
+  background-color: #845EC8;
+}
 
 .--hover:hover{
 	background:#c8bae0;

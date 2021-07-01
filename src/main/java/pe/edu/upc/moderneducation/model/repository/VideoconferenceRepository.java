@@ -6,10 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import pe.edu.upc.moderneducation.model.entity.Course;
-import pe.edu.upc.moderneducation.model.entity.Student;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
-import pe.edu.upc.moderneducation.model.entity.User;
 import pe.edu.upc.moderneducation.model.entity.Videoconference;
 
 

@@ -7,4 +7,6 @@ public interface StudentService extends CrudService<Student, Integer>{
     boolean exist(Integer userId) throws Exception;
 
     Student createNewStudent(User user) throws Exception;
+
+    Student makeToPremium(Integer studentId) throws Exception;
 }

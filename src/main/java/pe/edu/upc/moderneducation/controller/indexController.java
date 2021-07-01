@@ -59,8 +59,10 @@ public class indexController {
     @GetMapping
     public String index(Model model) {
         try {
-			List<Course> courses = courseService.getAll();
+			List<Course> courses = courseService.getTopCourses();
+            List<Course> lastestCourses = courseService.getLatestCourses();
 			model.addAttribute("topCourses", courses);
+            model.addAttribute("lastedCourses", lastestCourses);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
@@ -78,7 +80,7 @@ public class indexController {
         return"access/access-denied";
     }
 
-    @GetMapping("success")
+    @GetMapping("success-login")
     public String successLogin(Authentication authentication) {
         try {
             MyUserDetails userSession = (MyUserDetails) authentication.getPrincipal();
@@ -130,4 +132,10 @@ public class indexController {
         }
         return "error";
     }
+/*
+    @GetMapping(value="access")
+    public String test() {
+        return "premium/success";
+    }*/
+    
 }
