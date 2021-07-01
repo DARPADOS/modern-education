@@ -3,10 +3,14 @@
 
 <div th:replace="fragments/head :: head(${course.name})"></div>
   
-<body style="background-color:#F8F9FA;">
+<body>
     <div th:replace="fragments/navbar :: navbar"></div>
 	<!-- Button trigger modal -->
-	<main class="container" style="background-color: white;">
+	<main class="container">
+    <button class="switch position-sticky" id="switch">
+      <span><i class="fas fa-sun"></i></span>
+      <span><i class="fas fa-moon"></i></span>
+    </button>
     <!--MENSAJE CURSO PUBLICADO-->
     <div th:if="${published}" class="position-fixed end-0 p-3" style="z-index: 5; top: 75px;">
       <div th:class= "${course.published}? 'toast align-items-center alert-success':'toast align-items-center alert-danger'" th:style="${course.published}? 'background-color: #d1e7dd': 'background-color: #f8d7da' "  role="alert" aria-live="assertive" aria-atomic="true">
@@ -20,7 +24,7 @@
       </div>
     </div>
     <!--MENSAJE RECURSO CARGADO-->
-    <div th:if="${uploadMessage}" class="position-fixed end-0 p-3" style="z-index: 5; top: 75px;">
+    <div  th:if="${uploadMessage}" class="position-fixed end-0 p-3" style="z-index: 5; top: 75px;">
       <div class="toast alert-success align-items-center" style="background-color: #d1e7dd;"  role="alert" aria-live="assertive" aria-atomic="true">
           <div class="d-flex">
               <div class="toast-body" style="font-size: 1.1em;">
@@ -31,7 +35,7 @@
           </div>
       </div>
     </div>
-        <div class="row p-3 my-3 bg-purple rounded shadow">
+        <div id="resource-card" class="row p-3 my-3 bg-purple rounded shadow">         
             <div class="row">
               <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                   <ol class="breadcrumb">
@@ -146,8 +150,8 @@
                                 <tbody>
                                 <tr th:each="video:${chapter.videos}">
                                     <th style="width:50px" th:text="${videoStat.count}" scope="row"></th>
-                                    <td th:text="${video.name}"></td>
-                                    <td style="width: 50px;"> <a th:href="@{/chapters/view}" class="btn btn-outline-info"> <i class="fas fa-search"></i> </a> </td>
+                                    <td id="haber" th:text="${video.name}"></td>
+                                    <td style="width: 50px;"> <a th:href="@{'/videos/view/{courseid}/'+${video.id}(courseid=${course.id})}" class="btn btn-outline-info"> <i class="fas fa-search"></i> </a> </td>
                                     <td style="width: 50px;"> <a data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteVideo'+${chapterStat.index}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
                                     <!-- CONFIRMACIÓN DE ELIMINACIÓN DE VIDEOS -->
                                     <div class="modal fade" th:attr="id='ConfirmDeleteVideo'+${chapterStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteVidelLabel" aria-hidden="true">
@@ -175,7 +179,7 @@
                       <!--EDIT CHAPTER-->
                       <div class="modal fade" th:attr="id='staticBackdropEditChapter'+${chapterStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelEditChapter" aria-hidden="true">
                         <div class="modal-dialog">
-                          <div class="modal-content">
+                          <div id="modal_chap" class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title" id="staticBackdropLabelEditChapter">Edit chapter</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -206,7 +210,7 @@
                     <!-- Modal -->
                     <div class="modal fade" th:attr="id='ConfirmDeleteChapter'+${chapterStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteChapterLabel" aria-hidden="true">
                       <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div id="modal_chap_del" class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="ConfirmDeleteChapterLabel">Confirm deletion</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -301,7 +305,7 @@
                       <div class="col-3 pe-0 text-center"> <i class="fas fa-user-circle py-3" style="font-size: 100px"></i> 
                       </div>
                       <div class="col-9 ps-0">
-                          <div class="card-body ps-0">
+                          <div class="card-body ps-0" style="color: black;">
                               <h5 class="card-title"
                                   th:text="${register.student.user.firstName + ' ' + register.student.user.lastName}">
                                   Special title treatment</h5>
@@ -380,11 +384,11 @@
                   </div>
                 </div>
                 <!--DETALLE CURSO-->
-                <div class="card">
+                <div id="carta" class="card">
                   <span style="font-size: 1em;" th:if="${course.published}" class="badge bg-success">Status: Published</span>
                   <span style="font-size: 1em;" th:if="${!course.published}" class="badge bg-danger">Status: Not Published</span>
                     <img th:src="@{/img/curso.jpg}" class="card-img-top mt-1">
-                    <div class="card-body">
+                    <div class="card-body" id="cardl-dark">
                       <h5 class="card-title" th:text="${course.name}"></h5>
                       <h6 class="card-text" th:text="${course.teacher.user.firstName} + ' ' + ${course.teacher.user.lastName}">teacher name</h6>
                       <span class="badge bg-success" th:text="${course.language.name}"></span>
@@ -444,7 +448,46 @@
         return new bootstrap.Toast(toastEl) // No need for options; use the default options
       });
       toastList.forEach(toast => toast.show());
+     
   </script>
+
+  <script>
+    const btnSwitch = document.querySelector('#switch');
+    const variable=document.querySelector("#carta");
+    const varcard=document.querySelector("#resource-card");
+    const letra=document.querySelector("#staticBackdropLabelChapter");
+    const modalLet=document.querySelector("#cardl-dark");
+            
+    btnSwitch.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    btnSwitch.classList.toggle('active');
+    modalLet.classList.toggle('dark-comment');
+    varcard.classList.toggle('card-dark'); 
+    variable.classList.toggle('dark-card');
+    // Guardamos el modo en localstorage.
+    if(document.body.classList.contains('dark')){
+      localStorage.setItem('dark-mode', 'true');
+    } else {
+      localStorage.setItem('dark-mode', 'false');
+    }
+    });
+  
+    // Obtenemos el modo actual.
+    if(localStorage.getItem('dark-mode') === 'true'){
+      document.body.classList.add('dark');
+      variable.classList.add('dark-card');
+      modalLet.classList.add('dark-comment');
+      varcard.classList.add('card-dark');     
+      btnSwitch.classList.add('active');
+    } else {
+      document.body.classList.remove('dark');
+      variable.classList.remove('dark-card');
+      modalLet.classList.remove('dark-comment');
+      varcard.classList.remove('card-dark');
+      btnSwitch.classList.remove('active');
+    }
+  </script>
+
 
 </body>
 </html>

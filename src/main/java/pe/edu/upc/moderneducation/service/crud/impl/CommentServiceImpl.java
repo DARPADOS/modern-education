@@ -11,6 +11,7 @@ import pe.edu.upc.moderneducation.model.entity.Comment;
 import pe.edu.upc.moderneducation.model.entity.User;
 import pe.edu.upc.moderneducation.model.entity.Video;
 import pe.edu.upc.moderneducation.model.repository.CommentRepository;
+import pe.edu.upc.moderneducation.model.repository.VideoRepository;
 import pe.edu.upc.moderneducation.service.crud.CommentService;
 
 @Service
@@ -19,6 +20,8 @@ public class CommentServiceImpl implements CommentService{
 	@Autowired
 	private CommentRepository commentRepository;
 		
+	@Autowired
+	private VideoRepository videoRepository;
 	
 	@Override
 	public JpaRepository<Comment, Integer> getRepository() {
@@ -41,6 +44,13 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public List<Comment> findByMain(Comment main) throws Exception {
 		return commentRepository.findByMain(main);
+	}
+
+	@Override
+	public Comment newCommentByVideo(Integer videoId, Comment comment) {
+		Video video=videoRepository.findById(videoId).get();		
+		comment.setVideo(video);			
+		return commentRepository.save(comment);
 	}
 	
 }
