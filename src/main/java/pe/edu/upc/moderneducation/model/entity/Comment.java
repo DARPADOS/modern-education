@@ -39,7 +39,7 @@ public class Comment {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Video video;
 	
-	@Column(name = "date", nullable = false)
+	@Column(name = "date", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	

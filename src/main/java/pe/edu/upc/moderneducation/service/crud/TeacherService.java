@@ -2,6 +2,7 @@ package pe.edu.upc.moderneducation.service.crud;
 
 
 import pe.edu.upc.moderneducation.model.entity.Teacher;
+
 import pe.edu.upc.moderneducation.model.entity.User;
 
 public interface TeacherService extends CrudService<Teacher, Integer>{

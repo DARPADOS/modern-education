@@ -133,7 +133,7 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public Course uploadImage(Course course, MultipartFile courseImage) throws Exception {
+	public String uploadImage(MultipartFile courseImage) throws Exception {
 		String originalName=courseImage.getOriginalFilename();
 		Path fileNameAndPath=Paths.get(courseImgDirectory,originalName);
         try {
@@ -141,7 +141,15 @@ public class CourseServiceImpl implements CourseService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-		course.setMineture_image(originalName);
+		
+		return originalName;
+	}
+
+	@Override
+	public Course createCourse(Course course, MultipartFile img) throws Exception {
+		String imgLink= uploadImage(img);
+		if(imgLink.isBlank()){course.setMineture_image("default.jpg");}
+		else{course.setMineture_image(imgLink);}
 		return create(course);
 	}
 
@@ -154,6 +162,19 @@ public class CourseServiceImpl implements CourseService {
 			return latestCourses;
 		}
 		return courses;
+	}
+
+	@Override
+	public Course updateCourse(Course course, Course courseUpdated,MultipartFile imgEdit) throws Exception {
+		course.setName(courseUpdated.getName());
+		course.setDescription(courseUpdated.getDescription());
+		course.setLanguage(courseUpdated.getLanguage());
+
+		if(imgEdit.getOriginalFilename().isBlank()){
+			course.setMineture_image(course.getMineture_image());
+		}
+		else{course.setMineture_image(uploadImage(imgEdit));}
+		return CourseService.super.update(course);
 	}
 
 }

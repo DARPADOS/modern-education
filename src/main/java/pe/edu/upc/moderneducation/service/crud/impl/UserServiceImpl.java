@@ -1,23 +1,31 @@
 package pe.edu.upc.moderneducation.service.crud.impl;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import pe.edu.upc.moderneducation.model.entity.Authority;
 import pe.edu.upc.moderneducation.model.entity.User;
 import pe.edu.upc.moderneducation.model.repository.AuthorityRepository;
 import pe.edu.upc.moderneducation.model.repository.UserRepository;
 import pe.edu.upc.moderneducation.model.types.UserAuthorities;
+import pe.edu.upc.moderneducation.security.MyUserDetails;
 import pe.edu.upc.moderneducation.service.crud.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-
+	public static String userImgDirectory=System.getProperty("user.dir")+"/src/main/resources/static/img/profile_image";
+	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -43,6 +51,12 @@ public class UserServiceImpl implements UserService {
 	public List<User> findByLastNameStartingWithAndFirstNameStartingWith(String lastName, String firstName)
 			throws Exception {
 		return userRepository.findByLastNameStartingWithAndFirstNameStartingWith(lastName, firstName);
+	}
+	@Transactional(readOnly=true)
+	@Override
+	public List<User> StudentsByVideoconference(Integer id) throws Exception {
+		// TODO Auto-generated method stub
+		return userRepository.StudentsByVideoconference(id);
 	}
 
 	@Transactional
@@ -119,5 +133,30 @@ public class UserServiceImpl implements UserService {
 	public User AddRolePremium(User user) throws Exception {
 		user.addAuthority(UserAuthorities.ROLE_PREMIUM);
 		return update(user);
+	}
+	/*@Override
+	public User uploadImage(User user, MultipartFile userImage) throws Exception {
+		String originalName=userImage.getOriginalFilename();
+		Path fileNameAndPath=Paths.get(userImgDirectory,originalName);
+        try {
+            Files.write(fileNameAndPath, userImage.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        user.setProfileImage(originalName);
+		return create(user);
+	}*/
+	@Override
+	public User uploadImage(User user, MyUserDetails userSession ,MultipartFile userImage) throws Exception {
+		String originalName=userImage.getOriginalFilename();
+		Path fileNameAndPath=Paths.get(userImgDirectory,originalName);
+        try {
+            Files.write(fileNameAndPath, userImage.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        userSession.setProfileImage(originalName);
+        user.setProfileImage(originalName);
+		return create(user);
 	}
 }

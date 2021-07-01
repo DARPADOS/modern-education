@@ -2,6 +2,7 @@ package pe.edu.upc.moderneducation.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
+
+import pe.edu.upc.moderneducation.model.entity.Videoconference;
+
 import pe.edu.upc.moderneducation.security.MyUserDetails;
+
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.StudentService;
 import pe.edu.upc.moderneducation.service.crud.TeacherService;
@@ -38,7 +43,16 @@ public class indexController {
         Course course = new Course();
         model.addAttribute("courseSearch", course);
     }
-
+   /* @ModelAttribute
+    public void addAttributeV(Model model){
+    	 Videoconference  videoconferenceEd = new  Videoconference();
+        model.addAttribute("videoconferenceE", videoconferenceEd);
+    }*/
+    @ModelAttribute
+    public void addAttributeVideoconferences(Model model){
+       Videoconference videoconference = new Videoconference();
+        model.addAttribute("videoconferenceSearch", videoconference);
+    }
     @Autowired
     CourseService courseService;
 
