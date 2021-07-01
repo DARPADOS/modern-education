@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -22,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
-@Table(name="Videoconference")
+@Table(name="Videoconference", indexes= {@Index(columnList = "name", name="videoconference_index_name")})
 @SequenceGenerator(name="Videoconference_videoconference_id_seq",initialValue=1,allocationSize = 1)
 public class Videoconference {
 	@Id

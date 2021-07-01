@@ -159,6 +159,27 @@ public class CommentController {
 		return "redirect:/courses";
 	}
 
+	
+	
+	@PostMapping("save/{courseid}/{videoid}/{idcomment}")
+	public String saveCommentEdit(@ModelAttribute("commentNew") Comment comment,
+	@PathVariable("videoid") Integer videoid,
+	@PathVariable("courseid") Integer courseid,
+	@PathVariable("idcomment") Integer idcomment) {
+		try {
+			Comment getComment=commentService.findById(idcomment).get();
+			getComment.setContent(comment.getContent());
+			commentService.update(getComment);
+			return "redirect:/videos/view/"+courseid+"/"+videoid;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "redirect:/courses";
+	}
+	
+
+
 }
 
 
