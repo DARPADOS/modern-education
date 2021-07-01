@@ -53,7 +53,7 @@
                     <a class="nav-link btn btn-primary text-light px-4 py-1" th:href="@{/login}">Log in</a>
                 </li>
 
-                <li sec:authorize="isAuthenticated()" class="nav-item dropdown mx-1">
+                <li sec:authorize="isAuthenticated()" class="nav-item profile dropdown mx-1">
                     <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <img th:src="@{|/img/profile_image/${#authentication.getPrincipal().getProfileImage()}|}" alt="" class="image-profile me-1" /> 

@@ -47,7 +47,7 @@
                                     <td style="width: 50px;"> <a th:href="@{'/videos/view/{courseid}/'+${video.id}(courseid=${course.id})}" class="btn btn-outline-info"> <i class="fas fa-search"></i> </a> </td>
                                     <td style="width: 50px;"> <a class="btn btn-outline-warning"> <i class="fas fa-edit"></i> </a> </td>
                                     <td style="width: 50px;"> <a data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteVideo'+${chapterStat.index}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
-                                    <!-- CONFIRMACIÓN DE ELIMINACIÓN DE VIDEOS -->
+                                    <!-- CONFIRMACIï¿½N DE ELIMINACIï¿½N DE VIDEOS -->
                                     <div class="modal fade" th:attr="id='ConfirmDeleteVideo'+${chapterStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteVidelLabel" aria-hidden="true">
                                       <div class="modal-dialog">
                                         <div class="modal-content">
@@ -80,7 +80,7 @@
         
             <div class="col-6 p-0">
                 <div class="row p-0">
-                    <video th:src="@{${'/videos/'+ video.link}}" width="100%" height="" >
+                    <video th:src="@{${'/videos/'+ playvideo.link}}" width="100%" height="" >
                     </video>
                 </div>
                 <div class="row">

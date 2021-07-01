@@ -8,6 +8,8 @@
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script>
         (function () {
             'use strict'
@@ -29,4 +31,27 @@
                 })
         })()
     </script>
+      <script>
+        $(function() {
+            $('#the-submit').on('click', function(e) {
+                $('#the-form').submit();
+            });
+        });
+      </script>
+      <script>
+        $(function() {
+            $('#editChapterSubmit').on('click', function(e) {
+                $('#editChapterForm').submit();
+            });
+        });
+      </script>
+      <script>
+          var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+          var toastList = toastElList.map(function(toastEl) {
+          // Creates an array of toasts (it only initializes them)
+            return new bootstrap.Toast(toastEl) // No need for options; use the default options
+          });
+          toastList.forEach(toast => toast.show());
+         
+      </script>
 </div>

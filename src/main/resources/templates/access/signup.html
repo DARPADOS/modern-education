@@ -18,27 +18,27 @@
                 <div class="row mb-3">
                   <div class="form-group col">
                     <label for="inputUsername">Username</label>
-                    <input type="text" class="form-control" id="inputUsername" placeholder="Enter a username" th:field="*{username}" required>
+                    <input maxlength="20" type="text" class="form-control" id="inputUsername" placeholder="Enter a username" th:field="*{username}" required>
                   </div>
                   <div class="form-group col">
                     <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" th:field="*{password}" required>
+                    <input maxlength="16" type="password" class="form-control" id="inputPassword" placeholder="Password" th:field="*{password}" required>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group col">
                     <label for="inputFirstName">First name</label>
-                    <input type="text" class="form-control" id="inputFirstName" placeholder="E.g. Michael" th:field="*{firstName}" required>
+                    <input maxlength="100" type="text" class="form-control" id="inputFirstName" placeholder="E.g. Michael" th:field="*{firstName}" required>
                   </div>
                   <div class="form-group col">
                     <label for="inputLastName">Last name</label>
-                    <input type="text" class="form-control" id="inputLastName" placeholder="E.g. Jordan" th:field="*{lastName}" required>
+                    <input maxlength="100" type="text" class="form-control" id="inputLastName" placeholder="E.g. Jordan" th:field="*{lastName}" required>
                   </div>
                 </div>
                 <div class="row mb-3">
                     <div class="form-group col-md-8">
                       <label for="inputEmail">Email</label>
-                      <input type="text" class="form-control" id="inputEmail" placeholder="E.g. example@domain.com" th:field="*{email}" required>
+                      <input maxlength="50" type="email" pattern=".+@[a-z]+\.[a-z]+" class="form-control" id="inputEmail" placeholder="E.g. example@domain.com" th:field="*{email}" required>
                     </div>
                 </div>
                   <!--<div class="form-group col-md-4">

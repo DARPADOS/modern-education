@@ -32,7 +32,7 @@ text-align: center;
   object-position: center right;
 }
 
-.dropdown:hover .dropdown-menu {
+.profile:hover .dropdown-menu {
   display: block;
   margin-top: 0;
   right: 0;
