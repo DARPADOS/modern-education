@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,7 @@ import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.repository.CourseRepository;
 import pe.edu.upc.moderneducation.model.repository.TeacherRepository;
 import pe.edu.upc.moderneducation.service.crud.CourseService;
+import pe.edu.upc.moderneducation.util.DateTimeUtil;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -53,8 +55,8 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public Course create(Course entity) throws Exception {
-		//entity.setMineture_image("waifu.png");
 		entity.setPublished(false);
+		entity.setCreatedDate(DateTimeUtil.getNow());
 		return CourseService.super.create(entity);
 	}
 
@@ -68,7 +70,16 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<Course> getTopCourses() throws Exception {
-		return courseRepository.getTopCourses();
+		List<Course> courses = courseRepository.findByPublishedOrderByCreatedDateDesc(true);
+		List<Course> topCourses = new ArrayList<>();
+
+		courses.sort(Comparator.comparing(Course::getAverageQualification).reversed());
+
+		if(courses.size()>=20){
+			topCourses = courses.subList(0, 19);
+			return topCourses;
+		}
+		return courses;
 	}
 
 	@Override
@@ -140,6 +151,17 @@ public class CourseServiceImpl implements CourseService {
 		if(imgLink.isBlank()){course.setMineture_image("default.jpg");}
 		else{course.setMineture_image(imgLink);}
 		return create(course);
+	}
+
+	@Override
+	public List<Course> getLatestCourses() throws Exception {
+		List<Course> courses = courseRepository.findByPublishedOrderByCreatedDateDesc(true);
+		List<Course> latestCourses = new ArrayList<>();
+		if(courses.size()>=20){
+			latestCourses = courses.subList(0, 19);
+			return latestCourses;
+		}
+		return courses;
 	}
 
 	@Override

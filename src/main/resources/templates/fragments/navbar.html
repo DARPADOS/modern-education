@@ -31,22 +31,24 @@
                         My Courses
                     </a>
                 </li>
-
-                <li class="nav-item">
-
-                <li sec:authorize="hasRole('ROLE_TEACHER')" class="nav-item mx-2 my-auto">
-                    <a class="nav-link active position-relative" aria-current="page" th:href="@{/videoconferences}">
+                <li sec:authorize="isAuthenticated()" class="nav-item mx-2 my-auto">
+                    <a sec:authorize="hasRole('ROLE_TEACHER')" class="nav-link active position-relative" aria-current="page" th:href="@{/videoconferences}">
+                        Videoconference
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_STUDENT') and hasRole('ROLE_PREMIUM')" class="nav-link active position-relative" aria-current="page" th:href="@{/assistances}">
                         Videoconference <span class="position-absolute translate-middle badge rounded-pill bg-warning" style="left: 100px; top: 5px;">Premium <span class="visually-hidden">unread messages</span></span>
-
+                    </a>
+                    <a sec:authorize="hasRole('ROLE_STUDENT') and !hasRole('ROLE_PREMIUM')" class="nav-link active position-relative" aria-current="page" th:href="@{/premium}">
+                        Videoconference
                     </a>
                 </li>
-                 <li sec:authorize="hasRole('ROLE_STUDENT')" class="nav-item mx-2 my-auto">
-                    <a class="nav-link active position-relative" aria-current="page" th:href="@{/assistances}">
-                        Videoconference <span class="position-absolute translate-middle badge rounded-pill bg-warning" style="left: 100px; top: 5px;">Premium <span class="visually-hidden">unread messages</span></span>
 
+                <li sec:authorize="!hasAnyRole('ROLE_PREMIUM') and hasRole('ROLE_STUDENT') or isAnonymous()" class="nav-item mx-2 my-auto">
+                    <a class="nav-link active" aria-current="page" th:href="@{/premium}">
+                        Premium
                     </a>
                 </li>
-                
+
                 <li sec:authorize="hasRole('ROLE_STUDENT')" class="nav-item mx-2 my-auto">
                     <a class="nav-link active" aria-current="page" th:href="@{/change-to-teacher}">
                         Teach with Us
@@ -107,7 +109,7 @@
                             <a class="dropdown-item" th:href="@{/userT}">
                                 <div class="card-text text-truncate" style="max-width: 150px;">
                                     <img th:src="@{|/img/profile_image/${#authentication.getPrincipal().getProfileImage()}|}" alt="" class="image-profile me-1" />
-                                    <span th:text="@{|${#authentication.getPrincipal().getFullName()}|}">Profile</span>
+                                    <span th:text="@{|${#authentication.getPrincipal().getFullName()}|}" >Profile</span>
                                 </div>
                             </a>
                         </li>

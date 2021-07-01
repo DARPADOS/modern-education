@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
-import pe.edu.upc.moderneducation.model.entity.Student;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.security.MyUserDetails;
 import pe.edu.upc.moderneducation.service.crud.CourseService;
@@ -20,7 +19,6 @@ import pe.edu.upc.moderneducation.service.crud.DetailCourseStudentService;
 import pe.edu.upc.moderneducation.service.crud.TeacherService;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 

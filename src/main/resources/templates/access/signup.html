@@ -14,6 +14,7 @@
           <img class="div_img__registrer" th:src="@{/img/inicioimg/registervector.svg}" alt="">
         </div>
         <div class="form">
+          <div th:if="${param.error}" class="alert alert-danger">The user or email already exists</div>
             <form class="needs-validation" novalidate th:action="@{/signup}" th:object="${newUser}" method="post">
                 <div class="row mb-3">
                   <div class="form-group col">

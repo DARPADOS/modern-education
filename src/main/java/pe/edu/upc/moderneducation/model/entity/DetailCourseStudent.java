@@ -37,6 +37,10 @@ public class DetailCourseStudent {
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
 	private Date dateStart;
+
+	@Column(name = "date_review", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateReview;
 	
 	@Column(name = "date_end")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -48,12 +52,12 @@ public class DetailCourseStudent {
 	@Column(name = "opinion", length = 250)
 	private String opinion;
 
-	public DetailCourseStudent(Course course, Student student, Date dateStart, Date dateEnd, Integer qualification,
-			String opinion) {
-		super();
+	public DetailCourseStudent(Course course, Student student, Date dateStart, Date dateReview, Date dateEnd,
+			Integer qualification, String opinion) {
 		this.course = course;
 		this.student = student;
 		this.dateStart = dateStart;
+		this.dateReview = dateReview;
 		this.dateEnd = dateEnd;
 		this.qualification = qualification;
 		this.opinion = opinion;
@@ -61,7 +65,6 @@ public class DetailCourseStudent {
 
 	public DetailCourseStudent() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Course getCourse() {
@@ -70,6 +73,14 @@ public class DetailCourseStudent {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public Date getDateReview() {
+		return dateReview;
+	}
+
+	public void setDateReview(Date dateReview) {
+		this.dateReview = dateReview;
 	}
 
 	public Student getStudent() {

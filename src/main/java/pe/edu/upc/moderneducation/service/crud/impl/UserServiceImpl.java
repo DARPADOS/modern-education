@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -129,6 +128,11 @@ public class UserServiceImpl implements UserService {
 		return update(user);
 	}
 
+	@Override
+	public User AddRolePremium(User user) throws Exception {
+		user.addAuthority(UserAuthorities.ROLE_PREMIUM);
+		return update(user);
+	}
 	/*@Override
 	public User uploadImage(User user, MultipartFile userImage) throws Exception {
 		String originalName=userImage.getOriginalFilename();

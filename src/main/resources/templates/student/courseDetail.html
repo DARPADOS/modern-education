@@ -25,16 +25,21 @@
         <div class="row p-3 my-3 bg-purple rounded shadow-sm" style="background-color:#fff;">
             <div class="row">
                 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                    <ol th:if="${origin}" class="breadcrumb">
+                    <ol th:if="${origin == 'Home'}" class="breadcrumb">
                         <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-                        <li th:if="${origin} != 'My Courses'"class="breadcrumb-item active" aria-current="page"> <a th:href="@{'/search/results?name='+${origin}}">Results</a></li>
                         <li class="breadcrumb-item active" aria-current="page" th:text="${course.name}"></li>
                     </ol>
-                    <ol th:if="!${origin}" class="breadcrumb">
+                    <ol th:if="${origin == 'mycourses'}" class="breadcrumb">
                         <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> <a th:href="@{/student/courses}">My courses</a></li>
                         <li class="breadcrumb-item active" aria-current="page" th:text="${course.name}"></li>
                     </ol>
+                    <ol th:if="${origin != 'Home' and origin != 'mycourses'}" class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                        <li th:if="${origin} != 'My Courses'"class="breadcrumb-item active" aria-current="page"> <a th:href="@{'/search/results?name='+${origin}}">Results</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" th:text="${course.name}"></li>
+                    </ol>
+
                 </nav>
             </div>
             <div class="col-7">
@@ -165,8 +170,10 @@
                                         style="font-size: 100px"></i> </div>
                                 <div class="col-9 ps-0">
                                     <div class="card-body ps-0">
-                                        <h5 class="card-title"
-                                            th:text="${register.student.user.firstName + ' ' + register.student.user.lastName}">STUDENT NAME</h5>
+                                        <small th:if="${register.dateReview}" class="text-muted" th:text="${#dates.format(register.dateReview, 'dd-mm-yyyy hh:mm:ss')}"></small>
+                                        <h5 class="card-title mb-0"
+                                            th:text="${register.student.user.firstName + ' ' + register.student.user.lastName}">STUDENT NAME</h5> 
+                                        <small th:text="${'@'+register.student.user.username}" class="text-muted"></small>
                                         <div th:if="${register.qualification} <= 5" class="row mb-2" style="font-size: 1.2em;">
                                             <div class="col">
                                                 <span class="fa fa-star checked" th:each="star:${#numbers.sequence(1, register.qualification)}"></span><span class="far fa-star checked" th:if="${register.qualification} != 5" th:each="star:${#numbers.sequence(1, 5-register.qualification)}"></span>
