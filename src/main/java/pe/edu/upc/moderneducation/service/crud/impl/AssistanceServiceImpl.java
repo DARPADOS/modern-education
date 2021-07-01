@@ -8,9 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import pe.edu.upc.moderneducation.model.entity.Assistance;
-import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
-import pe.edu.upc.moderneducation.model.entity.DetailCourseStudentId;
-import pe.edu.upc.moderneducation.model.entity.User;
 import pe.edu.upc.moderneducation.model.repository.AssistanceRepository;
 import pe.edu.upc.moderneducation.service.crud.AssistanceService;
 
