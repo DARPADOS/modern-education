@@ -1,0 +1,138 @@
+@charset "ISO-8859-1";
+.card-transform:hover{
+     transform: scale(1.01);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.divider {
+margin: 25px auto 30px;
+padding: 0;
+border: 0;
+border-top: solid 1px;
+text-align: center;
+}
+.divider:before{
+	border-top: 1px #dee2e6;
+}
+
+.frosted-glass{
+  backdrop-filter: blur(10px);
+}
+
+.checked {
+  color: orange;
+}
+
+.image-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  object-fit: cover;
+  object-position: center right;
+}
+.image-profile-user {
+ width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  margin: auto;
+  
+}
+.profile:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+  right: 0;
+  left: auto;
+}
+
+.rol-hover{
+  background-color: #5B3E8E !important;
+}
+
+.rol-hover:hover {
+  background-color: #246a73 !important;
+}
+
+.btn-modern-primary-2{
+  background-color: #845EC8;
+}
+
+.--hover:hover{
+	background:#c8bae0;
+}
+
+
+
+.dark {
+        background-color: #272727;
+
+      }
+
+      .active{
+        background-color: none;
+        color: none;
+      }
+
+      .switch {
+      background: #343D5B;
+      border-radius: 1000px;
+      border: none;
+      position: relative;
+      cursor: pointer;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      outline: none; 
+      height: 30px;
+      margin-top: 6px;
+      margin-left: 20px;
+      }
+
+      .switch::after {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        background: #F1F1F1;
+        top: 0;
+        left: 0;
+        right: unset;
+        border-radius: 100px;
+        -webkit-transition: .3s ease all;
+        transition: .3s ease all;
+        -webkit-box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+                box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      .switch.active {
+        background: orange;
+        color: #000;
+      }
+
+      .switch.active::after {
+        right: 0;
+        left: unset;
+      }
+
+      .switch span {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        display: block;
+        background: none;
+        color: #fff;
+      }
+
+.dark-card{
+	background: #3d3d3d;
+
+}
+
+.card-dark{
+  background: #363636;
+}
+
+.dark-comment{
+  color: white;
+}
