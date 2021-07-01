@@ -73,7 +73,6 @@ public class CourseController {
 		
 		return "redirect:/";
 	}
-
     @PostMapping("savenew")	// GET: /regions/savenew
 	public String saveNewCourse(Model model, @ModelAttribute("courseNew") Course course, 
 	RedirectAttributes redirectAttributes, @RequestParam("imgResource") MultipartFile img, Authentication auth) {

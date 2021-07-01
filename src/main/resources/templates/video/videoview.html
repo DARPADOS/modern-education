@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="fragments/head :: head(${course.name})"></div>
@@ -81,11 +82,13 @@
             <div class="col-6 p-0">
                 <div class="row p-0">
                     <video th:src="@{${'/videos/'+ video.link}}" width="100%" height="" >
+
                     </video>
                 </div>
                 <div class="row">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
+
                           <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#description" aria-controls="description">Description of video</a>
                         </li>
                         <li class="nav-item">
@@ -94,15 +97,19 @@
                         <li class="nav-item">
                           <a class="nav-link active" data-bs-toggle="tab" aria-current="page" href="#" data-bs-target="#comments" aria-controls="comments">Comments</a>
                         </li>                   
+
                     </ul>
 
                       <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comment-tab">
+
                           
+
                           <!-- FORMULARIO -->
                           <form class="needs-validation" th:action="@{/comments/savenew/{courseid}/{videoid}(videoid=${playvideo.id},courseid=${course.id})}" th:object="${commentNew}" method="post">
                             <div class="modal-body">
                               <div class="mb-3">
+
                                 <label for="name" class="form-label">Content</label>
                                 <textarea class="form-control" th:field="*{content}" placeholder="Name of video" rows="6" required></textarea>                     
                               </div>
@@ -115,11 +122,13 @@
                             <h2>Comentarios</h2>
                             <div th:each="commente:${playvideo.comments}" style="margin: 10px;">
                                 <div style="border: 1px solid #a2a3a5; padding: 10px; display: flex;" class="--hover">
+
                                   
                                   <img th:src="@{|/img/profile_image/${#authentication.getPrincipal().getProfileImage()}|}" alt="" class="image-profile me-1 me-4 ms-3" />
                                   
                                   <div>
                                     <h4 th:text="${commente.user.username}"></h4>
+
                                     <p th:text="${commente.content}"></p>
                                   </div> 
                                 </div>  
@@ -128,12 +137,14 @@
                                   <a href="#">Answer</a>
                                 </div> -->
                             </div>
+
                           </div>
                         </div>
 
                         <div class="tab-pane fade" id="description" role="tabpanel" aria-labelledby="description-tab">
                           <p>prueba2</p>
                         </div>
+
                         <div class="tab-pane fade" id="material" role="tabpanel" aria-labelledby="description-tab">
                           <p>Holi</p>
                         </div>
@@ -155,4 +166,5 @@
 
 
 </body>
+
 </html>

@@ -19,6 +19,9 @@ import pe.edu.upc.moderneducation.model.entity.Comment;
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Video;
 import pe.edu.upc.moderneducation.service.crud.ChapterService;
+
+import pe.edu.upc.moderneducation.service.crud.CommentService;
+
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.VideoService;
 
@@ -36,8 +39,14 @@ public class VideoController {
     @Autowired
     private CourseService courseService;
 
+    
+    @Autowired
+    private CommentService commentService;
+
     @GetMapping("view/{courseid}/{videoid}")
-	public String findById(Model model, @PathVariable("videoid") Integer videoid,@PathVariable("courseid") Integer courseid) {
+	public String findById(Model model, @PathVariable("videoid") Integer videoid,
+			@PathVariable("courseid") Integer courseid) {
+
 		try {
 			Optional<Course> optional = courseService.findById(courseid);
 			Optional<Video> optionalv=videoService.findById(videoid);
