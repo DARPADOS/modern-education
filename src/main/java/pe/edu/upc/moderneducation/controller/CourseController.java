@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,6 @@ import pe.edu.upc.moderneducation.service.crud.TeacherService;
 import pe.edu.upc.moderneducation.model.entity.Chapter;
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Language;
-import pe.edu.upc.moderneducation.model.entity.Resource;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.entity.Video;
 import pe.edu.upc.moderneducation.security.MyUserDetails;
