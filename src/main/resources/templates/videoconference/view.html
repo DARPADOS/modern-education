@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/css/fontawesome.min.css}" rel="stylesheet">
-    <link th:href="@{/css/solid.min.css}" rel="stylesheet">
-
-    <title>Hello, world!</title>
+   	<div th:replace="fragments/head :: head('Videoconferences')"></div>
   </head>
-<body>
- <div th:replace="fragments/navbar :: navbar"></div>
+<body style="background-color:#F8F9FA;">
+<div th:replace="fragments/navbar :: navbar"></div>
+
  	
 <main class="container">
  	
@@ -38,6 +33,7 @@
 				
 				</div>					
  			 <div  class="styleM" style="width: 70%;">
+ 			 <h5 class="text-muted" style="text-align: center;">Participants</h5>
  			 	<!--Detalle de asistenciA-->
  			 		 	
  			 	<ol>
@@ -82,7 +78,6 @@
 								
 								<label for="Link" class="form-label">Link</label>
 								<input type="text" class="form-control" th:field="*{meetLink}"  placeholder="videoconference link" >
-							
 							</div>
 						</div>
 						<div class="modal-footer">

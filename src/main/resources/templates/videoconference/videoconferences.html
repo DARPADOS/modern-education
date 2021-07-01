@@ -15,7 +15,7 @@
                         <li class="breadcrumb-item active" aria-current="page" style="color: white;">Videoconferences</li>
                     </ol>
                 </nav>
-				<h2 style="color: white;">Courses </h2>
+				<h2 style="color: white;">Videoconferences</h2>
 			</div>
 			</div>
 			
@@ -58,15 +58,15 @@
 				</div>
 			</div>
 			
-			<div style="display:inline">
 			<div >
-			<form id="searchF" class="d-md-flex" th:action="@{/search/SearchVideoconferences}" th:object="${videoconferenceSearch}" method="get" style="width: 60rem;">
+			<div style="display:inline-block;">
+			<form id="searchF" class="d-md-flex" th:action="@{/search/SearchVideoconferencesT}" th:object="${videoconferenceSearch}" method="get" style="width: 60rem;">
               <input class="form-control me-2" th:field="*{name}" placeholder="Search Videoconference" type="search" aria-label="Search">
               <button class="btn btn-successSearch" type="submit">Search</button>
             </form>
 			</div>
 			
-			<div >
+			<div style="display:inline-block;" >
 			 <a class="btn btn-moderne-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="fas fa-plus"></i> New</a>
 			</div>
            			

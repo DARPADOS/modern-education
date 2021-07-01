@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.DetailCourseStudent;
+import pe.edu.upc.moderneducation.model.entity.Student;
+import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.security.MyUserDetails;
 import pe.edu.upc.moderneducation.service.crud.CourseService;
 import pe.edu.upc.moderneducation.service.crud.DetailCourseStudentService;
+import pe.edu.upc.moderneducation.service.crud.TeacherService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
@@ -27,6 +31,9 @@ public class StudentController {
     @Autowired
     private CourseService courseService;
 
+    @Autowired
+    private TeacherService teacherService;
+    
     @Autowired
     private DetailCourseStudentService detailService;
 
@@ -43,7 +50,6 @@ public class StudentController {
         }
         return "student/myCourses";
     }
-    
 	@GetMapping("course/{id}")
 	public String findById(Model model, @PathVariable("id") Integer id,
             @RequestParam(name = "origin", required = false) String origin,
@@ -71,6 +77,19 @@ public class StudentController {
 			System.err.println(e.getMessage());
 		}
 		return "redirect:/student/courses";
+	}
+	@GetMapping("courseT/{id}")
+	public String findTeacherbyCourse(Model model, @PathVariable("id") Integer id) {
+		try {
+			
+				Teacher teacher=teacherService.findById(id).get();
+				model.addAttribute("teacher", teacher);
+				return "user/ProfileTeacherView";
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "redirect:user/ProfileTeacherView";
 	}
 	
 

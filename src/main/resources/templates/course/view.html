@@ -6,17 +6,6 @@
 <body style="background-color:#F8F9FA;">
     <div th:replace="fragments/navbar :: navbar"></div>
 	<!-- Button trigger modal -->
-<<<<<<< HEAD
-	<main class="container">
- 	
-                        
-				<!--accordion Videoconferencia DEtail-->
-			  <div class="row p-3 my-3 bg-purple rounded shadow">
-				
-				<div class=" row justify-content-center">
- 				
- 				<ul class="nav nav-tabs" id="myTab" role="tablist">
-=======
 	<main class="container" style="background-color: white;">
     <!--MENSAJE CURSO PUBLICADO-->
     <div th:if="${published}" class="position-fixed end-0 p-3" style="z-index: 5; top: 75px;">
@@ -120,121 +109,12 @@
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Chapters</button>
                 </li>
->>>>>>> abec19ff872b588ee51b5c00cd9713955ebeddbc
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Videoconference</button>
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Resources</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Assistance</button>
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Students</button>
                 </li>
-<<<<<<< HEAD
-           		</ul>
-           		
-           		
-           		<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-				<!--accordion Videoconferencia DEtail-->
-				<div class="accordion" id="accordionExample">
-				
-           		<div class=" row justify-content-center">
-           		<div class="card mb-3" style="width: 50rem;">
-  					<div class="row g-0">
-   					 <div class="col-md-4">
-     				 <img th:src="@{/img/iconVi.png}" class="img-fluid rounded-start" alt="...">
-    				</div>
-    			
-   	 			<div class="col-md-8" >
-     			 <div class="card-body">
-     			 <div class=" row justify-content-center">
-        		 <h5 class="card-title" th:text="${videoconference.name}">Nombre:</h5>
-    			 <p class="card-text" th:text="'Date: ' + ${videoconference.date}"></p>
-    			 <p class="card-text" th:text="'Schedule: ' + ${videoconference.hourStart} + ' ' +${videoconference.hourEnd}"></p>
-    			 <p class="card-text" th:text="'Link: ' +${videoconference.meetLink}"></p>
-   				 <a class="btn btn-moderne-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</a>
-      			</div>
-      			</div>
-    			</div>
-    			
-  				</div>
-				</div>
-				</div>
-				
-				</div>
-				</div>
-				
-					<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
- 			 <div class="accordion" id="accordionExample">
- 			 	<!--Detalle de asistenciA-->
- 			 		 	
- 			 	<div>
- 			 	  <ol class="list-group list-group-numbered">
-  				  <li th:each="student:${Students}" class="list-group-item d-flex justify-content-between align-items-start">
- 			   	  <div class="ms-2 me-auto">
-     			  <div class="fw-bold" th:text="${student.firstName} + ${student.lastName}"></div>
-     			  <div th:text="${student.userName}"></div>
-    			
-    			 </div>
-  				 </li>
-				 </ol>
- 			 	</div>
- 			 	
- 			 	
- 			 	
- 			 	
-               </div>
-   				</div>
-				
- 			 </div>		
-				
-			</div>
-		</div>
-				
-				
-
- 			
- 		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-				<div class="modal-dialog">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<form novalidate th:action="@{/videoconferences/save/{id}(id=${videoconference.id})}" th:object="${videoconference}" method="POST">
-						<div class="modal-body">
-							<div class="mb-3">
-								<label for="name" class="form-label">Name</label>
-								<input type="text" class="form-control" th:field="*{name}" placeholder="Name of videoconference" >
-					
-								<label for="description" class="form-label">Description</label>
-								<input type="text" class="form-control" th:field="*{description}" placeholder="videoconference description" >
-								
-								<label for="date" class="form-label">Date</label>
-								<input type="date" class="form-control" th:field="*{date}" placeholder=" date" >
-								
-								<label for="hourStart" class="form-label">Start</label>
-								<input type="time" step="2" value="09:00:00" class="form-control"  th:field="*{hourStart}" placeholder=" hourStart" >
-								
-								<label for="hourEnd" class="form-label">End</label>
-								<input type="time" step="2" value="11:00:00" class="form-control"  th:field="*{hourEnd}" placeholder=" hourEnd" >
-								
-								
-								<label for="Link" class="form-label">Link</label>
-								<input type="text" class="form-control" th:field="*{meetLink}"  placeholder="videoconference link" >
-							
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Understood</button>
-						</div>
-					</form>
-				  </div>
-				</div>
-				</div>
-				
-
-	</main>
-=======
             </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -269,7 +149,7 @@
                                     <td th:text="${video.name}"></td>
                                     <td style="width: 50px;"> <a th:href="@{/chapters/view}" class="btn btn-outline-info"> <i class="fas fa-search"></i> </a> </td>
                                     <td style="width: 50px;"> <a data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteVideo'+${chapterStat.index}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
-                                    <!-- CONFIRMACIÃ“N DE ELIMINACIÃ“N DE VIDEOS -->
+                                    <!-- CONFIRMACIÓN DE ELIMINACIÓN DE VIDEOS -->
                                     <div class="modal fade" th:attr="id='ConfirmDeleteVideo'+${chapterStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteVidelLabel" aria-hidden="true">
                                       <div class="modal-dialog">
                                         <div class="modal-content">
@@ -322,7 +202,7 @@
                           </div>
                         </div>
                     </div>
-                    <!--CONFIRMACIÃ“N DE ELIMINACIÃ“N CAPITULO-->
+                    <!--CONFIRMACIÓN DE ELIMINACIÓN CAPITULO-->
                     <!-- Modal -->
                     <div class="modal fade" th:attr="id='ConfirmDeleteChapter'+${chapterStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteChapterLabel" aria-hidden="true">
                       <div class="modal-dialog">
@@ -391,7 +271,7 @@
                             <td th:text="${resource.name}"></td>
                             <td style="width:50px"> <a data-bs-toggle="modal" th:attr="data-bs-target='#ConfirmDeleteResource' + ${resourceStat.index}" class="btn btn-outline-danger"> <i class="fas fa-trash-alt"></i> </a></td>
                             <td style="width:50px"> <a th:href="@{/resources/downloadFile/{idresource}(idresource=${resource.id})}" class="btn btn-success1"> <i class="fas fa-download"></i> </a></td>
-                            <!--CONFIRMACIÃ“N DE ELIMINACIÃ“N RECURSO-->
+                            <!--CONFIRMACIÓN DE ELIMINACIÓN RECURSO-->
                             <!-- Modal -->
                             <div class="modal fade" th:attr="id='ConfirmDeleteResource' + ${resourceStat.index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteResourceLabel" aria-hidden="true">
                               <div class="modal-dialog">
@@ -480,7 +360,7 @@
                       </div>
                     </div>
                 </div>
-                <!--CONFIRMACIÃ“N DE ELIMINACIÃ“N CURSO-->
+                <!--CONFIRMACIÓN DE ELIMINACIÓN CURSO-->
                 <!-- Modal -->
                 <div class="modal fade" id="ConfirmDeleteCourse" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ConfirmDeleteCourseLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -524,7 +404,6 @@
             </div>
         </div>
 </main>
->>>>>>> abec19ff872b588ee51b5c00cd9713955ebeddbc
   <!-- FOOTER -->
 	<div th:replace="fragments/footer :: footer"></div>
 

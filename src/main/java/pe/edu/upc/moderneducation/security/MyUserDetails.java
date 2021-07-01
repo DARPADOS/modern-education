@@ -72,7 +72,10 @@ public class MyUserDetails implements UserDetails {
     public String getProfileImage(){
         return this.user.getProfileImage();
     }
-
+    public void setProfileImage(String profileImage){
+    	
+        this.user.setProfileImage(profileImage);
+    }
     public String getFullName(){
         return this.user.getFirstName() + ' ' + this.user.getLastName();
     }

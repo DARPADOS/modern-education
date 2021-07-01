@@ -54,8 +54,7 @@ public class SearchController {
         return "redirect:/";
     }
 
-    
-    @GetMapping("SearchVideoconferences")
+    @GetMapping("SearchVideoconferencesT")
 	public String searchVideoconferencesGet(Model model, @ModelAttribute("videoconferenceSearch") Videoconference videoconferenceSearch){
 		System.out.println(videoconferenceSearch.getName());	
 		try {
@@ -63,6 +62,8 @@ public class SearchController {
 		List<Videoconference>videoconferenceFound=videoconferenceService.findByNameStartingWith(videoconferenceSearch.getName());
 		model.addAttribute("videoconferenceFound", videoconferenceFound);
 		model.addAttribute("videoconferenceSearch", videoconferenceSearch);
+	
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,5 +72,5 @@ public class SearchController {
 		
 		return "search/videoconferences_result";
 	}
-    
+   
 }

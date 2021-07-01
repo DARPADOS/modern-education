@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import pe.edu.upc.moderneducation.model.entity.Student;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.entity.Videoconference;
 import pe.edu.upc.moderneducation.model.repository.VideoconferenceRepository;
@@ -40,6 +41,16 @@ public class VideoconferenceServiceImpl implements VideoconferenceService {
 	public List<Videoconference> findByTeacher(Teacher teacher) throws Exception {
 		// TODO Auto-generated method stub
 		return videoconferenceRepository.findByTeacher(teacher);
+	}
+	@Override
+	public List<Videoconference> findByStudent(Integer studentId) throws Exception {
+		// TODO Auto-generated method stub
+		return videoconferenceRepository.findByStudent(studentId);
+	}
+	@Override
+	public List<Videoconference> findByStudentN(Integer studentId) throws Exception {
+		// TODO Auto-generated method stub
+		return videoconferenceRepository.findByStudentN(studentId);
 	}
 	
 

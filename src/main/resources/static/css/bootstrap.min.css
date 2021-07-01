@@ -521,9 +521,10 @@ progress {
   display: inline-block;
 }
 .styleM{
-	display: inline-block;
+	
 	justify-content: center;
 	border: none;
+	margin:auto;
 }
 .styleN{
 	display: inline-block;

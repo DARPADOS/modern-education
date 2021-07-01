@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import pe.edu.upc.moderneducation.model.entity.Course;
 import pe.edu.upc.moderneducation.model.entity.Teacher;
 import pe.edu.upc.moderneducation.model.entity.User;
 import pe.edu.upc.moderneducation.model.entity.Videoconference;
@@ -122,7 +122,7 @@ public class VideoconferenceController {
 			getVideoconference.setHourEnd(videoconference.getHourEnd());
 			getVideoconference.setMeetLink(videoconference.getMeetLink());
 			videoconferenceService.update(getVideoconference);
-			//model.addAttribute("course", courseReturn);
+			
 			return "redirect:/videoconferences/"+getVideoconference.getId();
 		} catch (Exception e) {
 			e.printStackTrace();
