@@ -8,6 +8,7 @@ import pe.edu.upc.moderneducation.model.entity.Student;
 import pe.edu.upc.moderneducation.model.entity.User;
 import pe.edu.upc.moderneducation.model.repository.StudentRepository;
 import pe.edu.upc.moderneducation.service.crud.StudentService;
+import pe.edu.upc.moderneducation.util.DateTimeUtil;
 
 @Service
 public class StudentServiceImpl implements StudentService{
@@ -32,5 +33,15 @@ public class StudentServiceImpl implements StudentService{
 		student.setId(user.getId());
 		student.setUser(user);
 		return create(student);
+	}
+
+	@Override
+	public Student makeToPremium(Integer studentId) throws Exception {
+		Student student = findById(studentId).get();
+
+		student.setPremium(true);
+		student.setDateStart(DateTimeUtil.getNow());
+		student.setDateExpiration(DateTimeUtil.addOneMonth(student.getDateStart()));
+		return update(student);
 	}
 }

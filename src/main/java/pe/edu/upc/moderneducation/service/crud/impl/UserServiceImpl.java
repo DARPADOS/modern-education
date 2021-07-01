@@ -114,4 +114,10 @@ public class UserServiceImpl implements UserService {
 		user.addAuthority(UserAuthorities.ROLE_TEACHER);
 		return update(user);
 	}
+
+	@Override
+	public User AddRolePremium(User user) throws Exception {
+		user.addAuthority(UserAuthorities.ROLE_PREMIUM);
+		return update(user);
+	}
 }

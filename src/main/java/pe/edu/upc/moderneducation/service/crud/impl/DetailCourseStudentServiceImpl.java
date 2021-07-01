@@ -14,6 +14,7 @@ import pe.edu.upc.moderneducation.model.repository.CourseRepository;
 import pe.edu.upc.moderneducation.model.repository.DetailCourseStudentRepository;
 import pe.edu.upc.moderneducation.model.repository.StudentRepository;
 import pe.edu.upc.moderneducation.service.crud.DetailCourseStudentService;
+import pe.edu.upc.moderneducation.util.DateTimeUtil;
 
 @Service
 public class DetailCourseStudentServiceImpl implements DetailCourseStudentService{
@@ -39,6 +40,7 @@ public class DetailCourseStudentServiceImpl implements DetailCourseStudentServic
         Student student=studentRepository.findById(idstudent).get();
         detail.setCourse(course);
         detail.setStudent(student);
+        detail.setDateStart(DateTimeUtil.getNow());
 
         return detailCourseStudentRepository.save(detail);
     }
@@ -52,6 +54,7 @@ public class DetailCourseStudentServiceImpl implements DetailCourseStudentServic
 
         detailUpdate.setQualification(detail.getQualification());
         detailUpdate.setOpinion(detail.getOpinion());
+        detailUpdate.setDateReview(DateTimeUtil.getNow());
 
         return update(detailUpdate);
     }

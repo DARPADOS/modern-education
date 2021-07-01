@@ -26,4 +26,6 @@ public interface CourseService extends CrudService<Course, Integer> {
 	List<Course> findByLanguageIdAndTeacher(Integer languageId, Teacher teacher) throws Exception;
 
 	Course uploadImage(Course course, MultipartFile courseImage) throws Exception;
+
+	List<Course> getLatestCourses() throws Exception;
 }

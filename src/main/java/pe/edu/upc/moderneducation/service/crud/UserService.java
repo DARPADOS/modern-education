@@ -17,4 +17,6 @@ public interface UserService extends CrudService<User, Integer> {
 
     User AddRoleStudent(User user) throws Exception;
     User AddRoleTeacher(User user) throws Exception;
+
+    User AddRolePremium(User user) throws Exception;
 }

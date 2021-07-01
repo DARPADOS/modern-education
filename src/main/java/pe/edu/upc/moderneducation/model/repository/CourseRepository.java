@@ -24,6 +24,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Query(value = "select * from course order by course_id desc limit 3", nativeQuery = true)
 	List<Course> getTopCourses();
 
+	List<Course> findByPublishedOrderByCreatedDateDesc(boolean published);
+
 	@Query(value = "select c.* from course c " +
 		"join users u on c.teacher_id = u.user_id " +
 		"full outer join detail_course_student dcs on c.course_id = dcs.course_id " +

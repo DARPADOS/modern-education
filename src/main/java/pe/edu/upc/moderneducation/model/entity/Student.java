@@ -36,6 +36,10 @@ public class Student {
 	@Column(name="date_expiration")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateExpiration;
+
+	@Column(name="start_start")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateStart;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@MapsId("id")
@@ -48,30 +52,24 @@ public class Student {
 	@OneToMany(mappedBy="student")
 	private List<DetailCourseStudent> detailcourseStudents;
 	
-	@OneToMany(mappedBy="student")
-	private List<Payment> payments;
-
-
-
 	public Student() {
 		super();
-		// TODO Auto-generated constructor stub
 		assistances=new ArrayList<Assistance>();
 		detailcourseStudents=new ArrayList<DetailCourseStudent>();
-		payments=new ArrayList<Payment>();
 	}
 
-	public Student(Integer id, Boolean premium, Integer payDay, Date dateExpiration, User user,
-			List<Assistance> assistances, List<DetailCourseStudent> detailcourseStudents, List<Payment> payments) {
-		super();
+	
+
+	public Student(Integer id, Boolean premium, Integer payDay, Date dateExpiration, Date dateStart, User user,
+			List<Assistance> assistances, List<DetailCourseStudent> detailcourseStudents) {
 		this.id = id;
 		this.premium = premium;
 		this.payDay = payDay;
 		this.dateExpiration = dateExpiration;
+		this.dateStart = dateStart;
 		this.user = user;
 		this.assistances = assistances;
 		this.detailcourseStudents = detailcourseStudents;
-		this.payments = payments;
 	}
 
 	public Integer getId() {
@@ -130,15 +128,11 @@ public class Student {
 		this.detailcourseStudents = detailcourseStudents;
 	}
 
-	public List<Payment> getPayments() {
-		return payments;
+	public Date getDateStart() {
+		return dateStart;
 	}
 
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
+	public void setDateStart(Date dateStart) {
+		this.dateStart = dateStart;
 	}
-	
-	
-	
-	
 }
