@@ -59,14 +59,6 @@
                                     </div>
                                 </div>                    
                             </div>
-<<<<<<< HEAD
-                            <div class="carousel-inner">
-                                <div th:each="course : ${topCourses}" class="carousel-item" th:class = "${courseStat.first}? 'carousel-item active' : 'carousel-item'">
-                                    <img th:src="@{${'/img/courses/'+ course.mineture_image}}" class="d-block w-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5 th:text ="${course.name}"></h5>
-                                        <p th:text = "${course.description}"></p>
-=======
                         </div>                        
                     </div>
                 </div>
@@ -95,7 +87,6 @@
                                             <small th:text="${course.chapter.size} + ' chapters'"class="text-muted">9 mins</small>
                                         </div>
                                         <a th:href="@{'/student/course/' + ${course.id} + '?origin=Home'}" class="stretched-link"></a>
->>>>>>> 0a4e3919bf4fd2d9b168270a1ed7b3c865314dd7
                                     </div>
                                 </div>                    
                             </div>
