@@ -35,12 +35,12 @@ public class RegisterController {
         try {
             User newUser = new User();
             model.addAttribute("newUser", newUser);
-            return "/access/signup";
+            return "access/signup";
         } catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());        
         }
-        return "/access/signup";
+        return "access/signup";
     }
 
     @PostMapping("signup")
@@ -79,7 +79,7 @@ public class RegisterController {
     public String registerTeacherView(Model model){
         Teacher newTeacher = new Teacher();
         model.addAttribute("newTeacher", newTeacher);
-        return "/access/teacher-register";
+        return "access/teacher-register";
     }
 
     @PostMapping("teacher-register")
